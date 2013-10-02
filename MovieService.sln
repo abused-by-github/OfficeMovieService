@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{7741DAFA-A6BF-4DB5-A3B5-F987B6B315D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{5B16EA32-A18C-4824-87C7-07C4CE61B844}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{BEA9BB36-C58E-4629-AF41-BB626314D169}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{1677B380-09D3-4B05-ADB4-8B102905E5E9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7741DAFA-A6BF-4DB5-A3B5-F987B6B315D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7741DAFA-A6BF-4DB5-A3B5-F987B6B315D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7741DAFA-A6BF-4DB5-A3B5-F987B6B315D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7741DAFA-A6BF-4DB5-A3B5-F987B6B315D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B16EA32-A18C-4824-87C7-07C4CE61B844}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B16EA32-A18C-4824-87C7-07C4CE61B844}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B16EA32-A18C-4824-87C7-07C4CE61B844}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B16EA32-A18C-4824-87C7-07C4CE61B844}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
