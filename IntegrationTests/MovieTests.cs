@@ -19,7 +19,7 @@ namespace Svitla.MovieService.Tests.IntegrationTests
         public void ListMovies()
         {
             Console.WriteLine(Directory.GetCurrentDirectory());
-            var container = new MovieServiceApplicationContainer();
+            var container = new MovieServiceApplicationContainer(null);
             var movieFacade = container.GetComponent<IMovieFacade>();
 
             var movies = movieFacade.FindMovies(new Paging(3, 1));

@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    
+    <script type="text/javascript" src="~/Scripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/knockout-2.3.0.js"></script>
+    
+    <script type="text/javascript">
+        window.movieService = {
+            environment: {
+                baseUrl: '@(ViewContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + ViewContext.HttpContext.Request.ApplicationPath)'
+            }
+        };
+    </script>
+
+    @RenderSection("Scripts", false)
+
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div>
+        @RenderSection("MainContent")
+    </div>
+</body>
+</html>
