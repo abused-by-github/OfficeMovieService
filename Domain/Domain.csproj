@@ -37,10 +37,20 @@
       <Project>{bea9bb36-c58e-4629-af41-bb626314d169}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
-      <Project>{5b16ea32-a18c-4824-87c7-07c4ce61b844}</Project>
-      <Name>DataAccess</Name>
+    <ProjectReference Include="..\DataAccessApi\DataAccessApi.csproj">
+      <Project>{da09bd15-8c2a-439e-9587-4272f114d9b3}</Project>
+      <Name>DataAccessApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DomainApi\DomainApi.csproj">
+      <Project>{3dc43402-0012-42b1-a854-f755a002f553}</Project>
+      <Name>DomainApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Facades\MovieFacade.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

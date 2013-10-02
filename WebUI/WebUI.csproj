@@ -135,13 +135,17 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Container\Container.csproj">
+      <Project>{dc8d5dfb-b7e3-4da6-8761-a1f86d682330}</Project>
+      <Name>Container</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{bea9bb36-c58e-4629-af41-bb626314d169}</Project>
       <Name>Core</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{7741dafa-a6bf-4db5-a3b5-f987b6b315d1}</Project>
-      <Name>Domain</Name>
+    <ProjectReference Include="..\DomainApi\DomainApi.csproj">
+      <Project>{3dc43402-0012-42b1-a854-f755a002f553}</Project>
+      <Name>DomainApi</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

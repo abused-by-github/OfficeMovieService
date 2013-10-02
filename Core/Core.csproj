@@ -36,6 +36,8 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="ValueObjects\Page.cs" />
+    <Compile Include="ValueObjects\Paging.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
