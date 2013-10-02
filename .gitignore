@@ -1,7 +1,6 @@
 bin
 obj
 default.build
-*.config
 TestResults
 *.suo
 *.DotSettings.user

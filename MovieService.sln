@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{1677B380-09D3-4B05-ADB4-8B102905E5E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "WebUI\WebUI.csproj", "{7196C972-89CF-43BA-9A83-09C522D9D652}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BEA9BB36-C58E-4629-AF41-BB626314D169}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7196C972-89CF-43BA-9A83-09C522D9D652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7196C972-89CF-43BA-9A83-09C522D9D652}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7196C972-89CF-43BA-9A83-09C522D9D652}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7196C972-89CF-43BA-9A83-09C522D9D652}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
