@@ -24,9 +24,9 @@ namespace Svitla.MovieService.WebUI.Api
         }
         
         [HttpPost]
-        public ResponseObject Add()
+        public ResponseObject Add(Movie movie)
         {
-            return null;
+            return new ResponseObject(false, "Error", null);
         }
     }
 }
