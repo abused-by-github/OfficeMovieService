@@ -5,3 +5,4 @@ TestResults
 *.suo
 *.DotSettings.user
 *.log
+*.user

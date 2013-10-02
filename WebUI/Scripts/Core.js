@@ -3,7 +3,7 @@
         call: function(api, method, data, onSuccess) {
             $.ajax({
                 type: 'POST',
-                url: window.movieService.environment.baseUrl + 'api/' + api + '/' + method,
+                url: window.movieService.environment.baseUrl + '/api/' + api + '/' + method,
                 contentType: 'application/json; charset=utf-8',
                 dataType: 'json',
                 async: true,
