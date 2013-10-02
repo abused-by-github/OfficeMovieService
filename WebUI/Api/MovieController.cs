@@ -8,7 +8,7 @@ using Svitla.MovieService.WebUI.Models;
 
 namespace Svitla.MovieService.WebUI.Api
 {
-    public class MovieController : ApiController
+    public class MovieController : BaseApiController
     {
         private readonly IMovieFacade movieFacade;
 
@@ -18,15 +18,15 @@ namespace Svitla.MovieService.WebUI.Api
         }
 
         [HttpPost]
-        public ResponseObject List()
+        public ResponseObject List(Paging paging)
         {
-            return null;
+            return Response(movieFacade.FindMovies(paging));
         }
         
         [HttpPost]
         public ResponseObject Add()
         {
-            return movieFacade.FindMovies(new Paging(10, 1)).Items.ToList();
+            return null;
         }
     }
 }

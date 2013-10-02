@@ -137,6 +137,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Api\BaseApiController.cs" />
     <Compile Include="Api\MovieController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MovieController.cs" />

@@ -10,12 +10,12 @@
 
 @section MainContent
 {
-    <table data-bind="foreach: movies">
-        <tr>
-            <td data-bind="text: Name"></td>
-            <td data-bind="text: Url"></td>
-        </tr>
-    </table>
-
-    <button id="test">click</button>
+    <div id="scrollContainer">
+        <table data-bind="foreach: movies">
+            <tr>
+                <td data-bind="text: Name"></td>
+                <td data-bind="text: Url"></td>
+            </tr>
+        </table>
+    </div>
 }
