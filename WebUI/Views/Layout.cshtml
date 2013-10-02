@@ -19,9 +19,10 @@
 
     <title>@ViewBag.Title</title>
 </head>
-<body>
-    <div>
-        @RenderSection("MainContent")
-    </div>
-</body>
+    <body>
+        <div style="float: right;">@Html.ActionLink("Log out", "Logoff", "Account")</div>
+        <div>
+            @RenderSection("MainContent")
+        </div>
+    </body>
 </html>
