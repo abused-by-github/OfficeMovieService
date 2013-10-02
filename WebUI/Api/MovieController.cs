@@ -3,6 +3,7 @@ using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.WebUI.Models;
 
 namespace Svitla.MovieService.WebUI.Api
 {
@@ -16,7 +17,13 @@ namespace Svitla.MovieService.WebUI.Api
         }
 
         [HttpPost]
-        public List<Movie> List()
+        public ResponseObject List()
+        {
+            return null;
+        }
+        
+        [HttpPost]
+        public ResponseObject Add()
         {
             return null;
         }
