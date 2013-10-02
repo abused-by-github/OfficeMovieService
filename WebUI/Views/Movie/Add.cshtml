@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "~/Views/Layout.cshtml";
+    ViewBag.Title = "Add movie";
+}
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/MovieAdd.js"></script>
+}
+
+@section MainContent
+{
+    Name*: <input type="text" id="txtName"/><label id="lblNameError" style="display: none;color: red;">Name is required</label><br/>
+    URL: <input type="text" id="txtUrl"/><br/>
+    <button id="btnAdd">Add</button>
+}
