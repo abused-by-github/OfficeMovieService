@@ -22,7 +22,7 @@ namespace Svitla.MovieService.WebUI.Api
         {
             return Response(movieFacade.FindMovies(paging));
         }
-        
+
         [HttpPost]
         public ResponseObject Add(Movie movie)
         {
