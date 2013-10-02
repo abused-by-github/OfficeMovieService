@@ -1,0 +1,11 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl }))
+{
+<text>Please login with</text>
+<button id="btnLogin">Google</button>
+}
