@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
@@ -8,7 +9,7 @@ namespace Svitla.MovieService.WebUI.Api
 {
     public class MovieController : ApiController
     {
-        private IMovieFacade movieFacade;
+        private readonly IMovieFacade movieFacade;
 
         public MovieController(IMovieFacade movieFacade)
         {
@@ -18,7 +19,7 @@ namespace Svitla.MovieService.WebUI.Api
         [HttpPost]
         public List<Movie> List()
         {
-            return null;
+            return movieFacade.FindMovies(new Paging(10, 1)).Items.ToList();
         }
     }
 }
