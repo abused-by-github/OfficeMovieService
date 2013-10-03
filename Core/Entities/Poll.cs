@@ -25,6 +25,22 @@ namespace Svitla.MovieService.Core.Entities
         public User Owner { get; set; }
         public ICollection<PollCandidate> Candidates { get; set; }
 
+        public bool HasViewed
+        {
+            get
+            {
+                return ViewDate < DateTime.Now;
+            }
+        }
+
+        public bool IsVoteable
+        {
+            get
+            {
+                return ExpirationDate > DateTime.Now;
+            }
+        }
+
         public Poll()
         {
             CreatedDate = DateTime.Now;

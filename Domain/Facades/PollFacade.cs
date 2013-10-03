@@ -18,7 +18,7 @@ namespace Svitla.MovieService.Domain.Facades
 
         public Poll GetCurrent()
         {
-            return polls.One(q => q.SingleOrDefault(p => p.ExpirationDate > DateTime.Now));
+            return polls.One(q => q.SingleOrDefault(p => p.ViewDate > DateTime.Now));
         }
 
         public void Save(Poll poll)

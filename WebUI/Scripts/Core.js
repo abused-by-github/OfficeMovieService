@@ -1,6 +1,6 @@
 ﻿window.movieService.core = {
     api: {
-        call: function(api, method, data, onSuccess, onComplete) {
+        call: function (api, method, data, onSuccess, onComplete) {
             $.ajax({
                 type: 'POST',
                 url: window.movieService.environment.baseUrl + '/api/' + api + '/' + method,
@@ -10,7 +10,12 @@
                 data: JSON.stringify(data),
                 processData: false,
                 success: onSuccess,
-                complete: onComplete
+                complete: onComplete,
+                statusCode: {
+                    401: function() { //Unauthorized
+                        window.location.href = window.movieService.environment.baseUrl + 'Account/Login';
+                    }
+                }
             });
         }
     },

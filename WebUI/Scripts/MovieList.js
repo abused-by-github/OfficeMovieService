@@ -5,6 +5,7 @@
         movies: ko.observableArray(),
         currentPage: 0,
         isPageLoading: false,
+        isActivePoll: ko.observable(false),
         dialog: $("#saveDialog"),
         currentMovie: ko.observable({Name: "", Url: ""}),
         
@@ -88,11 +89,20 @@
             } else {
                 field.hide();
             }
+        },
+        
+        loadPoll: function() {
+            api.call('poll', 'GetCurrent', null, this.pollLoaded);
+        },
+        
+        pollLoaded: function (r) {
+            viewModel.isActivePoll(!!r.Data);
         }
     };
 
     ko.applyBindings(viewModel);
 
+    viewModel.loadPoll();
     viewModel.loadMore();
 
 });

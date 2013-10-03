@@ -17,6 +17,9 @@
                 <td data-bind="text: Url"></td>
                 <td><button id="buttonEdit" data-bind="click: $parent.edit">Edit</button></td>
                 <td><button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button></td>
+                <td>
+                    <span data-bind="visible: $parent.IsActivePoll, css: { voted: IsVoted }"></span>
+                </td>
             </tr>
         </table>
         <button id="buttonShowMore" data-bind="click: loadMore">More...</button>
