@@ -10,19 +10,24 @@ namespace Svitla.MovieService.Core.Entities
         /// <summary>
         /// Date when poll was created.
         /// </summary>
-        public DateTime CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         /// <summary>
         /// Date when poll will be closed.
         /// </summary>
-        public DateTime ExpirationDate { get; set; }
+        public DateTimeOffset ExpirationDate { get; set; }
 
         /// <summary>
         /// Date when movie which has won will be viewed.
         /// </summary>
-        public DateTime ViewDate { get; set; }
+        public DateTimeOffset ViewDate { get; set; }
 
         public User Owner { get; set; }
         public ICollection<PollCandidate> Candidates { get; set; }
+
+        public Poll()
+        {
+            CreatedDate = DateTime.Now;
+        }
     }
 }

@@ -13,13 +13,31 @@
                 complete: onComplete
             });
         }
+    },
+    ko: {
+        observableDate: function (value) {
+            //Knockout need an obserbale inside the computed for some reason.
+            var observable = ko.observable(value);
+            return {
+                iso: ko.computed({
+                    read: function () {
+                        return observable().toISOString();
+                    },
+                    write: function (v) {
+                        observable(new Date(v));
+                    }
+                }),
+                ui: ko.computed({
+                    read: function () {
+                        return moment(observable()).format('DD.MM.YYYY');
+                    },
+                    write: function (v) {
+                        observable(moment(v, 'DD.MM.YYYY').toDate());
+                    }
+                })
+            };
+
+            
+        }
     }
-};
-
-ko.observable.fn.uiDate = function() {
-    return moment(this()).format("DD.MM.YYYY");
-};
-
-ko.observable.fn.isoDate = function (str) {
-    return str ? this(new Date(str)) : this().toISOString();
 };
