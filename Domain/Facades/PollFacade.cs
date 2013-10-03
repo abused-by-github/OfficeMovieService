@@ -7,11 +7,12 @@ using Svitla.MovieService.DomainApi.Exceptions;
 
 namespace Svitla.MovieService.Domain.Facades
 {
-    public class PollFacade : IPollFacade
+    public class PollFacade : BaseFacade, IPollFacade
     {
         private readonly IPollRepository polls;
 
-        public PollFacade(IPollRepository pollRepository)
+        public PollFacade(IUnitOfWork unitOfWork, IPollRepository pollRepository)
+            : base(unitOfWork)
         {
             polls = pollRepository;
         }
@@ -31,7 +32,7 @@ namespace Svitla.MovieService.Domain.Facades
 
             polls[poll.Id] = poll;
 
-            polls.Commit();
+            UnitOfWork.Commit();
         }
 
         public void Vote(User user, Movie movie, bool isSelected)
@@ -46,7 +47,7 @@ namespace Svitla.MovieService.Domain.Facades
             {
                 user.Votes.Remove(vote);
             }
-            polls.Commit();
+            UnitOfWork.Commit();
         }
     }
 }

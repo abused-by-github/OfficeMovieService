@@ -36,6 +36,7 @@
     <Compile Include="IMovieRepository.cs" />
     <Compile Include="IPollRepository.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="IUnitOfWork.cs" />
     <Compile Include="IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>

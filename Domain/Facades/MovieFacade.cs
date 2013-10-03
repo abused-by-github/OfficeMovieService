@@ -7,11 +7,12 @@ using Svitla.MovieService.DomainApi.DataObjects;
 
 namespace Svitla.MovieService.Domain.Facades
 {
-    public class MovieFacade : IMovieFacade
+    public class MovieFacade : BaseFacade, IMovieFacade
     {
         private readonly IMovieRepository movies;
 
-        public MovieFacade(IMovieRepository movies)
+        public MovieFacade(IUnitOfWork unitOfWork, IMovieRepository movies)
+            : base(unitOfWork)
         {
             this.movies = movies;
         }
@@ -19,7 +20,7 @@ namespace Svitla.MovieService.Domain.Facades
         public void SaveMovie(Movie movie)
         {
             movies[movie.Id] = movie;
-            movies.Commit();
+            UnitOfWork.Commit();
         }
 
         public Movie LoadById(long id)
@@ -45,7 +46,7 @@ namespace Svitla.MovieService.Domain.Facades
             if (movie != null)
             {
                 movies.Remove(movie);
-                movies.Commit();
+                UnitOfWork.Commit();
             }
         }
     }

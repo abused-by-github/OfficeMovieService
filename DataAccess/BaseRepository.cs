@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using Svitla.MovieService.Core.Entities;
@@ -74,11 +73,6 @@ namespace Svitla.MovieService.DataAccess
             page.Items = queryable.Skip(paging.PageSize * (paging.PageNumber - 1 )).Take(paging.PageSize).ToList();
             page.Total = queryable.Count();
             return page;
-        }
-
-        public void Commit()
-        {
-            Context.SaveChanges();
         }
     }
 }

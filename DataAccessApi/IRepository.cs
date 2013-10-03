@@ -15,7 +15,5 @@ namespace Svitla.MovieService.DataAccessApi
         TEntity One(Func<IQueryable<TEntity>, TEntity> query);
         IEnumerable<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query);
         Page<TResult> Page<TResult> (Func<IQueryable<TEntity>, IOrderedQueryable<TResult>> query, Paging paging);
-
-        void Commit();
     }
 }

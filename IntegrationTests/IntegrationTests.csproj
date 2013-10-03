@@ -80,6 +80,10 @@
       <Project>{BEA9BB36-C58E-4629-AF41-BB626314D169}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DataAccessApi\DataAccessApi.csproj">
+      <Project>{DA09BD15-8C2A-439E-9587-4272F114D9B3}</Project>
+      <Name>DataAccessApi</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DataAccess\DataAccess.csproj">
       <Project>{5b16ea32-a18c-4824-87c7-07c4ce61b844}</Project>
       <Name>DataAccess</Name>

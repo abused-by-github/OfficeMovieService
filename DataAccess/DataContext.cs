@@ -1,10 +1,11 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.DataAccessApi;
 
 namespace Svitla.MovieService.DataAccess
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IUnitOfWork
     {
         public DbSet<User> Users { get; private set; }
         public DbSet<Movie> Movies { get; private set; }
@@ -41,6 +42,11 @@ namespace Svitla.MovieService.DataAccess
                 .HasRequired(v => v.Poll)
                 .WithMany()
                 .HasForeignKey(v => v.PollId);
+        }
+
+        public void Commit()
+        {
+            SaveChanges();
         }
     }
 }
