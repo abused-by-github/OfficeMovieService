@@ -3,7 +3,6 @@ using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.DomainApi.DataObjects;
 using Svitla.MovieService.WebApi.Dto;
 
 namespace Svitla.MovieService.WebApi.Controllers
@@ -36,8 +35,8 @@ namespace Svitla.MovieService.WebApi.Controllers
                     m.Movie.Name,
                     m.Movie.Id,
                     m.Movie.Url,
-                    UserName = m.Movie.User.Name
-                }),
+                    m.UserName
+                }).ToList(),
                 movies.Total
             };
 

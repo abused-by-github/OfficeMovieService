@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.DomainApi;
@@ -30,11 +31,14 @@ namespace Svitla.MovieService.Domain.Facades
 
         public Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll)
         {
+            var userId = user.Get(u => u.Id);
+            var pollId = poll.Get(p => p.Id);
             return movies.Page(q => q
                 .Select(m => new VoteableMovie
                 {
                     Movie = m,
-                    IsVoted = m.Votes.Any(v => v.UserId == user.Id && v.PollId == poll.Id)
+                    IsVoted = m.Votes.Any(v => v.UserId == userId && v.PollId == pollId),
+                    UserName = m.User.Name
                 })
                 .OrderBy(m => m.Movie.Id)
                 , paging);

@@ -17,22 +17,22 @@ namespace Svitla.MovieService.Tests.IntegrationTests
                 context.Database.Delete();
                 context.Database.Initialize(true);
                 context.Database.ExecuteSqlCommand(@"insert into [user] (Name)
-values ('the.korwin@gmail.com')
+values ('the.korwin@gmail.com'), ('the.korwin1@gmail.com'), ('the.korwin2@gmail.com')
 
 insert into Movie(Name, Url, User_Id)
 values('1', '1', 1),
 ('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1)");
             }
         }

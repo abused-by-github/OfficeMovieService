@@ -39,6 +39,7 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Vote.cs" />
     <Compile Include="Exceptions\BaseMovieException.cs" />
+    <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="ValueObjects\Page.cs" />
     <Compile Include="ValueObjects\Paging.cs" />
   </ItemGroup>
