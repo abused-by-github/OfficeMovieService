@@ -9,17 +9,5 @@ namespace Svitla.MovieService.MvcControllers
         {
             return View();
         }
-        
-        [HttpGet]
-        public ViewResult Add()
-        {
-            return View();
-        }
-        
-        [HttpGet]
-        public ViewResult Edit()
-        {
-            return View("Add");
-        }
     }
 }
