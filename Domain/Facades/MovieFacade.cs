@@ -3,6 +3,7 @@ using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.DomainApi.DataObjects;
 
 namespace Svitla.MovieService.Domain.Facades
 {
@@ -26,9 +27,16 @@ namespace Svitla.MovieService.Domain.Facades
             return movies.One(q => q.FirstOrDefault(m => m.Id == id));
         }
 
-        public Page<Movie> FindMovies(Paging paging)
+        public Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll)
         {
-            return movies.Page(q => q.OrderBy(m => m.Id), paging);
+            return movies.Page(q => q
+                .Select(m => new VoteableMovie
+                {
+                    Movie = m,
+                    IsVoted = m.Votes.Any(v => v.UserId == user.Id && v.PollId == poll.Id)
+                })
+                .OrderBy(m => m.Movie.Id)
+                , paging);
         }
 
         public void DeleteMovie(long id)

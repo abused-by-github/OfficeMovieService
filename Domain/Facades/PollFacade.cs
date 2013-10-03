@@ -33,5 +33,20 @@ namespace Svitla.MovieService.Domain.Facades
 
             polls.Commit();
         }
+
+        public void Vote(User user, Movie movie, bool isSelected)
+        {
+            var poll = GetCurrent();
+            var vote = new Vote { Movie = movie, Poll = poll, User = user };
+            if (isSelected)
+            {
+                user.Votes.Add(vote);
+            }
+            else
+            {
+                user.Votes.Remove(vote);
+            }
+            polls.Commit();
+        }
     }
 }

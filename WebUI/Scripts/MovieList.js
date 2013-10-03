@@ -53,6 +53,8 @@
 
         fetchMoreMoviesSuccess: function (r) {
             $.each(r.Data.Items, function (i, e) {
+                e.IsVoting = ko.observable(false);
+                e.IsVoted = ko.observable(e.IsVoted);
                 viewModel.movies.push(e);
             });
             $(window).scrollTop($(document).height());
@@ -97,6 +99,24 @@
         
         pollLoaded: function (r) {
             viewModel.isActivePoll(!!r.Data);
+        },
+
+        vote: function () {
+            var movie = this;
+            movie.IsVoting(true);
+            api.call('poll', 'vote', { id: this.Id }, function () {
+                movie.IsVoting(false);
+                movie.IsVoted(true);
+            });
+        },
+
+        unvote: function () {
+            var movie = this;
+            movie.IsVoting(true);
+            api.call('poll', 'unvote', { id: this.Id }, function () {
+                movie.IsVoting(false);
+                movie.IsVoted(false);
+            });
         }
     };
 

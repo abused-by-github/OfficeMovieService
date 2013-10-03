@@ -36,8 +36,8 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Poll.cs" />
-    <Compile Include="Entities\PollCandidate.cs" />
     <Compile Include="Entities\User.cs" />
+    <Compile Include="Entities\Vote.cs" />
     <Compile Include="Exceptions\BaseMovieException.cs" />
     <Compile Include="ValueObjects\Page.cs" />
     <Compile Include="ValueObjects\Paging.cs" />
