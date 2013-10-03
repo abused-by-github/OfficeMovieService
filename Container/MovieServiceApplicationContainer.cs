@@ -1,6 +1,7 @@
 ﻿using System.Configuration;
 using System.Web.Http.Dependencies;
 using Autofac;
+using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Svitla.MovieService.DataAccess;
 using Svitla.MovieService.DataAccessApi;
@@ -15,6 +16,7 @@ namespace Svitla.MovieService.Container
         private const string ConnectionString = "ConnectionString";
 
         public readonly IDependencyResolver DependencyResolver;
+        public readonly System.Web.Mvc.IDependencyResolver MvcDependencyResolver;
 
         public MovieServiceApplicationContainer()
         {
@@ -27,6 +29,25 @@ namespace Svitla.MovieService.Container
             IContainer autofac = builder.Build();
 
             DependencyResolver = new AutofacWebApiDependencyResolver(autofac);
+
+
+            var container = BuildMvcContainer();
+            MvcDependencyResolver = new AutofacDependencyResolver(container);
+        }
+
+        private static IContainer BuildMvcContainer()
+        {
+            var builder = new ContainerBuilder();
+            registerDataAccess(builder);
+            registerDomain(builder);
+            registerMvcControllers(builder);
+            var container = builder.Build();
+            return container;
+        }
+
+        private static void registerMvcControllers(ContainerBuilder builder)
+        {
+            builder.RegisterControllers(typeof (MvcControllers.AccountController).Assembly);
         }
 
         private static void registerDataAccess(ContainerBuilder builder)
