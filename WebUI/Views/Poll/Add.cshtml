@@ -16,11 +16,11 @@
     </label>
     <label>
         Poll will be closed at:
-        <input type="text" data-bind="value: ExpirationDate" />
+        <input type="text" data-format="date" data-bind="value: ExpirationDate.uiDate()" />
     </label>
     <label>
         We watch movie at:
-        <input type="text" data-bind="value: ViewDate" />
+        <input type="text" data-format="date" data-bind="value: ViewDate.uiDate()" />
     </label>
     
     <button data-bind="click: save">Save</button>

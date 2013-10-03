@@ -24,7 +24,7 @@ namespace Svitla.MovieService.DataAccess
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Movie>();
-            modelBuilder.Entity<Poll>();
+            modelBuilder.Entity<Poll>().HasRequired(p => p.Owner);
             modelBuilder.Entity<PollCandidate>().HasMany(c => c.Voters).WithMany();
         }
     }

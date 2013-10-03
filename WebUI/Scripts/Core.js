@@ -15,3 +15,11 @@
         }
     }
 };
+
+ko.observable.fn.uiDate = function() {
+    return moment(this()).format("DD.MM.YYYY");
+};
+
+ko.observable.fn.isoDate = function (str) {
+    return str ? this(new Date(str)) : this().toISOString();
+};
