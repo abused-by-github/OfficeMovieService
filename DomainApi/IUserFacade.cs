@@ -5,5 +5,6 @@ namespace Svitla.MovieService.DomainApi
     public interface IUserFacade
     {
         User GetByEmail(string email);
+        void Save(User user);
     }
 }
