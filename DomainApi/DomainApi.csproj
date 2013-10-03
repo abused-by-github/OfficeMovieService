@@ -33,7 +33,10 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\SinglePollAllowedException.cs" />
     <Compile Include="IMovieFacade.cs" />
+    <Compile Include="IPollFacade.cs" />
+    <Compile Include="IUserFacade.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

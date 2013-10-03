@@ -139,6 +139,7 @@
   <ItemGroup>
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
+    <Compile Include="Controllers\PollController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -153,6 +154,7 @@
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\MovieAdd.js" />
     <Content Include="Scripts\MovieList.js" />
+    <Content Include="Scripts\PollAdd.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -198,6 +200,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Movie\Add.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Poll\Info.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Poll\Add.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

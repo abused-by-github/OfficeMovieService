@@ -19,16 +19,40 @@ namespace Svitla.MovieService.Container
         public MovieServiceApplicationContainer()
         {
             var builder = new ContainerBuilder();
-            builder.Register(c => new MovieRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
-                .As<IMovieRepository>();
-            builder.RegisterType<MovieFacade>()
-                .As<IMovieFacade>();
 
-            builder.RegisterType<MovieController>();
+            registerDataAccess(builder);
+            registerDomain(builder);
+            registerWebApi(builder);
 
             IContainer autofac = builder.Build();
 
             DependencyResolver = new AutofacWebApiDependencyResolver(autofac);
+        }
+
+        private static void registerDataAccess(ContainerBuilder builder)
+        {
+            builder.Register(c => new MovieRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
+                .As<IMovieRepository>();
+            builder.Register(c => new PollRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
+                .As<IPollRepository>();
+            builder.Register(c => new UserRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
+                .As<IUserRepository>();
+        }
+
+        private static void registerDomain(ContainerBuilder builder)
+        {
+            builder.RegisterType<MovieFacade>()
+                .As<IMovieFacade>();
+            builder.RegisterType<PollFacade>()
+                .As<IPollFacade>();
+            builder.RegisterType<UserFacade>()
+                .As<IUserFacade>();
+        }
+
+        private static void registerWebApi(ContainerBuilder builder)
+        {
+            builder.RegisterType<MovieController>();
+            builder.RegisterType<PollController>();
         }
     }
 }

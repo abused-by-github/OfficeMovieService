@@ -8,12 +8,14 @@ namespace Svitla.MovieService.DataAccess
     {
         public DbSet<User> Users { get; private set; }
         public DbSet<Movie> Movies { get; private set; }
+        public DbSet<Poll> Polls { get; private set; }
 
         public DataContext(string connectionString)
             : base(connectionString)
         {
             Users = Set<User>();
             Movies = Set<Movie>();
+            Polls = Set<Poll>();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -22,6 +24,8 @@ namespace Svitla.MovieService.DataAccess
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Movie>();
+            modelBuilder.Entity<Poll>();
+            modelBuilder.Entity<PollCandidate>().HasMany(c => c.Voters).WithMany();
         }
     }
 }

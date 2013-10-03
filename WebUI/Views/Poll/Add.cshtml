@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Layout.cshtml";
+}
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/PollAdd.js"></script>
+}
+
+@section MainContent
+{
+    <label>
+        Name:
+        <input type="text" data-bind="value: Name" />
+    </label>
+    <label>
+        Poll will be closed at:
+        <input type="text" data-bind="value: ExpirationDate" />
+    </label>
+    <label>
+        We watch movie at:
+        <input type="text" data-bind="value: ViewDate" />
+    </label>
+    
+    <button data-bind="click: save">Save</button>
+}

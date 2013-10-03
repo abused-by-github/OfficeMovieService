@@ -46,6 +46,8 @@
     <Compile Include="BaseRepository.cs" />
     <Compile Include="DataContext.cs" />
     <Compile Include="MovieRepository.cs" />
+    <Compile Include="PollRepository.cs" />
+    <Compile Include="UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">

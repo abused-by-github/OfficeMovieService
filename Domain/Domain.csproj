@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facades\MovieFacade.cs" />
+    <Compile Include="Facades\PollFacade.cs" />
+    <Compile Include="Facades\UserFacade.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

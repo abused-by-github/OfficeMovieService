@@ -8,7 +8,6 @@ using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Svitla.MovieService.Container;
 using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.WebApi.Controllers;
 
 namespace Svitla.MovieService.Tests.IntegrationTests
@@ -34,13 +33,14 @@ namespace Svitla.MovieService.Tests.IntegrationTests
             var contextType = Type.GetType("Svitla.MovieService.DataAccess.DataContext, DataAccess");
 
             var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            var context = Activator.CreateInstance(contextType,
-                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance,
-                null,
-                new[] { connectionString },
-                null) as DbContext;
-            context.Database.Delete();
-            context.Database.Initialize(true);
+            using (var context =
+                    Activator.CreateInstance(contextType,
+                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
+                        new[] { connectionString }, null) as DbContext)
+            {
+                context.Database.Delete();
+                context.Database.Initialize(true);
+            }
         }
     }
 }

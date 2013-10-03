@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Security.Claims;
+using System.Threading;
+using System.Web.Http;
 using Svitla.MovieService.WebApi.Dto;
 
 namespace Svitla.MovieService.WebApi.Controllers
