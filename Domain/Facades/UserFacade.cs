@@ -21,6 +21,11 @@ namespace Svitla.MovieService.Domain.Facades
         
         public void Save(User user)
         {
+            var existedUser = GetByEmail(user.Name);
+            if (existedUser != null)
+            {
+                user.Id = existedUser.Id;
+            }
             users[user.Id] = user;
             users.Commit();
         }
