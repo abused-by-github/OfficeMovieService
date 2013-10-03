@@ -1,12 +1,12 @@
-﻿namespace Svitla.MovieService.WebUI.Models
+﻿namespace Svitla.MovieService.WebApi.Dto
 {
-    public class ResponseObject
+    public class ResponseObject<TData>
     {
         public bool Status { get; set; }
         public string ErrorMessage { get; set; }
-        public object Data { get; set; }
+        public TData Data { get; set; }
 
-        public ResponseObject(bool status, string errorMessage, object data)
+        public ResponseObject(bool status, string errorMessage, TData data)
         {
             Status = status;
             ErrorMessage = errorMessage;

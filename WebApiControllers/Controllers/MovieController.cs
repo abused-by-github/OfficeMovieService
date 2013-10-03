@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.WebUI.Models;
+using Svitla.MovieService.WebApi.Dto;
 
-namespace Svitla.MovieService.WebUI.Api
+namespace Svitla.MovieService.WebApi.Controllers
 {
     public class MovieController : BaseApiController
     {
@@ -18,15 +16,15 @@ namespace Svitla.MovieService.WebUI.Api
         }
 
         [HttpPost]
-        public ResponseObject List(Paging paging)
+        public ResponseObject<Page<Movie>> List(Paging paging)
         {
             return Response(movieFacade.FindMovies(paging));
         }
 
         [HttpPost]
-        public ResponseObject Add(Movie movie)
+        public EmptyResponseObject Add(Movie movie)
         {
-            return new ResponseObject(false, "Error", null);
+            return new EmptyResponseObject(false, "Error");
         }
     }
 }

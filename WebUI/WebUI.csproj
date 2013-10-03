@@ -137,14 +137,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\BaseApiController.cs" />
-    <Compile Include="Api\MovieController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ResponseObject.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -156,7 +153,9 @@
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\MovieAdd.js" />
     <Content Include="Scripts\MovieList.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

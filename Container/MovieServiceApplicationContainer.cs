@@ -1,12 +1,12 @@
 ﻿using System.Configuration;
-using System.Reflection;
-using System.Web.Http;
+using System.Web.Http.Dependencies;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Svitla.MovieService.DataAccess;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.Facades;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.WebApi.Controllers;
 
 namespace Svitla.MovieService.Container
 {
@@ -14,9 +14,9 @@ namespace Svitla.MovieService.Container
     {
         private const string ConnectionString = "ConnectionString";
 
-        private readonly IContainer autofac;
+        public readonly IDependencyResolver DependencyResolver;
 
-        public MovieServiceApplicationContainer(Assembly webApiAssembly)
+        public MovieServiceApplicationContainer()
         {
             var builder = new ContainerBuilder();
             builder.Register(c => new MovieRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
@@ -24,23 +24,11 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<MovieFacade>()
                 .As<IMovieFacade>();
 
-            if (webApiAssembly != null)
-            {
-                builder.RegisterApiControllers(webApiAssembly);
-            }
+            builder.RegisterType<MovieController>();
 
-            autofac = builder.Build();
+            IContainer autofac = builder.Build();
 
-            if (webApiAssembly != null)
-            {
-                var resolver = new AutofacWebApiDependencyResolver(autofac);
-                GlobalConfiguration.Configuration.DependencyResolver = resolver;
-            }
-        }
-
-        public TComponent GetComponent<TComponent>()
-        {
-            return autofac.Resolve<TComponent>();
+            DependencyResolver = new AutofacWebApiDependencyResolver(autofac);
         }
     }
 }
