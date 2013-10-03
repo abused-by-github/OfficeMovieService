@@ -40,6 +40,24 @@ namespace Svitla.MovieService.Tests.IntegrationTests
             {
                 context.Database.Delete();
                 context.Database.Initialize(true);
+                context.Database.ExecuteSqlCommand(@"insert into [user] (Name)
+values ('the.korwin@gmail.com')
+
+insert into Movie(Name, Url, User_Id)
+values('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1),
+('1', '1', 1)");
             }
         }
     }

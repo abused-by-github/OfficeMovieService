@@ -4,7 +4,7 @@ using Svitla.MovieService.Core.Entities;
 
 namespace Svitla.MovieService.DataAccess
 {
-    class DataContext : DbContext
+    public class DataContext : DbContext
     {
         public DbSet<User> Users { get; private set; }
         public DbSet<Movie> Movies { get; private set; }

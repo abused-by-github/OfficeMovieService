@@ -31,12 +31,11 @@ namespace Svitla.MovieService.Container
 
         private static void registerDataAccess(ContainerBuilder builder)
         {
-            builder.Register(c => new MovieRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
-                .As<IMovieRepository>();
-            builder.Register(c => new PollRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
-                .As<IPollRepository>();
-            builder.Register(c => new UserRepository(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
-                .As<IUserRepository>();
+            builder.Register(c => new DataContext(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString)).InstancePerApiRequest();
+
+            builder.RegisterType<MovieRepository>().As<IMovieRepository>();
+            builder.RegisterType<PollRepository>().As<IPollRepository>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
         }
 
         private static void registerDomain(ContainerBuilder builder)

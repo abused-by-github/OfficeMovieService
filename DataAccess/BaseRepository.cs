@@ -16,9 +16,9 @@ namespace Svitla.MovieService.DataAccess
 
         protected abstract DbSet<TEntity> Set { get; }
 
-        protected BaseRepository(string connectionString)
+        protected BaseRepository(DataContext context)
         {
-            Context = new DataContext(connectionString);
+            Context = context;
         }
 
         public void Add(TEntity entity)

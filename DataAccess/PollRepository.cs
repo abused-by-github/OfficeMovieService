@@ -6,7 +6,7 @@ namespace Svitla.MovieService.DataAccess
 {
     public class PollRepository : BaseRepository<Poll>, IPollRepository
     {
-        public PollRepository(string connectionString) : base(connectionString) { }
+        public PollRepository(DataContext context) : base(context) { }
 
         protected override DbSet<Poll> Set
         {

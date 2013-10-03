@@ -6,7 +6,7 @@ namespace Svitla.MovieService.DataAccess
 {
     public class MovieRepository : BaseRepository<Movie>, IMovieRepository
     {
-        public MovieRepository(string connectionString) : base(connectionString) { }
+        public MovieRepository (DataContext context) : base(context) { }
 
         protected override DbSet<Movie> Set
         {

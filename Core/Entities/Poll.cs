@@ -5,6 +5,8 @@ namespace Svitla.MovieService.Core.Entities
 {
     public class Poll : Entity
     {
+        public string Name { get; set; }
+
         /// <summary>
         /// Date when poll was created.
         /// </summary>
