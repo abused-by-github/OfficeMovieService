@@ -50,6 +50,7 @@
                 viewModel.movies.push(e);
             });
             $(window).scrollTop($(document).height());
+            ++viewModel.currentPage;
         },
 
         fetchMoreMoviesComplete: function () {
