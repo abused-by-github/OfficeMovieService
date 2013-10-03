@@ -15,8 +15,22 @@
             <tr>
                 <td data-bind="text: Name"></td>
                 <td data-bind="text: Url"></td>
+                <td><button id="buttonEdit" data-bind="click: $parent.edit">Edit</button></td>
+                <td><button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button></td>
             </tr>
         </table>
         <button id="buttonShowMore" data-bind="click: loadMore">More...</button>
+        <button id="buttonAdd" data-bind="click: openPopup">Add</button>
+    </div>
+    
+    <div class="holder" id="saveDialog">     
+        <div id="popup" class="popup">            
+            <div class="content">
+                Name*: <input type="text" id="txtName" data-bind="value: currentMovie().Name"/><label id="lblNameError" style="display: none; color: red;">Name is required</label><br/>
+                URL: <input type="text" id="txtUrl" data-bind="value: currentMovie().Url"/><label id="lblUrlError" style="display: none; color: red;">Url should be correct</label><br/>
+                <button id="buttonCommit" data-bind="click: save">Save</button>
+                <button id="buttonCancel" data-bind="click: cancelDialog">Cancel</button>
+            </div>
+        </div>
     </div>
 }
