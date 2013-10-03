@@ -3,16 +3,22 @@
     window.movieAdd = {
         init: function() {
             $('#btnAdd').on('click', function () {
-                showValidation(false);
+                movieAdd.showValidation(false);
                 var name = $("#txtName").val().trim();
                 var url = $("#txtUrl").val();
 
                 if (name.length == 0) {
-                    showValidation(true);
+                    movieAdd.showValidation(true);
                     return;
                 }
                 
-
+                window.movieService.core.api.call('movie', 'add', {Name: name, Url: url}, function (response) {
+                    if (!!response.Status) {
+                        window.location.href = "http://localhost/MovieService/Movie/List";
+                    } else {
+                        alert(response.ErrorMessage);
+                    }
+                });
             });
         },
         
@@ -25,4 +31,5 @@
         }
     };
     
+    window.movieAdd.init();
 });

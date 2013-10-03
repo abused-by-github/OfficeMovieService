@@ -15,5 +15,11 @@ namespace Svitla.MovieService.WebUI.Controllers
         {
             return View();
         }
+        
+        [HttpGet]
+        public ViewResult Edit()
+        {
+            return View("Add");
+        }
     }
 }
