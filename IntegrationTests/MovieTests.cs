@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Svitla.MovieService.Container;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.WebApi.Controllers;
 
 namespace Svitla.MovieService.Tests.IntegrationTests
 {
@@ -19,12 +20,12 @@ namespace Svitla.MovieService.Tests.IntegrationTests
         public void ListMovies()
         {
             Console.WriteLine(Directory.GetCurrentDirectory());
-            var container = new MovieServiceApplicationContainer(null);
-            var movieFacade = container.GetComponent<IMovieFacade>();
+            var container = new MovieServiceApplicationContainer();
+            var movieController = (MovieController) container.DependencyResolver.GetService(typeof(MovieController));
 
-            var movies = movieFacade.FindMovies(new Paging(3, 1));
-            Assert.AreEqual(10, movies.Total);
-            Assert.AreEqual(3, movies.Items.Count());
+            var movies = movieController.List(new Paging(3, 1));
+            Assert.AreEqual(10, movies.Data.Total);
+            Assert.AreEqual(3, movies.Data.Items.Count());
         }
 
         [TestMethod]

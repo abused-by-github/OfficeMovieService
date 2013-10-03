@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Web.Http;
+﻿using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Svitla.MovieService.Container;
@@ -18,7 +17,8 @@ namespace Svitla.MovieService.WebUI
         {
             AreaRegistration.RegisterAllAreas();
 
-            movieServiceApplication = new MovieServiceApplicationContainer(Assembly.GetExecutingAssembly());
+            movieServiceApplication = new MovieServiceApplicationContainer();
+            GlobalConfiguration.Configuration.DependencyResolver = movieServiceApplication.DependencyResolver;
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
