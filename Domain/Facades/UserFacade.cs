@@ -18,5 +18,11 @@ namespace Svitla.MovieService.Domain.Facades
         {
             return users.One(q => q.FirstOrDefault(u => u.Name == email));
         }
+        
+        public void Save(User user)
+        {
+            users[user.Id] = user;
+            users.Commit();
+        }
     }
 }

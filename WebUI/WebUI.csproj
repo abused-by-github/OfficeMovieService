@@ -153,8 +153,10 @@
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\MovieList.js" />
+    <Content Include="Scripts\PollInfo.js" />
     <Content Include="Styles\styles.css" />
-    <Content Include="Scripts\PollAdd.js" />    <Content Include="Web.config">
+    <Content Include="Scripts\PollAdd.js" />
+    <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Debug.config">

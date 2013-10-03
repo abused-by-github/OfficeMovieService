@@ -1,9 +1,11 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using System.Web.Http;
+using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.WebApi.Dto;
 
 namespace Svitla.MovieService.WebApi.Controllers
 {
+    [Authorize]
     public class PollController : BaseApiController
     {
         private readonly IPollFacade pollFacade;
@@ -15,6 +17,7 @@ namespace Svitla.MovieService.WebApi.Controllers
             this.userFacade = userFacade;
         }
 
+        [HttpPost]
         public ResponseObject<Poll> GetCurrent()
         {
             return Response(pollFacade.GetCurrent());

@@ -7,6 +7,7 @@ using System.Web.Security;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.RelyingParty;
+using Svitla.MovieService.Core.Entities;
 
 namespace WebUI.Controllers
 {
@@ -55,7 +56,7 @@ namespace WebUI.Controllers
                     case AuthenticationStatus.Authenticated:
                         var fetches = response.GetExtension<FetchResponse>();
                         var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];
-                        Session["email"] = email;
+                        SaveUser(fetches);
                         FormsAuthentication.SetAuthCookie(email, false);
                         return RedirectToAction("UserProfile");
                         break;
@@ -71,6 +72,18 @@ namespace WebUI.Controllers
 
             }
             return RedirectToAction("Login");
+        }
+
+        public void SaveUser(FetchResponse data)
+        {
+            var email = data.Attributes[WellKnownAttributes.Contact.Email].Values[0];
+            var firstname = data.Attributes[WellKnownAttributes.Name.First].Values[0];
+            var lastname = data.Attributes[WellKnownAttributes.Name.Last].Values[0];
+            var user = new User
+            {
+                Name = email
+            };
+            
         }
 
         public ActionResult Logoff()
