@@ -17,7 +17,8 @@ namespace Svitla.MovieService.Domain.Facades
 
         public void SaveMovie(Movie movie)
         {
-            movies.Add(movie);
+            movies[movie.Id] = movie;
+            movies.Commit();
         }
 
         public Movie LoadById(long id)

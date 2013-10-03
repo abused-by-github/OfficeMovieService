@@ -23,8 +23,7 @@ namespace Svitla.MovieService.DataAccess
 
         public void Add(TEntity entity)
         {
-            Set.Attach(entity);
-            Context.Entry(entity).State = EntityState.Modified;
+            Set.Add(entity);
         }
 
         public void Remove(TEntity entity)
@@ -35,7 +34,20 @@ namespace Svitla.MovieService.DataAccess
         public TEntity this[long id]
         {
             get { return Set.Find(id); }
+            set
+            {
+                var entity = this[id];
+                if (entity == null)
+                {
+                    Set.Add(value);
+                }
+                else
+                {
+                    Context.Entry(entity).CurrentValues.SetValues(value);
+                }
+            }
         }
+
 
         public TEntity One(Func<IQueryable<TEntity>, TEntity> query)
         {

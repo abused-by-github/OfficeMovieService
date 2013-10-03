@@ -12,7 +12,7 @@
                     return;
                 }
                 
-                window.movieService.core.api.call('movie', 'add', {Name: name, Url: url}, function (response) {
+                window.movieService.core.api.call('movie', 'save', {Name: name, Url: url}, function (response) {
                     if (!!response.Status) {
                         window.location.href = "http://localhost/MovieService/Movie/List";
                     } else {

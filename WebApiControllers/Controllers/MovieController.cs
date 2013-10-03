@@ -22,9 +22,13 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [HttpPost]
-        public EmptyResponseObject Add(Movie movie)
+        public EmptyResponseObject Save(Movie movie)
         {
-            return new EmptyResponseObject(false, "Error");
+            if (string.IsNullOrEmpty(movie.Name))
+                return new EmptyResponseObject(false, "Name is required field");
+
+            movieFacade.SaveMovie(movie);
+            return new EmptyResponseObject(true, "Movie saved");
         }
     }
 }

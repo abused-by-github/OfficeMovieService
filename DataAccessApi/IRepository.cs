@@ -11,7 +11,7 @@ namespace Svitla.MovieService.DataAccessApi
     {
         void Add(TEntity entity);
         void Remove(TEntity entity);
-        TEntity this[long id] { get; }
+        TEntity this[long id] { get; set; }
         TEntity One(Func<IQueryable<TEntity>, TEntity> query);
         IEnumerable<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query);
         Page<TEntity> Page(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> query, Paging paging);
