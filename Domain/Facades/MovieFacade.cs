@@ -30,5 +30,15 @@ namespace Svitla.MovieService.Domain.Facades
         {
             return movies.Page(q => q.OrderBy(m => m.Id), paging);
         }
+
+        public void DeleteMovie(long id)
+        {
+            var movie = movies[id];
+            if (movie != null)
+            {
+                movies.Remove(movie);
+                movies.Commit();
+            }
+        }
     }
 }

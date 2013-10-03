@@ -152,10 +152,9 @@
     <Content Include="Scripts\Core.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
-    <Content Include="Scripts\MovieAdd.js" />
     <Content Include="Scripts\MovieList.js" />
-    <Content Include="Scripts\PollAdd.js" />
-    <Content Include="Web.config">
+    <Content Include="Styles\styles.css" />
+    <Content Include="Scripts\PollAdd.js" />    <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
     <Content Include="Web.Debug.config">
@@ -197,9 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Layout.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Movie\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Poll\Info.cshtml" />

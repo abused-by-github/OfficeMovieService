@@ -6,6 +6,7 @@ namespace Svitla.MovieService.DomainApi
     public interface IMovieFacade
     {
         void SaveMovie(Movie movie);
+        void DeleteMovie(long id);
         Movie LoadById(long id);
         Page<Movie> FindMovies(Paging paging);
     }
