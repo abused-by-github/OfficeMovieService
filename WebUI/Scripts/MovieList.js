@@ -31,12 +31,17 @@
             api.call('movie', 'save', self.currentMovie(), function (response) {
                 if (!!response.Status) {
                     self.dialog.hide();
-                    this.currentPage = 0;
-                    viewModel.loadMore();
+                    self.reload();
                 } else {
                     alert(response.ErrorMessage);
                 }
             });
+        },
+        
+        reload: function () {
+            this.currentPage = 0;
+            this.movies.removeAll();
+            this.loadMore();
         },
 
         loadMore: function() {
@@ -65,8 +70,7 @@
         deleteMovie: function () {
             api.call('movie', 'delete', this.Id, function (response) {
                 if (!!response.Status) {
-                    this.currentPage = 0;
-                    viewModel.loadMore();
+                    viewModel.reload();
                 } else {
                     alert(response.ErrorMessage);
                 }

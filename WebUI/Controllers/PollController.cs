@@ -2,6 +2,7 @@
 
 namespace Svitla.MovieService.WebUI.Controllers
 {
+    [Authorize]
     public class PollController : Controller
     {
         [HttpGet]
@@ -9,11 +10,14 @@ namespace Svitla.MovieService.WebUI.Controllers
         {
             return View();
         }
-
+        [HttpGet]
+        public ViewResult Info()
+        {
+            return View();
+        }
         [HttpGet]
         public ViewResult Edit()
         {
             return View("Add");
-        }
-    }
+        }    }
 }

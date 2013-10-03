@@ -5,5 +5,26 @@
 
 @section Scripts
 {
-    <script type="text/javascript" src="~/Scripts/"></script>
+    <script type="text/javascript" src="~/Scripts/PollInfo.js"></script>
+}
+
+
+@section MainContent
+{
+    <div>
+        Poll started by user <span data-bind="text: Owner.Name"></span>. Due date is <span data-bind="text: ExpirationDate"></span>
+    </div>
+
+    <br/>
+
+    <div id="scrollContainer">
+        <table data-bind="foreach: movies">
+            <tr>
+                <td data-bind="text: Name"></td>
+                <td data-bind="text: Url"></td>
+                <td data-bind="text: Votes"></td>
+            </tr>
+        </table>
+    </div>
+    
 }

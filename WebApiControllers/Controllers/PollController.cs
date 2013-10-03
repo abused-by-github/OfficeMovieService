@@ -5,6 +5,7 @@ using Svitla.MovieService.WebApi.Dto;
 
 namespace Svitla.MovieService.WebApi.Controllers
 {
+    [Authorize]
     public class PollController : BaseApiController
     {
         private readonly IPollFacade pollFacade;
