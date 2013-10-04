@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.WebApi.Dto;
@@ -35,7 +36,8 @@ namespace Svitla.MovieService.WebApi.Controllers
                     m.Movie.Name,
                     m.Movie.Id,
                     m.Movie.Url,
-                    m.UserName
+                    m.UserName,
+                    IsOwner = m.UserName == currentUser.Get(u => u.Name)
                 }).ToList(),
                 movies.Total
             };
@@ -47,15 +49,8 @@ namespace Svitla.MovieService.WebApi.Controllers
         [Authorize]
         public EmptyResponseObject Save(Movie movie)
         {
-            if (movie == null || string.IsNullOrEmpty(movie.Name))
-                return new EmptyResponseObject(false, "Name is required field");
-
-            if (movie.User == null)
-            {
-                var currentUser = userFacade.GetByEmail(User.Identity.Name);
-                movie.User = currentUser;
-            }
-
+            if (movie == null)
+                return new EmptyResponseObject(true, "Movie is empty");
             movieFacade.SaveMovie(movie);
             return new EmptyResponseObject(true, "Movie saved");
         }
