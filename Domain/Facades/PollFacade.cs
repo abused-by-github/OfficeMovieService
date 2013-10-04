@@ -39,6 +39,8 @@ namespace Svitla.MovieService.Domain.Facades
 
             poll.Owner = DomainContext.CurrentUser;
 
+            poll.Validate();
+
             polls[poll.Id] = poll;
 
             UnitOfWork.Commit();

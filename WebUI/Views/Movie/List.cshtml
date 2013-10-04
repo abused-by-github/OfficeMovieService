@@ -16,7 +16,8 @@
                 Poll
                 <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
                 <a data-bind="text: poll() && poll().Name, visible: poll() && poll().IsMine" href="@ViewBag.BaseUrl/poll/edit" target="_blank"></a>
-                is going! Try voting.
+                is going! Try voting. We wote untill <span data-bind="text: poll() && poll().ExpirationDate.ui"></span> and watch movie at
+                <span data-bind="text: poll() && poll().ViewDate.ui"></span>
             </span>
             <span data-bind="visible: poll() && !poll().IsVoteable">
                 Poll <span data-bind="text: poll() && poll().Name"></span> has finished

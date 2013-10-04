@@ -1,10 +1,10 @@
-﻿using System.Security.Claims;
-using System.Threading;
-using System.Web.Http;
+﻿using System.Web.Http;
 using Svitla.MovieService.WebApi.Dto;
+using Svitla.MovieService.WebApi.Filters;
 
 namespace Svitla.MovieService.WebApi.Controllers
 {
+    [ErrorHandler]
     public abstract class BaseApiController : ApiController
     {
         protected ResponseObject<TData> Response<TData>(TData data)

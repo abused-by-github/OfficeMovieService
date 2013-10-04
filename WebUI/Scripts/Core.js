@@ -9,7 +9,13 @@
                 async: true,
                 data: JSON.stringify(data),
                 processData: false,
-                success: onSuccess,
+                success: function(r) {
+                    if (r.Status) {
+                        onSuccess(r);
+                    } else {
+                        $('<span>' + r.ErrorMessage + '</span>').dialog({ modal: true, title: 'An error occured.' });
+                    }
+                },
                 complete: onComplete,
                 statusCode: {
                     401: function() { //Unauthorized
@@ -34,10 +40,10 @@
                 }),
                 ui: ko.computed({
                     read: function () {
-                        return moment(observable()).format('DD.MM.YYYY hh:mm');
+                        return moment(observable()).format('DD.MM.YYYY HH:mm');
                     },
                     write: function (v) {
-                        observable(moment(v, 'DD.MM.YYYY hh:mm').toDate());
+                        observable(moment(v, 'DD.MM.YYYY HH:mm').toDate());
                     }
                 })
             };
