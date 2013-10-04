@@ -13,8 +13,6 @@
                 if (r.Data) {
                     viewModel = ko.mapping.fromJS(r.Data);
                     viewModel.Poll.ExpirationDate = xKo.observableDate(new Date(r.Data.Poll.ExpirationDate));
-                    viewModel.showVoters = pollInfo.showVoters;
-                    viewModel.CurrentVoters = ko.observableArray();
                     ko.applyBindings(viewModel);
                     $("#noPoll").hide();
                     $("#mainView").show();
@@ -24,10 +22,6 @@
                     $("#noPoll").show();
                 }
             }
-        },
-        
-        showVoters: function () {
-            viewModel.CurrentVoters(this.Voters());
         }
     };
 
