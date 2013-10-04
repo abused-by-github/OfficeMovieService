@@ -120,7 +120,6 @@
     <Content Include="Content\White-signin_Long_hover_20dp.png" />
     <Content Include="Content\White-signin_Long_press_20dp.png" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Core.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
@@ -147,7 +146,13 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MovieList.js" />
     <Content Include="Scripts\PollInfo.js" />
-    <Content Include="Styles\bootstrap.min.css" />
+    <Content Include="Styles\Bootstrap\css\bootstrap-theme.css" />
+    <Content Include="Styles\Bootstrap\css\bootstrap-theme.min.css" />
+    <Content Include="Styles\Bootstrap\css\bootstrap.css" />
+    <Content Include="Styles\Bootstrap\css\bootstrap.min.css" />
+    <Content Include="Styles\Bootstrap\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Styles\Bootstrap\js\bootstrap.js" />
+    <Content Include="Styles\Bootstrap\js\bootstrap.min.js" />
     <Content Include="Styles\styles.css" />
     <Content Include="Scripts\PollAdd.js" />
     <Content Include="Web.config">
@@ -202,6 +207,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Poll\Add.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Styles\Bootstrap\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Styles\Bootstrap\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Styles\Bootstrap\fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

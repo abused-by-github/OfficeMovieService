@@ -12,10 +12,10 @@
     <script type="text/javascript" src="~/Scripts/knockout-2.3.0.js"></script>
     <script type="text/javascript" src="~/Scripts/knockout.mapping-latest.js"></script>
     <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Styles/Bootstrap/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Styles/styles.css">
     <link rel="stylesheet" type="text/css" href="~/Scripts/JQueryUI/css/redmond/jquery-ui-1.10.3.custom.min.css">
-    <link rel="stylesheet" href="~/Styles/bootstrap.min.css" media="screen">
+    <link rel="stylesheet" href="~/Styles/Bootstrap/css/bootstrap.min.css" media="screen">
 
     <script type="text/javascript">
         window.movieService = {
@@ -51,7 +51,7 @@
             {
                 using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { id = "loginForm", @class = "navbar-form navbar-right", ReturnUrl = ViewBag.ReturnUrl }))
                 {
-                    <a id="login" href="#"><img src="~/Content/White-signin_Long_base_20dp.png"/></a>
+                    <input type="image" src="~/Content/White-signin_Long_base_20dp.png" alt="Login" />
                 }
             }
             else
@@ -70,11 +70,6 @@
 
         <div class="container">
             @RenderSection("MainContent")
-            <script>
-                $("#login").on("click", function () {
-                    $("#loginForm").submit();
-                })
-            </script>
         </div>
     </body>
 </html>

@@ -15,8 +15,8 @@
 
         <h3><span class="pollData" data-bind="text: Poll.Name"></span></h3>
         <ul class="list-unstyled">
-          <li>started by user <span class="pollData" data-bind="text: Poll.OwnerName"></span></li>
-          <li>due date is <span class="pollData" data-bind="text: Poll.ExpirationDate.ui"></span></li>
+            <li>started by user <span class="pollData" data-bind="text: Poll.OwnerName"></span></li>
+            <li>due date is <span class="pollData" data-bind="text: Poll.ExpirationDate.ui"></span></li>
         </ul>
 
 
@@ -27,18 +27,25 @@
                 <tr>
                     <td data-bind="text: Name"></td>
                     <td data-bind="text: Url"></td>
-                    <td><a href="#" data-bind="click: $parent.showVoters, text: Voters().length"></a></td>
+                    <td>
+                        <span data-bind="click: $parent.showVoters, text: Voters().length"></span> 
+                        <div class="glyphicon glyphicon-user tooltipVoters">
+                            <div class="classic">
+                                Voters:
+                                <ul data-bind="foreach: Voters">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
                 </tr>
             </table>
         </div>
+    </div>
     
-        <div id="voters">
-            <table data-bind="foreach: CurrentVoters">
-                <tr>
-                    <td data-bind="text: $data"></td>
-                </tr>
-            </table>
-        </div>
+    <div style="margin-top: 10px">
+        Want to vote? You are welcome!<br/>
+        @Html.ActionLink("Go to movie list", "List", "Movie", new { controller = "Movie" }, new {@class="btn btn-info"})
     </div>
 
     <div id="noPoll" class="displayNone">
