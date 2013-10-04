@@ -5,6 +5,7 @@ namespace Svitla.MovieService.DomainApi
     public interface IPollFacade
     {
         Poll GetCurrent();
+        void CancelCurrent();
         void Save(Poll poll);
         void Vote(User user, Movie movie, bool isSelected);
     }

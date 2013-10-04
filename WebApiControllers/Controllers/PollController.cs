@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.WebApi.Dto;
 
@@ -37,15 +38,19 @@ namespace Svitla.MovieService.WebApi.Controllers
                     poll.IsVoteable,
                     poll.Name,
                     poll.ViewDate,
-                    Winner = new
-                    {
-                        poll.Winner.Id,
-                        poll.Winner.Name
-                    },
+                    Winner = poll.Winner.Get(m => new { m.Id, m.Name }),
                     IsMine = poll.Owner == currentUser
                 };
             }
             return Response(dto);
+        }
+
+        [HttpPost]
+        public EmptyResponseObject CancelCurrent()
+        {
+            pollFacade.CancelCurrent();
+
+            return Response();
         }
 
         public EmptyResponseObject Save(Poll poll)

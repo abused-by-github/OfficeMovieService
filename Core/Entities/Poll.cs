@@ -24,6 +24,8 @@ namespace Svitla.MovieService.Core.Entities
         /// </summary>
         public DateTimeOffset ViewDate { get; set; }
 
+        public bool IsActive { get; set; }
+
         public virtual User Owner { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
@@ -52,6 +54,7 @@ namespace Svitla.MovieService.Core.Entities
         public Poll()
         {
             CreatedDate = DateTime.Now;
+            IsActive = true;
         }
 
         public void Validate()
