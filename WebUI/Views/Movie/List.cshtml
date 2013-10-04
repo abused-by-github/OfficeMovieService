@@ -11,7 +11,7 @@
 @section MainContent
 {
     <div id="scrollContainer">
-        <div>
+        <div class="well well-sm">
             <span data-bind="visible: poll() && poll().IsVoteable">
                 Poll
                 <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
@@ -28,23 +28,32 @@
                 No poll right now. You can <a href="@ViewBag.BaseUrl/poll/add" target="_blank">add one</a>.
             </span>
         </div>
-        <table data-bind="foreach: movies">
-            <tr>
-                <td data-bind="text: Name"></td>
-                <td data-bind="text: Url"></td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <td data-bind="visible: IsOwner">
-                        <button id="buttonEdit" data-bind="click: $parent.edit">Edit</button>
-                        <button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button>
-                    </td>
-                    <td data-bind="visible: $parent.poll() && $parent.poll().IsVoteable">
-                        <button data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">Vote!</button>
-                        <button data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">Unvote!</button>
-                    </td>
-                }
-            </tr>
-        </table>
+        <div class="row" data-bind="foreach: movies">
+            <div class="col-md-3">
+                <div class="thumbnail text-center">
+                    <a data-bind="attr: { href: Url }"><img data-bind="attr: { src: ImageUrl }" /></a>
+                    <div class="caption">
+                        <p>
+                            <a data-bind="text: Name, attr: { href: Url }"></a>
+                        </p>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <p>
+                                <span data-bind="visible: IsOwner">
+                                    <button id="buttonEdit" data-bind="click: $parent.edit">Edit</button>
+                                    <button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button>
+                                </span>
+                                <span data-bind="visible: $parent.poll() && $parent.poll().IsVoteable">
+                                    <button data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">Vote!</button>
+                                    <button data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">Unvote!</button>
+                                </span>
+                            </p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <button id="buttonShowMore" data-bind="click: loadMore">More...</button>
         @if (User.Identity.IsAuthenticated)
         {
@@ -54,11 +63,12 @@
     
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="holder" id="saveDialog">     
-            <div id="popup" class="popup">            
+        <div class="holder" id="saveDialog">
+            <div id="popup" class="popup">
                 <div class="content">
                     Name*: <input type="text" id="txtName" data-bind="value: currentMovie().Name"/><label id="lblNameError" style="display: none; color: red;">Name is required</label><br/>
                     URL: <input type="text" id="txtUrl" data-bind="value: currentMovie().Url"/><label id="lblUrlError" style="display: none; color: red;">Url should be correct</label><br/>
+                    Image URL: <input type="text" data-bind="value: currentMovie().ImageUrl" /><br/>
                     <button id="buttonCommit" data-bind="click: save">Save</button>
                     <button id="buttonCancel" data-bind="click: cancelDialog">Cancel</button>
                 </div>

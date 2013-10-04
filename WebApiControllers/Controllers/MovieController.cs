@@ -37,6 +37,7 @@ namespace Svitla.MovieService.WebApi.Controllers
                     m.Movie.Id,
                     m.Movie.Url,
                     m.UserName,
+                    m.Movie.ImageUrl,
                     IsOwner = m.UserName == currentUser.Get(u => u.Name)
                 }).ToList(),
                 movies.Total

@@ -7,6 +7,7 @@ namespace Svitla.MovieService.Core.Entities
     {
         public string Name { get; set; }
         public string Url { get; set; }
+        public string ImageUrl { get; set; }
 
         public virtual User User { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
