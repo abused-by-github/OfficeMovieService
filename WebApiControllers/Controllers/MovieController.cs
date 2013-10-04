@@ -47,15 +47,6 @@ namespace Svitla.MovieService.WebApi.Controllers
         [Authorize]
         public EmptyResponseObject Save(Movie movie)
         {
-            if (movie == null || string.IsNullOrEmpty(movie.Name))
-                return new EmptyResponseObject(false, "Name is required field");
-
-            if (movie.User == null)
-            {
-                var currentUser = userFacade.GetByEmail(User.Identity.Name);
-                movie.User = currentUser;
-            }
-
             movieFacade.SaveMovie(movie);
             return new EmptyResponseObject(true, "Movie saved");
         }
