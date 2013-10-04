@@ -11,7 +11,7 @@
 @section MainContent
 {
     <div id="scrollContainer">
-        <div class="well well-sm">
+        <div class="well well-lg">
             <span data-bind="visible: poll() && poll().IsVoteable">
                 Poll
                 <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
@@ -25,54 +25,93 @@
                 We will watch <span data-bind="text: poll() &&  poll().Winner && poll().Winner.Name"></span> at <span data-bind="text: poll() && poll().ViewDate.ui"></span>.
             </span>
             <span data-bind="visible: !poll()">
-                No poll right now. You can <a href="@ViewBag.BaseUrl/poll/add" target="_blank">add one</a>.
+                No poll right now.
+                @if (User.Identity.IsAuthenticated)
+                {<text>
+                     You can <a href="@ViewBag.BaseUrl/poll/add" target="_blank">add one</a>.
+                 </text>}
             </span>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button data-bind="click: openPopup" class="btn btn-success pull-right">Add Movie</button>
+            }
         </div>
         <div class="row" data-bind="foreach: movies">
-            <div class="col-md-3">
+            <div class="col-md-3 movie">
                 <div class="thumbnail text-center">
                     <a data-bind="attr: { href: Url }"><img data-bind="attr: { src: ImageUrl }" /></a>
                     <div class="caption">
-                        <p>
+                        <p class="name">
                             <a data-bind="text: Name, attr: { href: Url }"></a>
                         </p>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <p>
-                                <span data-bind="visible: IsOwner">
-                                    <button id="buttonEdit" data-bind="click: $parent.edit">Edit</button>
-                                    <button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button>
-                                </span>
                                 <span data-bind="visible: $parent.poll() && $parent.poll().IsVoteable">
-                                    <button data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">Vote!</button>
-                                    <button data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">Unvote!</button>
-                                </span>
+                                                                  </span>
                             </p>
+                            <div class="movie-toolbar-left">
+                                <span data-bind="visible: IsOwner">
+                                    <button type="button" class="btn btn-default btn-xs" title="Edit"
+                                        data-bind="click: $parent.edit">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-xs" title="Delete"
+                                        data-bind="click: $parent.deleteMovie">
+                                        <span class="glyphicon glyphicon-remove"></span>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="movie-toolbar-right" data-bind="visible: $parent.poll">
+                                <button type="button" class="btn btn-default btn-xs" title="Vote"
+                                        data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">
+                                    <span class="glyphicon glyphicon-thumbs-up"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" title="Unvote"
+                                        data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">
+                                    <span class="glyphicon glyphicon-thumbs-down"></span>
+                                </button>
+                            </div>
                         }
                     </div>
                 </div>
             </div>
         </div>
-
-        <button id="buttonShowMore" data-bind="click: loadMore">More...</button>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <button id="buttonAdd" data-bind="click: openPopup">Add</button>
-        }
+        <div class="text-center">
+            <button id="loadMoreButton" type="button" data-loading-text="Loading..." data-bind="click: loadMore" class="btn btn-primary">
+                More...
+            </button>
+        </div>
     </div>
     
     @if (User.Identity.IsAuthenticated)
     {
-        <div class="holder" id="saveDialog">
-            <div id="popup" class="popup">
-                <div class="content">
-                    Name*: <input type="text" id="txtName" data-bind="value: currentMovie().Name"/><label id="lblNameError" style="display: none; color: red;">Name is required</label><br/>
-                    URL: <input type="text" id="txtUrl" data-bind="value: currentMovie().Url"/><label id="lblUrlError" style="display: none; color: red;">Url should be correct</label><br/>
-                    Image URL: <input type="text" data-bind="value: currentMovie().ImageUrl" /><br/>
-                    <button id="buttonCommit" data-bind="click: save">Save</button>
-                    <button id="buttonCancel" data-bind="click: cancelDialog">Cancel</button>
+        <div id="saveDialog">
+            <form class="form-horizontal" role="form">
+                <div class="form-group">
+                    <label for="txtName" class="col-lg-2 control-label">Name*</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="txtName" data-bind="value: currentMovie().Name"/>
+                        <label id="lblNameError" style="display: none; color: red;">Name is required</label>
+                    </div>
                 </div>
-            </div>
+                <div class="form-group">
+                    <label for="txtUrl" class="col-lg-2 control-label">URL*</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="txtUrl" data-bind="value: currentMovie().Url"/>
+                        <label style="display: none; color: red;">Url should be correct</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtImageUrl" class="col-lg-2 control-label">Image URL*</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="txtImageUrl" data-bind="value: currentMovie().ImageUrl"/>
+                        <label style="display: none; color: red;">Name is required</label>
+                    </div>
+                </div>
+                <button data-bind="click: save" class="btn btn-default">Save</button>
+                <button data-bind="click: cancelDialog" class="btn btn-default">Cancel</button>
+            </form>
         </div>
     }
 }

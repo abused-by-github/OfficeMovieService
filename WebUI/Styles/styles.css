@@ -26,6 +26,22 @@
     display: none;
 }
 
+.movie-toolbar-left{
+    bottom: 5px;
+    left: 22px;
+    position: absolute;
+}
+
+.movie-toolbar-right{
+    bottom: 5px;
+    right: 22px;
+    position: absolute;
+}
+
+.movie .name {
+    height: 50px;
+}
+
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
 .ui-timepicker-div dl { text-align: left; }
@@ -38,3 +54,4 @@
 .ui-timepicker-rtl dl { text-align: right; padding: 0 5px 0 0; }
 .ui-timepicker-rtl dl dt{ float: right; clear: right; }
 .ui-timepicker-rtl dl dd { margin: 0 45% 10px 10px; }
+

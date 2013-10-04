@@ -52,3 +52,7 @@
         }
     }
 };
+
+//Revert 'button' function to JQuery UI implementation and add new alias for Twitter button.
+//JQuery UI button is required for dialog.
+$.fn.twButton = $.fn.button.noConflict();

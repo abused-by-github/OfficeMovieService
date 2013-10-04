@@ -7,11 +7,12 @@
         currentPage: 0,
         isPageLoading: false,
         poll: ko.observable(),
-        dialog: $("#saveDialog"),
-        currentMovie: ko.observable({Name: "", Url: ""}),
+        dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
+        loadMoreButton: $('#loadMoreButton'),
+        currentMovie: ko.observable({ Name: "", Url: "" }),
         
         cancelDialog: function () {
-            this.dialog.hide();
+            this.dialog.dialog('close');
         },
         
         save: function () {
@@ -24,15 +25,9 @@
                 return;
             }
 
-            //var url = self.currentMovie().url;
-            //if (url && url.length > 0 && !self.validURL(url)) {
-            //    self.showValidation($("#lblUrlError"), true);
-            //    return;
-            //}
-
             api.call('movie', 'save', self.currentMovie(), function (response) {
                 if (!!response.Status) {
-                    self.dialog.hide();
+                    self.dialog.dialog('close');
                     self.reload();
                 } else {
                     alert(response.ErrorMessage);
@@ -43,32 +38,38 @@
         reload: function () {
             this.currentPage = 0;
             this.movies.removeAll();
-            this.loadMore();
+            this.loadMore(true);
         },
 
-        loadMore: function() {
+        loadMore: function (doNotScroll) {
+            this.loadMoreButton.twButton('loading');
             var paging = { PageNumber: this.currentPage + 1, PageSize: 10 };
             this.isPageLoading = true;
-            api.call('movie', 'list', paging, this.fetchMoreMoviesSuccess, this.fetchMoreMoviesComplete);
+            api.call('movie', 'list', paging, function(r) {
+                 viewModel.fetchMoreMoviesSuccess(r, doNotScroll);
+            }, this.fetchMoreMoviesComplete);
         },
 
-        fetchMoreMoviesSuccess: function (r) {
+        fetchMoreMoviesSuccess: function (r, doNotScroll) {
             $.each(r.Data.Items, function (i, e) {
                 e.IsVoting = ko.observable(false);
                 e.IsVoted = ko.observable(e.IsVoted);
                 viewModel.movies.push(e);
             });
-            $(window).scrollTop($(document).height());
+            if (!doNotScroll) {
+                $(window).scrollTop($(document).height());
+            }
             ++viewModel.currentPage;
         },
 
         fetchMoreMoviesComplete: function () {
             viewModel.isPageLoading = false;
+            viewModel.loadMoreButton.twButton('reset');
         },
         
         edit: function() {
             viewModel.currentMovie(this);
-            viewModel.dialog.show();
+            viewModel.dialog.dialog('open');
         },
 
         deleteMovie: function () {
@@ -83,7 +84,7 @@
         
         openPopup: function () {
             this.currentMovie({ Name: "", Url: "" });
-            viewModel.dialog.show();
+            viewModel.dialog.dialog('open');
         },
         
         showValidation: function (field, show) {
@@ -111,8 +112,9 @@
             var movie = this;
             movie.IsVoting(true);
             api.call('poll', 'vote', { id: this.Id }, function () {
-                movie.IsVoting(false);
                 movie.IsVoted(true);
+            }, function() {
+                movie.IsVoting(false);
             });
         },
 
@@ -120,8 +122,9 @@
             var movie = this;
             movie.IsVoting(true);
             api.call('poll', 'unvote', { id: this.Id }, function () {
-                movie.IsVoting(false);
                 movie.IsVoted(false);
+            }, function () {
+                movie.IsVoting(false);
             });
         }
     };
@@ -129,6 +132,6 @@
     ko.applyBindings(viewModel);
 
     viewModel.loadPoll();
-    viewModel.loadMore();
+    viewModel.loadMore(true);
 
 });
