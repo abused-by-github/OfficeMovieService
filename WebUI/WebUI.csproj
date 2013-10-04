@@ -119,6 +119,7 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\Core.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\animated-overlay.gif" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_flat_55_fbec88_40x100.png" />
