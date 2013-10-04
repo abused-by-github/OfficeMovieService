@@ -1,5 +1,6 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
+    var xKo = window.movieService.core.ko;
     var viewModel;
 
     var pollInfo = {
@@ -11,6 +12,7 @@
             if (r.Status) {
                 if (r.Data) {
                     viewModel = ko.mapping.fromJS(r.Data);
+                    viewModel.Poll.ExpirationDate = xKo.observableDate(new Date(r.Data.Poll.ExpirationDate));
                     viewModel.showVoters = pollInfo.showVoters;
                     viewModel.CurrentVoters = ko.observableArray();
                     ko.applyBindings(viewModel);
