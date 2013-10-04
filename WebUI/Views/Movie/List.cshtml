@@ -16,12 +16,18 @@
                 Poll
                 <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
                 <a data-bind="text: poll() && poll().Name, visible: poll()" href="@ViewBag.BaseUrl/poll/info"></a>
-                <a data-bind="visible: poll() && poll().IsMine" href="@ViewBag.BaseUrl/poll/edit" target="_blank">Edit</a>
+                <span data-bind="visible: poll() && poll().IsMine">
+                    (You can <a href="@ViewBag.BaseUrl/poll/edit" target="_blank">edit it</a>)
+                </span>
                 is going! Try voting. We wote untill <span data-bind="text: poll() && poll().ExpirationDate.ui"></span> and watch movie at
                 <span data-bind="text: poll() && poll().ViewDate.ui"></span>
             </span>
             <span data-bind="visible: poll() && !poll().IsVoteable">
-                Poll <span data-bind="text: poll() && poll().Name"></span> has finished
+                Poll <span data-bind="text: poll() && poll().Name"></span>
+                <span data-bind="visible: poll() && poll().IsMine">
+                    (You can <a href="@ViewBag.BaseUrl/poll/edit" target="_blank">edit it</a>)
+                </span>
+                has finished
                 We will watch <span data-bind="text: poll() &&  poll().Winner && poll().Winner.Name"></span> at <span data-bind="text: poll() && poll().ViewDate.ui"></span>.
             </span>
             <span data-bind="visible: !poll()">
@@ -39,10 +45,10 @@
         <div class="row" data-bind="foreach: movies">
             <div class="col-md-3 movie">
                 <div class="thumbnail text-center">
-                    <a data-bind="attr: { href: Url }"><img data-bind="attr: { src: ImageUrl }" /></a>
+                    <a data-bind="attr: { href: Url }" target="_blank"><img data-bind="attr: { src: ImageUrl }" /></a>
                     <div class="caption">
                         <p class="name">
-                            <a data-bind="text: Name, attr: { href: Url }"></a>
+                            <a data-bind="text: Name, attr: { href: Url }" target="_blank"></a>
                         </p>
                         @if (User.Identity.IsAuthenticated)
                         {
@@ -106,6 +112,7 @@
                     <label for="txtImageUrl" class="col-lg-2 control-label">Image URL*</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="txtImageUrl" data-bind="value: currentMovie().ImageUrl"/>
+                        <span class="help-block">Image will be stretched to 150x210 px</span>
                         <label style="display: none; color: red;">Name is required</label>
                     </div>
                 </div>
