@@ -25,7 +25,9 @@ namespace Svitla.MovieService.DataAccess
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Movie>();
+
             modelBuilder.Entity<Poll>().HasRequired(p => p.Owner).WithMany().WillCascadeOnDelete(false);
+
             modelBuilder.Entity<Vote>().HasKey(v => new { v.MovieId, v.PollId, v.UserId });
 
             modelBuilder.Entity<Vote>()

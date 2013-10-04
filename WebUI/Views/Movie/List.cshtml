@@ -11,6 +11,21 @@
 @section MainContent
 {
     <div id="scrollContainer">
+        <div>
+            <span data-bind="visible: poll() && poll().IsVoteable">
+                Poll
+                <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
+                <a data-bind="text: poll() && poll().Name, visible: poll() && poll().IsMine" href="@ViewBag.BaseUrl/poll/edit" target="_blank"></a>
+                is going! Try voting.
+            </span>
+            <span data-bind="visible: poll() && !poll().IsVoteable">
+                Poll <span data-bind="text: poll() && poll().Name"></span> has finished
+                We will watch <span data-bind="text: poll() &&  poll().Winner && poll().Winner.Name"></span> at <span data-bind="text: poll() && poll().ViewDate.ui"></span>.
+            </span>
+            <span data-bind="visible: !poll()">
+                No poll right now. You can <a href="@ViewBag.BaseUrl/poll/add" target="_blank">add one</a>.
+            </span>
+        </div>
         <table data-bind="foreach: movies">
             <tr>
                 <td data-bind="text: Name"></td>
@@ -19,7 +34,7 @@
                 {
                 <td><button id="buttonEdit" data-bind="click: $parent.edit">Edit</button></td>
                 <td><button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button></td>
-                <td data-bind="visible: $parent.isActivePoll">
+                <td data-bind="visible: $parent.poll() && $parent.poll().IsVoteable">
                     <button data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">Vote!</button>
                     <button data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">Unvote!</button>
                 </td>
