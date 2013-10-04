@@ -4,7 +4,7 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <script type="text/javascript" src="~/Scripts/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="~/Scripts/JQueryUI/js/jquery-ui-1.10.3.custom.min.js"></script>
@@ -12,8 +12,10 @@
     <script type="text/javascript" src="~/Scripts/knockout-2.3.0.js"></script>
     <script type="text/javascript" src="~/Scripts/knockout.mapping-latest.js"></script>
     <script type="text/javascript" src="~/Scripts/moment.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/Styles/styles.css">
     <link rel="stylesheet" type="text/css" href="~/Scripts/JQueryUI/css/redmond/jquery-ui-1.10.3.custom.min.css">
+    <link rel="stylesheet" href="~/Styles/bootstrap.min.css" media="screen">
 
     <script type="text/javascript">
         window.movieService = {
@@ -33,21 +35,21 @@
     <title>@ViewBag.Title</title>
 </head>
     <body>
+        <div style="float: right;">
         @if (User.Identity.IsAuthenticated)
         {
-            <div style="float: right;">@Html.ActionLink("Log out", "Logoff", "Account")</div>
+            @Html.ActionLink("Log out", "Logoff", "Account")
         }
         else
         {
-            <div style="float: right;">
-                @using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl }))
-                {
+            using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
                 <text>Please login with</text>
                 <button id="btnLogin">Google</button>
-                }
-            </div>
+            }
         }
-        <div>
+            </div>
+        <div class="container">
             @RenderSection("MainContent")
         </div>
     </body>

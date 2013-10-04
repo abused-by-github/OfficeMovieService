@@ -117,6 +117,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Core.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
@@ -143,6 +144,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MovieList.js" />
     <Content Include="Scripts\PollInfo.js" />
+    <Content Include="Styles\bootstrap.min.css" />
     <Content Include="Styles\styles.css" />
     <Content Include="Scripts\PollAdd.js" />
     <Content Include="Web.config">
