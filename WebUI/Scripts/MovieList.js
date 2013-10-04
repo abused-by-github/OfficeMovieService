@@ -1,11 +1,12 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
+    var xKo = window.movieService.core.ko;
 
     var viewModel = {
         movies: ko.observableArray(),
         currentPage: 0,
         isPageLoading: false,
-        isActivePoll: ko.observable(false),
+        poll: ko.observable(),
         dialog: $("#saveDialog"),
         currentMovie: ko.observable({Name: "", Url: ""}),
         
@@ -92,13 +93,17 @@
                 field.hide();
             }
         },
-        
+
         loadPoll: function() {
             api.call('poll', 'GetCurrent', null, this.pollLoaded);
         },
-        
+
         pollLoaded: function (r) {
-            viewModel.isActivePoll(!!r.Data);
+            if (r.Data) {
+                r.Data.ViewDate = xKo.observableDate(new Date(r.Data.ViewDate));
+            }
+
+            viewModel.poll(r.Data);
         },
 
         vote: function () {

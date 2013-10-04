@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Svitla.MovieService.Core.Entities
 {
@@ -24,19 +25,21 @@ namespace Svitla.MovieService.Core.Entities
 
         public User Owner { get; set; }
 
-        public bool HasViewed
-        {
-            get
-            {
-                return ViewDate < DateTime.Now;
-            }
-        }
+        public virtual ICollection<Vote> Votes { get; set; }
 
         public bool IsVoteable
         {
             get
             {
                 return ExpirationDate > DateTime.Now;
+            }
+        }
+
+        public Movie Winner
+        {
+            get
+            {
+                return IsVoteable ? null : Votes.GroupBy(v => v.Movie).OrderBy(g => g.Count()).First().Key;
             }
         }
 
