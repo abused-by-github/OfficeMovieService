@@ -24,18 +24,22 @@ namespace Svitla.MovieService.WebApi.Controllers
         {
             var currentUser = userFacade.GetByEmail(User.Identity.Name);
             var poll = pollFacade.GetCurrent();
-            var dto = new
+            object dto = null;
+            if (poll != null)
             {
-                poll.CreatedDate,
-                poll.ExpirationDate,
-                poll.Id,
-                poll.IsVoteable,
-                poll.Name,
-                poll.ViewDate,
-                poll.Winner,
-                IsMine = poll.Owner == currentUser
-            };
-            return Response<object>(dto);
+                dto = new
+                {
+                    poll.CreatedDate,
+                    poll.ExpirationDate,
+                    poll.Id,
+                    poll.IsVoteable,
+                    poll.Name,
+                    poll.ViewDate,
+                    poll.Winner,
+                    IsMine = poll.Owner == currentUser
+                };
+            }
+            return Response(dto);
         }
 
         public EmptyResponseObject Save(Poll poll)

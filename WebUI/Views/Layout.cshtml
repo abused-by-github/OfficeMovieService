@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@{ ViewBag.BaseUrl = ViewContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + ViewContext.HttpContext.Request.ApplicationPath; }
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -14,7 +16,7 @@
     <script type="text/javascript">
         window.movieService = {
             environment: {
-                baseUrl: '@(ViewContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + ViewContext.HttpContext.Request.ApplicationPath)'
+                baseUrl: '@ViewBag.BaseUrl'
             },
             current: {
                 action: '@ViewContext.Controller.ValueProvider.GetValue("action").RawValue'

@@ -23,7 +23,7 @@ namespace Svitla.MovieService.Core.Entities
         /// </summary>
         public DateTimeOffset ViewDate { get; set; }
 
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
 
         public virtual ICollection<Vote> Votes { get; set; }
 
@@ -39,7 +39,7 @@ namespace Svitla.MovieService.Core.Entities
         {
             get
             {
-                return IsVoteable ? null : Votes.GroupBy(v => v.Movie).OrderBy(g => g.Count()).First().Key;
+                return IsVoteable || Votes == null || Votes.Count == 0 ? null : Votes.GroupBy(v => v.Movie).OrderBy(g => g.Count()).First().Key;
             }
         }
 

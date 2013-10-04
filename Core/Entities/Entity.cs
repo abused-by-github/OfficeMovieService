@@ -24,7 +24,8 @@ namespace Svitla.MovieService.Core.Entities
             bool result = false;
             if (!ReferenceEquals(null, other))
             {
-                result = GetType() == other.GetType() && Id > 0 && Id == other.Id;
+                //TODO: entities must be of the same type, but can't check type directly because of dynamic proxies.
+                result = Id > 0 && Id == other.Id;
             }
             return result;
         }
