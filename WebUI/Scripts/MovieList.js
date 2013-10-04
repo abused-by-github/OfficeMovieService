@@ -101,6 +101,7 @@
         pollLoaded: function (r) {
             if (r.Data) {
                 r.Data.ViewDate = xKo.observableDate(new Date(r.Data.ViewDate));
+                r.Data.ExpirationDate = xKo.observableDate(new Date(r.Data.ExpirationDate));
             }
 
             viewModel.poll(r.Data);
