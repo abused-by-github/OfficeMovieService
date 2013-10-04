@@ -13,6 +13,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         private readonly IUserFacade userFacade;
         private readonly IPollFacade pollFacade;
 
+        public MovieController(IMovieFacade movieFacade, IUserFacade userFacade, IPollFacade pollFacade)
         {
             this.movieFacade = movieFacade;
             this.userFacade = userFacade;
