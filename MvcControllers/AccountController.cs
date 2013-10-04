@@ -21,11 +21,11 @@ namespace Svitla.MovieService.MvcControllers
             this.userFacade = userFacade;
         }
 
-        [HttpGet]
-        public ActionResult Login()
-        {
-            return View();
-        }
+        //[HttpGet]
+        //public ActionResult Login()
+        //{
+        //    return View();
+        //}
 
         [HttpPost]
         public ActionResult LoginGoogle()
@@ -64,7 +64,7 @@ namespace Svitla.MovieService.MvcControllers
                         var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];
                         SaveUser(fetches);
                         FormsAuthentication.SetAuthCookie(email, false);
-                        return RedirectToAction("List", "Movie");
+                        return RedirectToLandingAction();
                         break;
 
                     case AuthenticationStatus.Canceled:
@@ -77,7 +77,7 @@ namespace Svitla.MovieService.MvcControllers
                 }
 
             }
-            return RedirectToAction("Login");
+            return RedirectToLandingAction();
         }
 
         public void SaveUser(FetchResponse data)
@@ -96,13 +96,18 @@ namespace Svitla.MovieService.MvcControllers
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
-            return RedirectToAction("Login");
+            return RedirectToLandingAction();
         }
         
         [Authorize]
         public ActionResult UserProfile()
         {
             return View();
+        }
+
+        private RedirectToRouteResult RedirectToLandingAction()
+        {
+            return RedirectToAction("List", "Movie");
         }
 
     }

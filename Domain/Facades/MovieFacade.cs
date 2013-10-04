@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
@@ -21,6 +23,17 @@ namespace Svitla.MovieService.Domain.Facades
 
         public void SaveMovie(Movie movie)
         {
+            movie.Validate();
+            var existedMovie = movies[movie.Id];
+            if (existedMovie == null || existedMovie.User == null)
+            {
+                movie.User = DomainContext.CurrentUser;
+            }
+            else if (existedMovie.User.Name != DomainContext.CurrentUser.Name)
+            {
+                throw new AuthenticationException("Authentication error");
+            }
+
             movies[movie.Id] = movie;
             UnitOfWork.Commit();
         }
@@ -56,6 +69,8 @@ namespace Svitla.MovieService.Domain.Facades
             var movie = movies[id];
             if (movie != null)
             {
+                if (movie.User.Id != DomainContext.CurrentUser.Id)
+                    throw new AuthenticationException("You can delete only own movies");
                 movies.Remove(movie);
                 UnitOfWork.Commit();
             }
