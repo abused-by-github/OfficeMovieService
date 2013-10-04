@@ -36,10 +36,15 @@ namespace Svitla.MovieService.Core.Entities
             }
         }
 
+        private Movie winner;
         public Movie Winner
         {
             get
             {
+                if (winner != null)
+                {
+                    return winner;
+                }
                 return IsVoteable || Votes == null || Votes.Count == 0 ? null : Votes.GroupBy(v => v.Movie).OrderBy(g => g.Count()).First().Key;
             }
         }
@@ -66,7 +71,7 @@ namespace Svitla.MovieService.Core.Entities
                 throw new EntityInvalidException("Expiration date and view date must be in the furture.");
             }
 
-            if (ExpirationDate < ViewDate)
+            if (ExpirationDate > ViewDate)
             {
                 throw new EntityInvalidException("Expiration date must be before view date");
             }

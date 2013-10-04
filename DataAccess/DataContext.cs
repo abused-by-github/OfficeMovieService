@@ -42,7 +42,7 @@ namespace Svitla.MovieService.DataAccess
 
             modelBuilder.Entity<Vote>()
                 .HasRequired(v => v.Poll)
-                .WithMany()
+                .WithMany(p => p.Votes)
                 .HasForeignKey(v => v.PollId);
         }
 

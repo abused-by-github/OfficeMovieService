@@ -37,7 +37,11 @@ namespace Svitla.MovieService.WebApi.Controllers
                     poll.IsVoteable,
                     poll.Name,
                     poll.ViewDate,
-                    poll.Winner,
+                    Winner = new
+                    {
+                        poll.Winner.Id,
+                        poll.Winner.Name
+                    },
                     IsMine = poll.Owner == currentUser
                 };
             }

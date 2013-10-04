@@ -5,9 +5,10 @@
     $('[data-format=date]').datetimepicker({
         onSelect: function () {
             $(this).change();
-        }
+        },
+        minDate: 0,
+        dateFormat: 'dd.mm.yy'
     });
-    $('[data-format=date]').datetimepicker('option', 'dateFormat', 'dd.mm.yy');
 
     var viewModel = {
         Id: ko.observable(0),
