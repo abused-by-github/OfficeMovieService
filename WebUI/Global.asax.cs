@@ -18,7 +18,7 @@ namespace Svitla.MovieService.WebUI
             AreaRegistration.RegisterAllAreas();
 
             movieServiceApplication = new MovieServiceApplicationContainer();
-            GlobalConfiguration.Configuration.DependencyResolver = movieServiceApplication.DependencyResolver;
+            GlobalConfiguration.Configuration.DependencyResolver = movieServiceApplication.WebApiDependencyResolver;
             DependencyResolver.SetResolver(movieServiceApplication.MvcDependencyResolver);
 
             WebApiConfig.Register(GlobalConfiguration.Configuration);
