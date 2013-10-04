@@ -4,22 +4,28 @@
 
     var pollInfo = {
         load: function () {
-            api.call('poll', 'getcurrent', {}, this.fetchMoreMoviesSuccess);
+            api.call('poll', 'GetPollMovies', {}, this.OnSuccess);
         },
 
-        fetchMoreMoviesSuccess: function(r) {
+        OnSuccess: function(r) {
             if (r.Status) {
-                viewModel = ko.mapping.fromJS(r.Data);
-                viewModel.showVoters = pollInfo.showVoters;
-                viewModel.CurrentVoters = ko.observable({Voters: ko.observableArray()});
-                ko.applyBindings(viewModel, document.getElementById("mainView"));
-                ko.applyBindings(viewModel.CurrentVoters, document.getElementById("voters"));
-                $(window).scrollTop($(document).height());
+                if (r.Data) {
+                    viewModel = ko.mapping.fromJS(r.Data);
+                    viewModel.showVoters = pollInfo.showVoters;
+                    viewModel.CurrentVoters = ko.observableArray();
+                    ko.applyBindings(viewModel);
+                    $("#noPoll").hide();
+                    $("#mainView").show();
+                    $(window).scrollTop($(document).height());
+                } else {
+                    $("#mainView").hide();
+                    $("#noPoll").show();
+                }
             }
         },
         
         showVoters: function () {
-            viewModel.CurrentVoters(this);
+            viewModel.CurrentVoters(this.Voters());
         }
     };
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
@@ -42,6 +43,12 @@ namespace Svitla.MovieService.Domain.Facades
                 })
                 .OrderBy(m => m.Movie.Id)
                 , paging);
+        }
+        
+        public List<Movie> FindMoviesForPoll(long pollId)
+        {
+            return movies.Many(q => q.Where(m => m.Votes.Any(v => v.PollId == pollId))).
+                OrderByDescending(m => m.Votes.Count(v => v.PollId == pollId)).ToList();
         }
 
         public void DeleteMovie(long id)

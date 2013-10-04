@@ -21,3 +21,7 @@
 .pollData {
     font-weight: bold;
 }
+
+.displayNone {
+    display: none;
+}

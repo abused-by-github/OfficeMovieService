@@ -1,4 +1,5 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using System.Collections.Generic;
+using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi.DataObjects;
 
@@ -10,5 +11,6 @@ namespace Svitla.MovieService.DomainApi
         void DeleteMovie(long id);
         Movie LoadById(long id);
         Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll);
+        List<Movie> FindMoviesForPoll(long pollId);
     }
 }

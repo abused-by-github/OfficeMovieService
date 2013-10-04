@@ -11,30 +11,33 @@
 
 @section MainContent
 {
-    <div id="mainView">
+    <div id="mainView" class="displayNone">
         <div>
-            Poll <span class="pollData" data-bind="text: Name"></span> started by user <span class="pollData" data-bind="text: Owner.Name"></span>. Due date is <span class="pollData" data-bind="    text: ExpirationDate"></span>
+            Poll <span class="pollData" data-bind="text: Poll.Name"></span> started by user <span class="pollData" data-bind="text: Poll.OwnerName"></span>. Due date is <span class="pollData" data-bind="    text: Poll.ExpirationDate"></span>
         </div>
 
         <br/>
 
         <div id="scrollContainer">
-            <table data-bind="foreach: Candidates">
+            <table data-bind="foreach: Movies">
                 <tr>
-                    <td data-bind="text: Movie.Name"></td>
-                    <td data-bind="text: Movie.Url"></td>
+                    <td data-bind="text: Name"></td>
+                    <td data-bind="text: Url"></td>
                     <td><a href="#" data-bind="click: $parent.showVoters, text: Voters().length"></a></td>
                 </tr>
             </table>
         </div>
-    </div>
     
-    <div id="voters">
-        <table data-bind="foreach: Voters">
-            <tr>
-                <td data-bind="text: Name"></td>
-            </tr>
-        </table>
+        <div id="voters">
+            <table data-bind="foreach: CurrentVoters">
+                <tr>
+                    <td data-bind="text: $data"></td>
+                </tr>
+            </table>
+        </div>
     </div>
-    
+
+    <div id="noPoll" class="displayNone">
+        Sorry, but no poll is available now. You can start @Html.ActionLink("new poll", "Add", "Poll")
+    </div>
 }

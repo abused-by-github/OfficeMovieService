@@ -15,16 +15,14 @@
             <tr>
                 <td data-bind="text: Name"></td>
                 <td data-bind="text: Url"></td>
+                @if (User.Identity.IsAuthenticated)
+                {
                 <td><button id="buttonEdit" data-bind="click: $parent.edit">Edit</button></td>
                 <td><button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button></td>
                 <td data-bind="visible: $parent.isActivePoll">
                     <button data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">Vote!</button>
                     <button data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">Unvote!</button>
                 </td>
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <td><button id="buttonEdit" data-bind="click: $parent.edit">Edit</button></td>
-                    <td><button id="buttonDelete" data-bind="click: $parent.deleteMovie">Delete</button></td>
                 }
             </tr>
         </table>

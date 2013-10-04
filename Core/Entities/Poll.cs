@@ -22,7 +22,7 @@ namespace Svitla.MovieService.Core.Entities
         /// </summary>
         public DateTimeOffset ViewDate { get; set; }
 
-        public User Owner { get; set; }
+        public virtual User Owner { get; set; }
 
         public bool HasViewed
         {

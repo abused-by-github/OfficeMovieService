@@ -1,4 +1,6 @@
-﻿using System.Web.Http;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.WebApi.Dto;
@@ -45,6 +47,34 @@ namespace Svitla.MovieService.WebApi.Controllers
         {
             Vote(id.Id, false);
             return Response();
+        }
+        
+        [HttpPost]
+        public ResponseObject<object> GetPollMovies()
+        {
+            object result = null;
+            var poll = pollFacade.GetCurrent();
+            if (poll != null)
+            {   
+                var movies = movieFacade.FindMoviesForPoll(poll.Id);
+                result = new
+                {
+                    Poll = new {
+                        poll.Id,
+                        poll.Name,
+                        OwnerName = poll.Owner.Name,
+                        poll.ExpirationDate
+                    },
+                    Movies = movies.Select(m => new
+                    {
+                        m.Id,
+                        m.Name,
+                        m.Url,
+                        Voters = m.Votes.Where(v => v.PollId == poll.Id).Select(v => v.User.Name)
+                    }).ToList()
+                };
+            }
+            return Response(result);
         }
 
         private void Vote(long movieId, bool isSelected)
