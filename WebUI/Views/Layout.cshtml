@@ -35,22 +35,46 @@
     <title>@ViewBag.Title</title>
 </head>
     <body>
-        <div style="float: right;">
-        @if (User.Identity.IsAuthenticated)
-        {
-            @Html.ActionLink("Log out", "Logoff", "Account")
-        }
-        else
-        {
-            using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { ReturnUrl = ViewBag.ReturnUrl }))
-            {
-                <text>Please login with</text>
-                <button id="btnLogin">Google</button>
-            }
-        }
+        
+        <nav class="navbar navbar-default" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Movie voter</a>
             </div>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { id = "loginForm", @class = "navbar-form navbar-right", ReturnUrl = ViewBag.ReturnUrl }))
+                {
+                    <a id="login" href="#"><img src="~/Content/White-signin_Long_base_20dp.png"/></a>
+                }
+            }
+            else
+            {
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            @Html.ActionLink(User.Identity.Name, "Logoff", "Account")
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            }
+        </nav>
+
         <div class="container">
             @RenderSection("MainContent")
+            <script>
+                $("#login").on("click", function () {
+                    $("#loginForm").submit();
+                })
+            </script>
         </div>
     </body>
 </html>

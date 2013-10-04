@@ -116,6 +116,9 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Content Include="Content\White-signin_Long_base_20dp.png" />
+    <Content Include="Content\White-signin_Long_hover_20dp.png" />
+    <Content Include="Content\White-signin_Long_press_20dp.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Core.js" />
