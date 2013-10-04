@@ -37,6 +37,7 @@
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\PollController.cs" />
     <Compile Include="Dto\EmptyResponseObject.cs" />
+    <Compile Include="Dto\Id.cs" />
     <Compile Include="Dto\ResponseObject.cs" />
   </ItemGroup>
   <ItemGroup>

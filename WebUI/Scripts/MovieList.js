@@ -5,6 +5,7 @@
         movies: ko.observableArray(),
         currentPage: 0,
         isPageLoading: false,
+        isActivePoll: ko.observable(false),
         dialog: $("#saveDialog"),
         currentMovie: ko.observable({Name: "", Url: ""}),
         
@@ -52,6 +53,8 @@
 
         fetchMoreMoviesSuccess: function (r) {
             $.each(r.Data.Items, function (i, e) {
+                e.IsVoting = ko.observable(false);
+                e.IsVoted = ko.observable(e.IsVoted);
                 viewModel.movies.push(e);
             });
             $(window).scrollTop($(document).height());
@@ -88,11 +91,38 @@
             } else {
                 field.hide();
             }
+        },
+        
+        loadPoll: function() {
+            api.call('poll', 'GetCurrent', null, this.pollLoaded);
+        },
+        
+        pollLoaded: function (r) {
+            viewModel.isActivePoll(!!r.Data);
+        },
+
+        vote: function () {
+            var movie = this;
+            movie.IsVoting(true);
+            api.call('poll', 'vote', { id: this.Id }, function () {
+                movie.IsVoting(false);
+                movie.IsVoted(true);
+            });
+        },
+
+        unvote: function () {
+            var movie = this;
+            movie.IsVoting(true);
+            api.call('poll', 'unvote', { id: this.Id }, function () {
+                movie.IsVoting(false);
+                movie.IsVoted(false);
+            });
         }
     };
 
     ko.applyBindings(viewModel);
 
+    viewModel.loadPoll();
     viewModel.loadMore();
 
 });

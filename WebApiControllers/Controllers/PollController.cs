@@ -10,11 +10,13 @@ namespace Svitla.MovieService.WebApi.Controllers
     {
         private readonly IPollFacade pollFacade;
         private readonly IUserFacade userFacade;
+        private readonly IMovieFacade movieFacade;
 
-        public PollController(IPollFacade pollFacade, IUserFacade userFacade)
+        public PollController(IPollFacade pollFacade, IUserFacade userFacade, IMovieFacade movieFacade)
         {
             this.pollFacade = pollFacade;
             this.userFacade = userFacade;
+            this.movieFacade = movieFacade;
         }
 
         [HttpPost]
@@ -29,6 +31,27 @@ namespace Svitla.MovieService.WebApi.Controllers
             poll.Owner = currentUser;
             pollFacade.Save(poll);
             return Response();
+        }
+
+        [HttpPost]
+        public EmptyResponseObject Vote(EntityId id)
+        {
+            Vote(id.Id, true);
+            return Response();
+        }
+
+        [HttpPost]
+        public EmptyResponseObject Unvote(EntityId id)
+        {
+            Vote(id.Id, false);
+            return Response();
+        }
+
+        private void Vote(long movieId, bool isSelected)
+        {
+            var currentUser = userFacade.GetByEmail(User.Identity.Name);
+            var movie = movieFacade.LoadById(movieId);
+            pollFacade.Vote(currentUser, movie, isSelected);
         }
     }
 }

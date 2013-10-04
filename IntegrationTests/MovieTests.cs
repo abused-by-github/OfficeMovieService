@@ -1,14 +1,7 @@
 ﻿using System;
 using System.Configuration;
-using System.Data.Entity;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Svitla.MovieService.Container;
-using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.WebApi.Controllers;
+using Svitla.MovieService.DataAccess;
 
 namespace Svitla.MovieService.Tests.IntegrationTests
 {
@@ -16,47 +9,30 @@ namespace Svitla.MovieService.Tests.IntegrationTests
     public class MovieTests
     {
         [TestMethod]
-        public void ListMovies()
-        {
-            Console.WriteLine(Directory.GetCurrentDirectory());
-            var container = new MovieServiceApplicationContainer();
-            var movieController = (MovieController) container.DependencyResolver.GetService(typeof(MovieController));
-
-            var movies = movieController.List(new Paging(3, 1));
-            Assert.AreEqual(10, movies.Data.Total);
-            Assert.AreEqual(3, movies.Data.Items.Count());
-        }
-
-        [TestMethod]
         public void RecreateDBFromModel()
         {
-            var contextType = Type.GetType("Svitla.MovieService.DataAccess.DataContext, DataAccess");
-
             var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
-            using (var context =
-                    Activator.CreateInstance(contextType,
-                        BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, null,
-                        new[] { connectionString }, null) as DbContext)
+            using (var context =new DataContext(connectionString))
             {
                 context.Database.Delete();
                 context.Database.Initialize(true);
                 context.Database.ExecuteSqlCommand(@"insert into [user] (Name)
-values ('the.korwin@gmail.com')
+values ('the.korwin@gmail.com'), ('the.korwin1@gmail.com'), ('the.korwin2@gmail.com')
 
 insert into Movie(Name, Url, User_Id)
 values('1', '1', 1),
 ('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
-('1', '1', 1),
+('1', '1', 2),
+('1', '1', 3),
 ('1', '1', 1)");
             }
         }

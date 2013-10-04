@@ -5,11 +5,12 @@ using Svitla.MovieService.DomainApi;
 
 namespace Svitla.MovieService.Domain.Facades
 {
-    public class UserFacade : IUserFacade
+    public class UserFacade : BaseFacade, IUserFacade
     {
         private readonly IUserRepository users;
 
-        public UserFacade(IUserRepository userRepository)
+        public UserFacade(IUnitOfWork unitOfWork, IUserRepository userRepository)
+            : base(unitOfWork)
         {
             users = userRepository;
         }
@@ -27,7 +28,7 @@ namespace Svitla.MovieService.Domain.Facades
                 user.Id = existedUser.Id;
             }
             users[user.Id] = user;
-            users.Commit();
+            UnitOfWork.Commit();
         }
     }
 }

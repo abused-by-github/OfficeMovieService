@@ -1,10 +1,11 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.DataAccessApi;
 
 namespace Svitla.MovieService.DataAccess
 {
-    public class DataContext : DbContext
+    public class DataContext : DbContext, IUnitOfWork
     {
         public DbSet<User> Users { get; private set; }
         public DbSet<Movie> Movies { get; private set; }
@@ -24,8 +25,28 @@ namespace Svitla.MovieService.DataAccess
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Movie>();
-            modelBuilder.Entity<Poll>().HasRequired(p => p.Owner);
-            modelBuilder.Entity<PollCandidate>().HasMany(c => c.Voters).WithMany();
+            modelBuilder.Entity<Poll>().HasRequired(p => p.Owner).WithMany().WillCascadeOnDelete(false);
+            modelBuilder.Entity<Vote>().HasKey(v => new { v.MovieId, v.PollId, v.UserId });
+
+            modelBuilder.Entity<Vote>()
+                .HasRequired(v => v.Movie)
+                .WithMany(m => m.Votes)
+                .HasForeignKey(v => v.MovieId);
+
+            modelBuilder.Entity<Vote>()
+                .HasRequired(v => v.User)
+                .WithMany(u => u.Votes)
+                .HasForeignKey(v => v.UserId);
+
+            modelBuilder.Entity<Vote>()
+                .HasRequired(v => v.Poll)
+                .WithMany()
+                .HasForeignKey(v => v.PollId);
+        }
+
+        public void Commit()
+        {
+            SaveChanges();
         }
     }
 }

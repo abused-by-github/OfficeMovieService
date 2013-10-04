@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Linq;
+using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DomainApi;
@@ -10,17 +11,36 @@ namespace Svitla.MovieService.WebApi.Controllers
     {
         private readonly IMovieFacade movieFacade;
         private readonly IUserFacade userFacade;
+        private readonly IPollFacade pollFacade;
 
-        public MovieController(IMovieFacade movieFacade, IUserFacade userFacade)
+        public MovieController(IMovieFacade movieFacade, IUserFacade userFacade, IPollFacade pollFacade)
         {
             this.movieFacade = movieFacade;
             this.userFacade = userFacade;
+            this.pollFacade = pollFacade;
         }
 
         [HttpPost]
-        public ResponseObject<Page<Movie>> List(Paging paging)
+        public ResponseObject<object> List(Paging paging)
         {
-            return Response(movieFacade.FindMovies(paging));
+            var currentUser = userFacade.GetByEmail(User.Identity.Name);
+            var currentPoll = pollFacade.GetCurrent();
+            var movies = movieFacade.FindMovies(paging, currentUser, currentPoll);
+
+            var dto = new
+            {
+                Items = movies.Items.Select(m => new
+                {
+                    m.IsVoted,
+                    m.Movie.Name,
+                    m.Movie.Id,
+                    m.Movie.Url,
+                    m.UserName
+                }).ToList(),
+                movies.Total
+            };
+
+            return Response<object>(dto);
         }
 
         [HttpPost]

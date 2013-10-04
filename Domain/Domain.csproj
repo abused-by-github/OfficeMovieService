@@ -47,6 +47,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Facades\BaseFacade.cs" />
     <Compile Include="Facades\MovieFacade.cs" />
     <Compile Include="Facades\PollFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />

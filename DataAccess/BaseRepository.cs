@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using Svitla.MovieService.Core.Entities;
@@ -15,6 +14,14 @@ namespace Svitla.MovieService.DataAccess
         internal readonly DataContext Context;
 
         protected abstract DbSet<TEntity> Set { get; }
+
+        protected virtual IQueryable<TEntity> Queryable
+        {
+            get
+            {
+                return Set;
+            }
+        }
 
         protected BaseRepository(DataContext context)
         {
@@ -51,26 +58,21 @@ namespace Svitla.MovieService.DataAccess
 
         public TEntity One(Func<IQueryable<TEntity>, TEntity> query)
         {
-            return query(Set);
+            return query(Queryable);
         }
 
         public IEnumerable<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query)
         {
-            return query(Set);
+            return query(Queryable);
         }
 
-        public Page<TEntity> Page(Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> query, Paging paging)
+        public Page<TResult> Page<TResult>(Func<IQueryable<TEntity>, IOrderedQueryable<TResult>> query, Paging paging)
         {
-            var queryable = query(Set);
-            var page = new Page<TEntity>();
+            var queryable = query(Queryable);
+            var page = new Page<TResult>();
             page.Items = queryable.Skip(paging.PageSize * (paging.PageNumber - 1 )).Take(paging.PageSize).ToList();
             page.Total = queryable.Count();
             return page;
-        }
-
-        public void Commit()
-        {
-            Context.SaveChanges();
         }
     }
 }

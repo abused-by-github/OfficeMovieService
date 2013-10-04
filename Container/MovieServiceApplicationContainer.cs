@@ -52,7 +52,10 @@ namespace Svitla.MovieService.Container
 
         private static void registerDataAccess(ContainerBuilder builder)
         {
-            builder.Register(c => new DataContext(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString)).InstancePerApiRequest();
+            builder.Register(c => new DataContext(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
+                .As<IUnitOfWork>()
+                .As<DataContext>()
+                .InstancePerApiRequest();
 
             builder.RegisterType<MovieRepository>().As<IMovieRepository>();
             builder.RegisterType<PollRepository>().As<IPollRepository>();

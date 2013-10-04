@@ -1,16 +1,19 @@
 ﻿using System.Linq;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.DomainApi.DataObjects;
 
 namespace Svitla.MovieService.Domain.Facades
 {
-    public class MovieFacade : IMovieFacade
+    public class MovieFacade : BaseFacade, IMovieFacade
     {
         private readonly IMovieRepository movies;
 
-        public MovieFacade(IMovieRepository movies)
+        public MovieFacade(IUnitOfWork unitOfWork, IMovieRepository movies)
+            : base(unitOfWork)
         {
             this.movies = movies;
         }
@@ -18,7 +21,7 @@ namespace Svitla.MovieService.Domain.Facades
         public void SaveMovie(Movie movie)
         {
             movies[movie.Id] = movie;
-            movies.Commit();
+            UnitOfWork.Commit();
         }
 
         public Movie LoadById(long id)
@@ -26,9 +29,19 @@ namespace Svitla.MovieService.Domain.Facades
             return movies.One(q => q.FirstOrDefault(m => m.Id == id));
         }
 
-        public Page<Movie> FindMovies(Paging paging)
+        public Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll)
         {
-            return movies.Page(q => q.OrderBy(m => m.Id), paging);
+            var userId = user.Get(u => u.Id);
+            var pollId = poll.Get(p => p.Id);
+            return movies.Page(q => q
+                .Select(m => new VoteableMovie
+                {
+                    Movie = m,
+                    IsVoted = m.Votes.Any(v => v.UserId == userId && v.PollId == pollId),
+                    UserName = m.User.Name
+                })
+                .OrderBy(m => m.Movie.Id)
+                , paging);
         }
 
         public void DeleteMovie(long id)
@@ -37,7 +50,7 @@ namespace Svitla.MovieService.Domain.Facades
             if (movie != null)
             {
                 movies.Remove(movie);
-                movies.Commit();
+                UnitOfWork.Commit();
             }
         }
     }
