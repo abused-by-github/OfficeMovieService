@@ -7,7 +7,6 @@ using Svitla.MovieService.WebApi.Dto;
 
 namespace Svitla.MovieService.WebApi.Controllers
 {
-    [Authorize]
     public class PollController : BaseApiController
     {
         private readonly IPollFacade pollFacade;
@@ -48,6 +47,7 @@ namespace Svitla.MovieService.WebApi.Controllers
             return Response(dto);
         }
 
+        [Authorize]
         public EmptyResponseObject Save(Poll poll)
         {
             pollFacade.Save(poll);
@@ -55,6 +55,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public EmptyResponseObject Vote(EntityId id)
         {
             Vote(id.Id, true);
@@ -62,6 +63,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public EmptyResponseObject Unvote(EntityId id)
         {
             Vote(id.Id, false);
@@ -69,6 +71,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
         
         [HttpPost]
+        [Authorize]
         public ResponseObject<object> GetPollMovies()
         {
             object result = null;

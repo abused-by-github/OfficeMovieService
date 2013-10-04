@@ -23,9 +23,7 @@ namespace Svitla.MovieService.Domain.Facades
 
         public void SaveMovie(Movie movie)
         {
-            if (movie == null || string.IsNullOrEmpty(movie.Name))
-                throw new ArgumentException("Name is required field");
-
+            movie.Validate();
             var existedMovie = movies[movie.Id];
             if (existedMovie == null || existedMovie.User == null)
             {

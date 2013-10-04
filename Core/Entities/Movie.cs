@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Svitla.MovieService.Core.Entities
 {
@@ -9,5 +10,11 @@ namespace Svitla.MovieService.Core.Entities
 
         public virtual User User { get; set; }
         public virtual ICollection<Vote> Votes { get; set; }
+
+        public void Validate()
+        {
+            if (string.IsNullOrEmpty(Name))
+                throw new ArgumentException("Name is required field");
+        }
     }
 }
