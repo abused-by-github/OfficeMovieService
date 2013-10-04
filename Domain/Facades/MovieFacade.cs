@@ -13,8 +13,8 @@ namespace Svitla.MovieService.Domain.Facades
     {
         private readonly IMovieRepository movies;
 
-        public MovieFacade(IUnitOfWork unitOfWork, IMovieRepository movies)
-            : base(unitOfWork)
+        public MovieFacade(IDomainContext domainContext, IUnitOfWork unitOfWork, IMovieRepository movies)
+            : base(unitOfWork, domainContext)
         {
             this.movies = movies;
         }

@@ -9,8 +9,8 @@ namespace Svitla.MovieService.Domain.Facades
     {
         private readonly IUserRepository users;
 
-        public UserFacade(IUnitOfWork unitOfWork, IUserRepository userRepository)
-            : base(unitOfWork)
+        public UserFacade(IDomainContext domainContext, IUnitOfWork unitOfWork, IUserRepository userRepository)
+            : base(unitOfWork, domainContext)
         {
             users = userRepository;
         }

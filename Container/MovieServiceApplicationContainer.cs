@@ -1,10 +1,15 @@
 ﻿using System.Configuration;
+using System.Linq;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Http.Dependencies;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.DataAccess;
 using Svitla.MovieService.DataAccessApi;
+using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.Domain.Facades;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.WebApi.Controllers;
@@ -70,12 +75,27 @@ namespace Svitla.MovieService.Container
                 .As<IPollFacade>();
             builder.RegisterType<UserFacade>()
                 .As<IUserFacade>();
+
+            builder.Register(resolveDomainContext).As<IDomainContext>();
         }
 
         private static void registerWebApi(ContainerBuilder builder)
         {
             builder.RegisterType<MovieController>();
             builder.RegisterType<PollController>();
+        }
+
+        private static IDomainContext resolveDomainContext(IComponentContext context)
+        {
+            DomainContext result = new DomainContext();
+            var email = HttpContext.Current.Get(c => c.User).Get(u => u.Identity).Get(i => i.Name);
+            if (!string.IsNullOrEmpty(email))
+            {
+                var repo = context.Resolve<IUserRepository>();
+                var user = repo.One(q => q.FirstOrDefault(u => u.Name == email));
+                result.CurrentUser = user;
+            }
+            return result;
         }
     }
 }

@@ -46,8 +46,6 @@ namespace Svitla.MovieService.WebApi.Controllers
 
         public EmptyResponseObject Save(Poll poll)
         {
-            var currentUser = userFacade.GetByEmail(User.Identity.Name);
-            poll.Owner = currentUser;
             pollFacade.Save(poll);
             return Response();
         }

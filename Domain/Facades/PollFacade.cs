@@ -11,8 +11,8 @@ namespace Svitla.MovieService.Domain.Facades
     {
         private readonly IPollRepository polls;
 
-        public PollFacade(IUnitOfWork unitOfWork, IPollRepository pollRepository)
-            : base(unitOfWork)
+        public PollFacade(IDomainContext domainContext, IUnitOfWork unitOfWork, IPollRepository pollRepository)
+            : base(unitOfWork, domainContext)
         {
             polls = pollRepository;
         }
@@ -25,10 +25,19 @@ namespace Svitla.MovieService.Domain.Facades
         public void Save(Poll poll)
         {
             var currentPoll = GetCurrent();
-            if (currentPoll != null && currentPoll != poll)
+            if (currentPoll != null)
             {
-                throw new SinglePollAllowedException();
+                if (currentPoll != poll)
+                {
+                    throw new SinglePollAllowedException();
+                }
+                if (currentPoll.Owner != DomainContext.CurrentUser)
+                {
+                    throw new AccessDeniedException();
+                }
             }
+
+            poll.Owner = DomainContext.CurrentUser;
 
             polls[poll.Id] = poll;
 
