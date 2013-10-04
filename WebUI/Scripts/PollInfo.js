@@ -1,26 +1,29 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
+    var viewModel;
 
-    var viewModel = {
-        movies: ko.observableArray(),
-        Owner: {Name: "Bruce Wayne"},
-        ExpirationDate: "04/10/2013 12:00",
-
+    var pollInfo = {
         load: function () {
-            this.movies.removeAll();
             api.call('poll', 'getcurrent', {}, this.fetchMoreMoviesSuccess);
         },
 
-        fetchMoreMoviesSuccess: function (r) {
-            //$.each(r.Data.Items, function (i, e) {
-            //    viewModel.movies.push(e);
-            //});
-            $(window).scrollTop($(document).height());
+        fetchMoreMoviesSuccess: function(r) {
+            if (r.Status) {
+                viewModel = ko.mapping.fromJS(r.Data);
+                viewModel.showVoters = pollInfo.showVoters;
+                viewModel.CurrentVoters = ko.observable({Voters: ko.observableArray()});
+                ko.applyBindings(viewModel, document.getElementById("mainView"));
+                ko.applyBindings(viewModel.CurrentVoters, document.getElementById("voters"));
+                $(window).scrollTop($(document).height());
+            }
+        },
+        
+        showVoters: function () {
+            viewModel.CurrentVoters(this);
         }
     };
 
-    ko.applyBindings(viewModel);
 
-    viewModel.load();
+    pollInfo.load();
 
 });

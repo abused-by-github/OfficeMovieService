@@ -11,18 +11,28 @@
 
 @section MainContent
 {
-    <div>
-        Poll started by user <span data-bind="text: Owner.Name"></span>. Due date is <span data-bind="text: ExpirationDate"></span>
+    <div id="mainView">
+        <div>
+            Poll <span class="pollData" data-bind="text: Name"></span> started by user <span class="pollData" data-bind="text: Owner.Name"></span>. Due date is <span class="pollData" data-bind="    text: ExpirationDate"></span>
+        </div>
+
+        <br/>
+
+        <div id="scrollContainer">
+            <table data-bind="foreach: Candidates">
+                <tr>
+                    <td data-bind="text: Movie.Name"></td>
+                    <td data-bind="text: Movie.Url"></td>
+                    <td><a href="#" data-bind="click: $parent.showVoters, text: Voters().length"></a></td>
+                </tr>
+            </table>
+        </div>
     </div>
-
-    <br/>
-
-    <div id="scrollContainer">
-        <table data-bind="foreach: movies">
+    
+    <div id="voters">
+        <table data-bind="foreach: Voters">
             <tr>
                 <td data-bind="text: Name"></td>
-                <td data-bind="text: Url"></td>
-                <td data-bind="text: Votes"></td>
             </tr>
         </table>
     </div>

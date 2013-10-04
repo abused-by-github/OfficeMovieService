@@ -138,6 +138,7 @@
     <Content Include="Scripts\JQueryUI\css\redmond\jquery-ui-1.10.3.custom.min.css" />
     <Content Include="Scripts\JQueryUI\js\jquery-ui-1.10.3.custom.min.js" />
     <Content Include="Scripts\knockout-2.3.0.js" />
+    <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MovieList.js" />
     <Content Include="Scripts\PollInfo.js" />

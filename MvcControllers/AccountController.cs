@@ -64,7 +64,7 @@ namespace Svitla.MovieService.MvcControllers
                         var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];
                         SaveUser(fetches);
                         FormsAuthentication.SetAuthCookie(email, false);
-                        return RedirectToAction("UserProfile");
+                        return RedirectToAction("List", "Movie");
                         break;
 
                     case AuthenticationStatus.Canceled:
