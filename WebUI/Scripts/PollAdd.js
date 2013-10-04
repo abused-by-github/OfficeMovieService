@@ -2,12 +2,12 @@
     var api = window.movieService.core.api;
     var xKo = window.movieService.core.ko;
 
-    $('[data-format=date]').datepicker({
+    $('[data-format=date]').datetimepicker({
         onSelect: function () {
             $(this).change();
         }
     });
-    $('[data-format=date]').datepicker('option', 'dateFormat', 'dd.mm.yy');
+    $('[data-format=date]').datetimepicker('option', 'dateFormat', 'dd.mm.yy');
 
     var viewModel = {
         Id: ko.observable(0),

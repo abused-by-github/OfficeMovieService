@@ -34,10 +34,10 @@
                 }),
                 ui: ko.computed({
                     read: function () {
-                        return moment(observable()).format('DD.MM.YYYY');
+                        return moment(observable()).format('DD.MM.YYYY hh:mm');
                     },
                     write: function (v) {
-                        observable(moment(v, 'DD.MM.YYYY').toDate());
+                        observable(moment(v, 'DD.MM.YYYY hh:mm').toDate());
                     }
                 })
             };
