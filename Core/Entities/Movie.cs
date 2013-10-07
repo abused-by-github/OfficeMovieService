@@ -1,13 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
+using Svitla.MovieService.Core.Exceptions;
 
 namespace Svitla.MovieService.Core.Entities
 {
     public class Movie : Entity, IModifiable
     {
         public string Name { get; set; }
-        public string Url { get; set; }
-        public string ImageUrl { get; set; }
+
+        private string url;
+        public string Url {
+            get
+            {
+                return url;
+            }
+            set
+            {
+                url = NormalizeUrl(value);
+            }
+        }
+
+        private string imageUrl;
+        public string ImageUrl
+        {
+            get
+            {
+                return imageUrl;
+            }
+            set
+            {
+                imageUrl = NormalizeUrl(value);
+            }
+        }
 
         public DateTimeOffset CreatedDate { get; set; }
         public DateTimeOffset ModifiedDate { get; set; }
@@ -24,7 +48,25 @@ namespace Svitla.MovieService.Core.Entities
         public void Validate()
         {
             if (string.IsNullOrEmpty(Name))
-                throw new ArgumentException("Name is required field");
+                throw new EntityInvalidException("Movie name is required.");
+            if (string.IsNullOrEmpty(Url))
+                throw new EntityInvalidException("Movie URL is required.");
+            if (!Validation.Url.IsValid(Url))
+                throw new EntityInvalidException("Movie URL is invalid.");
+            if (string.IsNullOrEmpty(ImageUrl))
+                throw new EntityInvalidException("Movie image URL is required.");
+            if (!Validation.Url.IsValid(ImageUrl))
+                throw new EntityInvalidException("Movie image URL is invalid.");
+        }
+
+
+        private static string NormalizeUrl(string url)
+        {
+            if (!string.IsNullOrEmpty(url) && !url.ToLower().Contains("://"))
+            {
+                url = "http://" + url;
+            }
+            return url;
         }
     }
 }

@@ -23,6 +23,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi", "WebApiControllers
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcControllers", "MvcControllers\MvcControllers.csproj", "{35FB5D0F-D41E-4C79-96E4-8164F725B0B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationTests", "ValidationTests\ValidationTests.csproj", "{796941A7-C22D-4B87-BA84-3C4B0DA978FF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,11 +71,16 @@ Global
 		{35FB5D0F-D41E-4C79-96E4-8164F725B0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35FB5D0F-D41E-4C79-96E4-8164F725B0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35FB5D0F-D41E-4C79-96E4-8164F725B0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F18A2806-171F-428B-ACAA-8903C1FFDE35} = {9EF2634E-F01F-4BAE-BBC0-552198D6D145}
+		{796941A7-C22D-4B87-BA84-3C4B0DA978FF} = {9EF2634E-F01F-4BAE-BBC0-552198D6D145}
 	EndGlobalSection
 EndGlobal

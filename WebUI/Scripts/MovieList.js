@@ -5,7 +5,7 @@
     var MovieViewModel = function (data) {
         $.extend(this, data);
         this.Name = ko.observable(data.Name).extend({ required: true });
-        this.Url = ko.observable(data.Url).extend({ required: true });
+        this.Url = ko.observable(data.Url).extend({ required: true, url: true });
         this.ImageUrl = ko.observable(data.ImageUrl).extend({ required: true });
 
         this.errors = ko.validation.group(this);
@@ -24,6 +24,7 @@
         this.Name(data.Name);
         this.Url(data.Url);
         this.ImageUrl(data.ImageUrl);
+        this.Id = data.Id;
         this.errors.showAllMessages(false);
     };
 
@@ -35,7 +36,8 @@
         return {
             Name: this.Name(),
             Url: this.Url(),
-            ImageUrl: this.ImageUrl()
+            ImageUrl: this.ImageUrl(),
+            Id: this.Id
         };
     };
 
@@ -47,7 +49,8 @@
         return {
             Name: '',
             Url: '',
-            ImageUrl: ''
+            ImageUrl: '',
+            Id: 0
         };
     };
 
