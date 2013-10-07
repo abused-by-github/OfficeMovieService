@@ -34,6 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\IModifiable.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Poll.cs" />
     <Compile Include="Entities\User.cs" />

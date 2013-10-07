@@ -43,6 +43,11 @@ namespace Svitla.MovieService.DataAccess
             get { return Set.Find(id); }
             set
             {
+                var modifiable = value as IModifiable;
+                if (modifiable != null)
+                {
+                    modifiable.ModifiedDate = DateTime.Now;
+                }
                 var entity = this[id];
                 if (entity == null)
                 {
