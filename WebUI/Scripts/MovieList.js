@@ -2,6 +2,51 @@
     var api = window.movieService.core.api;
     var xKo = window.movieService.core.ko;
 
+    var MovieViewModel = function (data) {
+        $.extend(this, data);
+        this.Name = ko.observable(data.Name).extend({ required: true });
+        this.Url = ko.observable(data.Url).extend({ required: true });
+        this.ImageUrl = ko.observable(data.ImageUrl).extend({ required: true });
+
+        this.errors = ko.validation.group(this);
+    };
+
+    MovieViewModel.prototype.validate = function () {
+        var result = true;
+        if (this.errors().length > 0) {
+            this.errors.showAllMessages();
+            result = false;
+        }
+        return result;
+    };
+
+    MovieViewModel.prototype.reset = function (data) {
+        this.Name(data.Name);
+        this.Url(data.Url);
+        this.ImageUrl(data.ImageUrl);
+        this.errors.showAllMessages(false);
+    };
+
+    MovieViewModel.prototype.getData = function () {
+        return {
+            Name: this.Name(),
+            Url: this.Url(),
+            ImageUrl: this.ImageUrl()
+        };
+    };
+
+    MovieViewModel.getDefault = function () {
+        return new MovieViewModel(this.getDefaultData());
+    };
+
+    MovieViewModel.getDefaultData = function() {
+        return {
+            Name: '',
+            Url: '',
+            ImageUrl: ''
+        };
+    };
+
     var viewModel = {
         movies: ko.observableArray(),
         currentPage: 0,
@@ -9,19 +54,16 @@
         poll: ko.observable(),
         dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
         loadMoreButton: $('#loadMoreButton'),
-        currentMovie: ko.observable({ Name: "", Url: "" }),
-        
+        currentMovie: ko.observable(MovieViewModel.getDefault()),
+
         cancelDialog: function () {
             this.dialog.dialog('close');
         },
-        
+
         save: function () {
             var self = this;
-            self.showValidation($("#lblNameError"), false);
-            self.showValidation($("#lblUrlError"), false);
 
-            if (!self.currentMovie().Name || self.currentMovie().Name.length == 0) {
-                self.showValidation($("#lblNameError"), true);
+            if (!this.currentMovie().validate()) {
                 return;
             }
 
@@ -68,7 +110,7 @@
         },
         
         edit: function() {
-            viewModel.currentMovie(this);
+            viewModel.currentMovie().reset(this);
             viewModel.dialog.dialog('open');
         },
 
@@ -81,9 +123,9 @@
                 }
             });
         },
-        
+
         openPopup: function () {
-            this.currentMovie({ Name: "", Url: "" });
+            this.currentMovie().reset(MovieViewModel.getDefaultData());
             viewModel.dialog.dialog('open');
         },
         
