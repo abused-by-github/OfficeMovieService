@@ -63,7 +63,7 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<UserFacade>()
                 .As<IUserFacade>();
 
-            builder.Register(resolveDomainContext).As<IDomainContext>();
+            builder.Register(resolveDomainContext);
         }
 
         private static void registerWebApi(ContainerBuilder builder)
@@ -72,7 +72,7 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<PollController>();
         }
 
-        private static IDomainContext resolveDomainContext(IComponentContext context)
+        private static DomainContext resolveDomainContext(IComponentContext context)
         {
             DomainContext result = new DomainContext();
             var email = HttpContext.Current.Get(c => c.User).Get(u => u.Identity).Get(i => i.Name);
