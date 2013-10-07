@@ -59,7 +59,6 @@ $.fn.twButton = $.fn.button.noConflict();
 
 ko.validation.configure({
     insertMessages: true,
-    decorateElement: true,
-    errorElementClass: 'error',
-    messagesOnModified: true
+    errorMessageClass: 'error',
+    decorateElements: true
 });
