@@ -13,13 +13,15 @@
                 if (r.Data) {
                     viewModel = ko.mapping.fromJS(r.Data);
                     viewModel.Poll.ExpirationDate = xKo.observableDate(new Date(r.Data.Poll.ExpirationDate));
-                    ko.applyBindings(viewModel);
-                    $("#noPoll").hide();
-                    $("#mainView").show();
-                    $(window).scrollTop($(document).height());
+                    ko.applyBindings(viewModel, document.getElementById("votesContainer"));
+                    $("#votesContainer").show();
+                    //$("#noPoll").hide();
+                    //$("#mainView").show();
+                    //$(window).scrollTop($(document).height());
                 } else {
-                    $("#mainView").hide();
-                    $("#noPoll").show();
+                    $("#votesContainer").hide();
+                    //$("#mainView").hide();
+                    //$("#noPoll").show();
                 }
             }
         }

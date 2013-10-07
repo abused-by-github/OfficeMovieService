@@ -6,12 +6,13 @@
 @section Scripts
 {
     <script type="text/javascript" src="~/Scripts/MovieList.js"></script>
+    <script type="text/javascript" src="~/Scripts/PollInfo.js"></script>
 }
 
 @section MainContent
 {
-    <div id="scrollContainer">
-        <div class="well well-lg">
+    <div>
+        <div id="scrollContainerPoll" class="well well-lg">
             <span data-bind="visible: poll() && poll().IsVoteable">
                 Poll
                 <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
@@ -42,8 +43,8 @@
                 <button data-bind="click: openPopup" class="btn btn-success pull-right">Add Movie</button>
             }
         </div>
-        <div class="row" data-bind="foreach: movies">
-            <div class="col-md-3 movie">
+        <div id="scrollContainer" class="row col-md-9" data-bind="foreach: movies">
+            <div class="col-md-4 movie">
                 <div class="thumbnail text-center">
                     <a data-bind="attr: { href: Url }" target="_blank"><img data-bind="attr: { src: ImageUrl }" /></a>
                     <div class="caption">
@@ -54,16 +55,16 @@
                         {
                             <p>
                                 <span data-bind="visible: $parent.poll() && $parent.poll().IsVoteable">
-                                                                  </span>
+                                </span>
                             </p>
                             <div class="movie-toolbar-left">
                                 <span data-bind="visible: IsOwner">
                                     <button type="button" class="btn btn-default btn-xs" title="Edit"
-                                        data-bind="click: $parent.edit">
+                                            data-bind="click: $parent.edit">
                                         <span class="glyphicon glyphicon-pencil"></span>
                                     </button>
                                     <button type="button" class="btn btn-default btn-xs" title="Delete"
-                                        data-bind="click: $parent.deleteMovie">
+                                            data-bind="click: $parent.deleteMovie">
                                         <span class="glyphicon glyphicon-remove"></span>
                                     </button>
                                 </span>
@@ -83,12 +84,36 @@
                 </div>
             </div>
         </div>
-        <div class="text-center">
-            <button id="loadMoreButton" type="button" data-loading-text="Loading..." data-bind="click: loadMore" class="btn btn-primary">
-                More...
-            </button>
+        <div id="votesContainer" class="col-md-3" style="display: none;">
+            Ratings:
+            <table data-bind="foreach: Movies">
+                <tr>
+                    <td data-bind="text: Name"></td>
+                    <td style="white-space: nowrap;">
+                        <span data-bind="click: $parent.showVoters, text: Voters().length"></span>&nbsp;
+                        <div class="glyphicon glyphicon-user tooltipVoters">
+                            <div class="classic">
+                                Voters:
+                                <ul data-bind="foreach: Voters">
+                                    <li data-bind="text: $data"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
+
+    <div style="clear: both"></div>
+    
+    <div class="text-center" style="margin-top: 20px">
+        <button id="loadMoreButton" type="button" data-loading-text="Loading..." data-bind="click: loadMore" class="btn btn-primary">
+            More...
+        </button>
+    </div>
+
+    
     
     @if (User.Identity.IsAuthenticated)
     {
