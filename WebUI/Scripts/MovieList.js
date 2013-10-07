@@ -180,7 +180,10 @@
 
     ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
     ko.applyBindings(viewModel, document.getElementById("scrollContainerPoll"));
-    ko.applyBindings(viewModel, document.getElementById("saveDialog"));
+    var saveDialog = document.getElementById("saveDialog");
+    if (saveDialog) { //If signed in
+        ko.applyBindings(viewModel, saveDialog);
+    }
 
     viewModel.loadPoll();
     viewModel.loadMore(true);
