@@ -24,23 +24,8 @@ namespace Svitla.MovieService.WebApi.Controllers
         [HttpPost]
         public ResponseObject<object> GetCurrent()
         {
-            var currentUser = userFacade.GetByEmail(User.Identity.Name);
             var poll = pollFacade.GetCurrent();
-            object dto = null;
-            if (poll != null)
-            {
-                dto = new
-                {
-                    poll.CreatedDate,
-                    poll.ExpirationDate,
-                    poll.Id,
-                    poll.IsVoteable,
-                    poll.Name,
-                    poll.ViewDate,
-                    Winner = poll.Winner.Get(m => new { m.Id, m.Name }),
-                    IsMine = poll.Owner == currentUser
-                };
-            }
+            object dto = CreatePollDto(poll);
             return Response(dto);
         }
 
@@ -54,10 +39,10 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [Authorize]
-        public EmptyResponseObject Save(Poll poll)
+        public ResponseObject<object> Save(Poll poll)
         {
             pollFacade.Save(poll);
-            return Response();
+            return Response(CreatePollDto(poll));
         }
 
         [HttpPost]
@@ -110,6 +95,27 @@ namespace Svitla.MovieService.WebApi.Controllers
             var currentUser = userFacade.GetByEmail(User.Identity.Name);
             var movie = movieFacade.LoadById(movieId);
             pollFacade.Vote(currentUser, movie, isSelected);
+        }
+
+        private object CreatePollDto(Poll poll)
+        {
+            var currentUser = userFacade.GetByEmail(User.Identity.Name);
+            object dto = null;
+            if (poll != null)
+            {
+                dto = new
+                {
+                    poll.CreatedDate,
+                    poll.ExpirationDate,
+                    poll.Id,
+                    poll.IsVoteable,
+                    poll.Name,
+                    poll.ViewDate,
+                    Winner = poll.Winner.Get(m => new { m.Id, m.Name }),
+                    IsMine = poll.Owner == currentUser
+                };
+            }
+            return dto;
         }
     }
 }

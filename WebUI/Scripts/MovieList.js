@@ -2,6 +2,11 @@
     var api = window.movieService.core.api;
     var xKo = window.movieService.core.ko;
 
+    var components = {
+        editPoll: window.movieService.editPoll,
+        poll: window.movieService.poll
+    };
+
     var MovieViewModel = function (data) {
         $.extend(this, data);
         this.Name = ko.observable(data.Name).extend({ required: true });
@@ -135,27 +140,6 @@
             this.currentMovie.setDefaultData();
             viewModel.dialog.dialog('open');
         },
-        
-        showValidation: function (field, show) {
-            if (show) {
-                field.show();
-            } else {
-                field.hide();
-            }
-        },
-
-        loadPoll: function() {
-            api.call('poll', 'GetCurrent', null, this.pollLoaded);
-        },
-
-        pollLoaded: function (r) {
-            if (r.Data) {
-                r.Data.ViewDate = xKo.observableDate(new Date(r.Data.ViewDate));
-                r.Data.ExpirationDate = xKo.observableDate(new Date(r.Data.ExpirationDate));
-            }
-
-            viewModel.poll(r.Data);
-        },
 
         vote: function () {
             var movie = this;
@@ -179,13 +163,22 @@
     };
 
     ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
-    ko.applyBindings(viewModel, document.getElementById("scrollContainerPoll"));
+    ko.applyBindings(window.movieService.poll, document.getElementById("pollSummary"));
+    var addMovie = document.getElementById("addMovie");
+    if (addMovie) {
+        ko.applyBindings(viewModel, addMovie);
+    }
     var saveDialog = document.getElementById("saveDialog");
     if (saveDialog) { //If signed in
         ko.applyBindings(viewModel, saveDialog);
     }
 
-    viewModel.loadPoll();
+    var editPollContainer = document.getElementById('editPollContainer');
+    if (editPollContainer) {
+        ko.applyBindings(window.movieService.poll, editPollContainer);
+    }
+
+    window.movieService.poll.load();
     viewModel.loadMore(true);
 
 });

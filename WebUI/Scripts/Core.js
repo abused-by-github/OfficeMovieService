@@ -109,3 +109,20 @@ ko.validation.configure({
     ko.validation.registerExtenders();
 
 })();
+
+ko.bindingHandlers.dateTimePicker = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        $(element).datetimepicker({
+            onSelect: function () {
+                $(this).change();
+            },
+            minDate: 0,
+            dateFormat: 'dd.mm.yy'
+        });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever the associated observable changes value.
+        // Update the DOM element based on the supplied values here.
+    }
+};

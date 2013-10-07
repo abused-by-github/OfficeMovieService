@@ -5,6 +5,7 @@
 
 @section Scripts
 {
+    <script type="text/javascript" src="~/Scripts/Poll.js"></script>
     <script type="text/javascript" src="~/Scripts/MovieList.js"></script>
     <script type="text/javascript" src="~/Scripts/PollInfo.js"></script>
 }
@@ -12,35 +13,37 @@
 @section MainContent
 {
     <div>
-        <div id="scrollContainerPoll" class="well well-lg">
-            <span data-bind="visible: poll() && poll().IsVoteable">
-                Poll
-                <span data-bind="text: poll() && poll().Name, visible: poll() && !poll().IsMine"></span>
-                <a data-bind="text: poll() && poll().Name, visible: poll()" href="@ViewBag.BaseUrl/poll/info"></a>
-                <span data-bind="visible: poll() && poll().IsMine">
-                    (You can <a href="@ViewBag.BaseUrl/poll/edit" target="_blank">edit it</a>)
+        <div class="well well-lg">
+            <span id="pollSummary">
+                <span data-bind="visible: Id() && IsVoteable()">
+                    Poll
+                    <span data-bind="text: Name, visible: Id"></span>
+                    <span data-bind="visible: IsMine">
+                        (You can <a href="JavaScript:void(0)" data-bind="click: edit">edit it</a>)
+                    </span>
+                    is going! Try voting. We wote untill <span data-bind="text: ExpirationDate.ui"></span>
+                    and watch movie at <span data-bind="text: ViewDate.ui"></span>
                 </span>
-                is going! Try voting. We wote untill <span data-bind="text: poll() && poll().ExpirationDate.ui"></span> and watch movie at
-                <span data-bind="text: poll() && poll().ViewDate.ui"></span>
-            </span>
-            <span data-bind="visible: poll() && !poll().IsVoteable">
-                Poll <span data-bind="text: poll() && poll().Name"></span>
-                <span data-bind="visible: poll() && poll().IsMine">
-                    (You can <a href="@ViewBag.BaseUrl/poll/edit" target="_blank">edit it</a>)
+                <span data-bind="visible: Id() && !IsVoteable()">
+                    Poll <span data-bind="text: Name"></span>
+                    <span data-bind="visible: IsMine">
+                        (You can <a href="JavaScript:void(0)" data-bind="click: edit">edit it</a>)
+                    </span>
+                    has finished
+                    We will watch <span data-bind="text: Winner && Winner.Name"></span>
+                    at <span data-bind="text: ViewDate.ui"></span>.
                 </span>
-                has finished
-                We will watch <span data-bind="text: poll() &&  poll().Winner && poll().Winner.Name"></span> at <span data-bind="text: poll() && poll().ViewDate.ui"></span>.
-            </span>
-            <span data-bind="visible: !poll()">
-                No poll right now.
-                @if (User.Identity.IsAuthenticated)
-                {<text>
-                     You can <a href="@ViewBag.BaseUrl/poll/add" target="_blank">add one</a>.
-                 </text>}
+                <span data-bind="visible: !Id()">
+                    No poll right now.
+                    @if (User.Identity.IsAuthenticated)
+                    {<text>
+                            You can <a href="JavaScript:void(0)" data-bind="click: edit">add one</a>.
+                        </text>}
+                </span>
             </span>
             @if (User.Identity.IsAuthenticated)
             {
-                <button data-bind="click: openPopup" class="btn btn-success pull-right">Add Movie</button>
+                <button data-bind="click: openPopup" id="addMovie" class="btn btn-success pull-right">Add Movie</button>
             }
         </div>
         <div id="scrollContainer" class="row col-md-9" data-bind="foreach: movies">
@@ -144,6 +147,23 @@
                 <button data-bind="click: save" class="btn btn-default">Save</button>
                 <button data-bind="click: cancelDialog" class="btn btn-default">Cancel</button>
             </form>
+        </div>
+        <div id="editPollContainer" style="display: none">
+            <label>
+                Name:
+                <input type="text" data-bind="value: Name" />
+            </label>
+            <label>
+                Poll will be closed at:
+                <input type="text" data-bind="value: ExpirationDate.ui, dateTimePicker: true" />
+            </label>
+            <label>
+                We watch movie at:
+                <input type="text" data-format="date" data-bind="value: ViewDate.ui, dateTimePicker: true" />
+            </label>
+
+            <button data-bind="click: save">Save</button>
+            <button data-bind="click: cancel, visible: Id">Delete</button>
         </div>
     }
 }
