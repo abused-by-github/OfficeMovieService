@@ -1,11 +1,5 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
-    var xKo = window.movieService.core.ko;
-
-    var components = {
-        editPoll: window.movieService.editPoll,
-        poll: window.movieService.poll
-    };
 
     var MovieViewModel = function (data) {
         $.extend(this, data);
@@ -63,7 +57,7 @@
         movies: ko.observableArray(),
         currentPage: 0,
         isPageLoading: false,
-        poll: ko.observable(),
+        poll: window.movieService.poll,
         dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
         loadMoreButton: $('#loadMoreButton'),
         currentMovie: MovieViewModel.getDefault(),
@@ -88,7 +82,7 @@
                 }
             });
         },
-        
+
         reload: function () {
             this.currentPage = 0;
             this.movies.removeAll();
@@ -120,7 +114,7 @@
             viewModel.isPageLoading = false;
             viewModel.loadMoreButton.twButton('reset');
         },
-        
+
         edit: function() {
             viewModel.currentMovie.setData(this);
             viewModel.dialog.dialog('open');

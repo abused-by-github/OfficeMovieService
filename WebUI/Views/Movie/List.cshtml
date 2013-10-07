@@ -56,23 +56,17 @@
                         </p>
                         @if (User.Identity.IsAuthenticated)
                         {
-                            <p>
-                                <span data-bind="visible: $parent.poll() && $parent.poll().IsVoteable">
-                                </span>
-                            </p>
-                            <div class="movie-toolbar-left">
-                                <span data-bind="visible: IsOwner">
-                                    <button type="button" class="btn btn-default btn-xs" title="Edit"
-                                            data-bind="click: $parent.edit">
-                                        <span class="glyphicon glyphicon-pencil"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-default btn-xs" title="Delete"
-                                            data-bind="click: $parent.deleteMovie">
-                                        <span class="glyphicon glyphicon-remove"></span>
-                                    </button>
-                                </span>
+                            <div class="movie-toolbar-left" data-bind="visible: IsOwner">
+                                <button type="button" class="btn btn-default btn-xs" title="Edit"
+                                        data-bind="click: $parent.edit">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-xs" title="Delete"
+                                        data-bind="click: $parent.deleteMovie">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
                             </div>
-                            <div class="movie-toolbar-right" data-bind="visible: $parent.poll">
+                            <div class="movie-toolbar-right" data-bind="visible: $parent.poll.IsVoteable">
                                 <button type="button" class="btn btn-default btn-xs" title="Vote"
                                         data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">
                                     <span class="glyphicon glyphicon-thumbs-up"></span>
