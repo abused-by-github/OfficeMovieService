@@ -122,23 +122,23 @@
                 <div class="form-group">
                     <label for="txtName" class="col-lg-2 control-label">Name*</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="txtName" data-bind="value: currentMovie().Name"/>
-                        <label id="lblNameError" style="display: none; color: red;">Name is required</label>
+                        <input type="text" class="form-control" id="txtName"
+                               data-bind="value: currentMovie.Name"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtUrl" class="col-lg-2 control-label">URL*</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="txtUrl" data-bind="value: currentMovie().Url"/>
-                        <label style="display: none; color: red;">Url should be correct</label>
+                        <input type="text" class="form-control" id="txtUrl"
+                               data-bind="value: currentMovie.Url"/>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtImageUrl" class="col-lg-2 control-label">Image URL*</label>
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="txtImageUrl" data-bind="value: currentMovie().ImageUrl"/>
+                        <input type="text" class="form-control" id="txtImageUrl"
+                               data-bind="value: currentMovie.ImageUrl"/>
                         <span class="help-block">Image will be stretched to 150x210 px</span>
-                        <label style="display: none; color: red;">Name is required</label>
                     </div>
                 </div>
                 <button data-bind="click: save" class="btn btn-default">Save</button>

@@ -2,6 +2,55 @@
     var api = window.movieService.core.api;
     var xKo = window.movieService.core.ko;
 
+    var MovieViewModel = function (data) {
+        $.extend(this, data);
+        this.Name = ko.observable(data.Name).extend({ required: true });
+        this.Url = ko.observable(data.Url).extend({ required: true });
+        this.ImageUrl = ko.observable(data.ImageUrl).extend({ required: true });
+
+        this.errors = ko.validation.group(this);
+    };
+
+    MovieViewModel.prototype.validate = function () {
+        var result = true;
+        if (this.errors().length > 0) {
+            this.errors.showAllMessages();
+            result = false;
+        }
+        return result;
+    };
+
+    MovieViewModel.prototype.setData = function (data) {
+        this.Name(data.Name);
+        this.Url(data.Url);
+        this.ImageUrl(data.ImageUrl);
+        this.errors.showAllMessages(false);
+    };
+
+    MovieViewModel.prototype.setDefaultData = function () {
+        this.setData(MovieViewModel.getDefaultData());
+    };
+
+    MovieViewModel.prototype.getData = function () {
+        return {
+            Name: this.Name(),
+            Url: this.Url(),
+            ImageUrl: this.ImageUrl()
+        };
+    };
+
+    MovieViewModel.getDefault = function () {
+        return new MovieViewModel(this.getDefaultData());
+    };
+
+    MovieViewModel.getDefaultData = function() {
+        return {
+            Name: '',
+            Url: '',
+            ImageUrl: ''
+        };
+    };
+
     var viewModel = {
         movies: ko.observableArray(),
         currentPage: 0,
@@ -9,23 +58,20 @@
         poll: ko.observable(),
         dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
         loadMoreButton: $('#loadMoreButton'),
-        currentMovie: ko.observable({ Name: "", Url: "" }),
-        
+        currentMovie: MovieViewModel.getDefault(),
+
         cancelDialog: function () {
             this.dialog.dialog('close');
         },
-        
+
         save: function () {
             var self = this;
-            self.showValidation($("#lblNameError"), false);
-            self.showValidation($("#lblUrlError"), false);
 
-            if (!self.currentMovie().Name || self.currentMovie().Name.length == 0) {
-                self.showValidation($("#lblNameError"), true);
+            if (!this.currentMovie.validate()) {
                 return;
             }
 
-            api.call('movie', 'save', self.currentMovie(), function (response) {
+            api.call('movie', 'save', self.currentMovie.getData(), function (response) {
                 if (!!response.Status) {
                     self.dialog.dialog('close');
                     self.reload();
@@ -68,7 +114,7 @@
         },
         
         edit: function() {
-            viewModel.currentMovie(this);
+            viewModel.currentMovie.setData(this);
             viewModel.dialog.dialog('open');
         },
 
@@ -81,9 +127,9 @@
                 }
             });
         },
-        
+
         openPopup: function () {
-            this.currentMovie({ Name: "", Url: "" });
+            this.currentMovie.setDefaultData();
             viewModel.dialog.dialog('open');
         },
         

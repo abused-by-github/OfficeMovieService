@@ -54,7 +54,7 @@ namespace Svitla.MovieService.Domain.Facades
                     IsVoted = m.Votes.Any(v => v.UserId == userId && v.PollId == pollId),
                     UserName = m.User.Name
                 })
-                .OrderBy(m => m.Movie.Id)
+                .OrderByDescending(m => m.Movie.ModifiedDate)
                 , paging);
         }
         
