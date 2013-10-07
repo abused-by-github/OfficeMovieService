@@ -89,8 +89,8 @@
             <table data-bind="foreach: Movies">
                 <tr>
                     <td data-bind="text: Name"></td>
-                    <td>
-                        <span data-bind="click: $parent.showVoters, text: Voters().length"></span> 
+                    <td style="white-space: nowrap;">
+                        <span data-bind="click: $parent.showVoters, text: Voters().length"></span>&nbsp;
                         <div class="glyphicon glyphicon-user tooltipVoters">
                             <div class="classic">
                                 Voters:
