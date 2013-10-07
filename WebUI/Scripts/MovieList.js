@@ -129,7 +129,9 @@
         }
     };
 
-    ko.applyBindings(viewModel);
+    ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
+    ko.applyBindings(viewModel, document.getElementById("scrollContainerPoll"));
+    ko.applyBindings(viewModel, document.getElementById("saveDialog"));
 
     viewModel.loadPoll();
     viewModel.loadMore(true);
