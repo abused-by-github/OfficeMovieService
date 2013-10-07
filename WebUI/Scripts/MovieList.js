@@ -20,11 +20,15 @@
         return result;
     };
 
-    MovieViewModel.prototype.reset = function (data) {
+    MovieViewModel.prototype.setData = function (data) {
         this.Name(data.Name);
         this.Url(data.Url);
         this.ImageUrl(data.ImageUrl);
         this.errors.showAllMessages(false);
+    };
+
+    MovieViewModel.prototype.setDefaultData = function () {
+        this.setData(MovieViewModel.getDefaultData());
     };
 
     MovieViewModel.prototype.getData = function () {
@@ -54,7 +58,7 @@
         poll: ko.observable(),
         dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
         loadMoreButton: $('#loadMoreButton'),
-        currentMovie: ko.observable(MovieViewModel.getDefault()),
+        currentMovie: MovieViewModel.getDefault(),
 
         cancelDialog: function () {
             this.dialog.dialog('close');
@@ -63,11 +67,11 @@
         save: function () {
             var self = this;
 
-            if (!this.currentMovie().validate()) {
+            if (!this.currentMovie.validate()) {
                 return;
             }
 
-            api.call('movie', 'save', self.currentMovie(), function (response) {
+            api.call('movie', 'save', self.currentMovie.getData(), function (response) {
                 if (!!response.Status) {
                     self.dialog.dialog('close');
                     self.reload();
@@ -110,7 +114,7 @@
         },
         
         edit: function() {
-            viewModel.currentMovie().reset(this);
+            viewModel.currentMovie.setData(this);
             viewModel.dialog.dialog('open');
         },
 
@@ -125,7 +129,7 @@
         },
 
         openPopup: function () {
-            this.currentMovie().reset(MovieViewModel.getDefaultData());
+            this.currentMovie.setDefaultData();
             viewModel.dialog.dialog('open');
         },
         
