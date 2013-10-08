@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.DataAccess.Migrations;
 using Svitla.MovieService.DataAccessApi;
 
 namespace Svitla.MovieService.DataAccess
@@ -22,6 +23,8 @@ namespace Svitla.MovieService.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Movie>();

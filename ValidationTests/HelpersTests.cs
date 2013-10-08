@@ -9,7 +9,7 @@ namespace Svitla.MovieService.Tests.ValidationTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]
-        [DataSource("System.Data.OleDb", @"Provider=Microsoft.Jet.OLEDB.4.0; Data Source=""..\..\TestCases.mdb""", "Url", DataAccessMethod.Sequential)]
+        [DataSource("System.Data.OleDb", "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=\"TestCases.mdb\"", "Url", DataAccessMethod.Sequential)]
         public void Url()
         {
             var actual = Core.Validation.Url.IsValid(TestContext.DataRow["Url"].ToString());

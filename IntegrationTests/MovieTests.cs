@@ -9,6 +9,7 @@ namespace Svitla.MovieService.Tests.IntegrationTests
     public class MovieTests
     {
         [TestMethod]
+        [Ignore]
         public void RecreateDBFromModel()
         {
             var connectionString = ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;

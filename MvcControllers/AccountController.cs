@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -62,6 +63,12 @@ namespace Svitla.MovieService.MvcControllers
                     case AuthenticationStatus.Authenticated:
                         var fetches = response.GetExtension<FetchResponse>();
                         var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];
+                        var allowedDomain = ConfigurationManager.AppSettings["AllowedDomain"];
+                        if (!IsEmailDomainValid(email, allowedDomain))
+                        {
+                            Session["ViewError"] = string.Format("Sorry, but only emails from {0} domain are allowed for registration", allowedDomain);
+                            return RedirectToLandingAction();
+                        }
                         SaveUser(fetches);
                         FormsAuthentication.SetAuthCookie(email, false);
                         return RedirectToLandingAction();
@@ -108,6 +115,11 @@ namespace Svitla.MovieService.MvcControllers
         private RedirectToRouteResult RedirectToLandingAction()
         {
             return RedirectToAction("List", "Movie");
+        }
+
+        private bool IsEmailDomainValid(string email, string allowedDomain)
+        {
+            return string.IsNullOrEmpty(allowedDomain) || email.EndsWith(allowedDomain);
         }
 
     }
