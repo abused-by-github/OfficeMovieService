@@ -6,7 +6,7 @@
         this.Name = ko.observable(data.Name).extend({ required: true });
         this.ViewDate = xKo.observableDate(new Date(data.ViewDate));
         this.ExpirationDate = xKo.observableDate(new Date(data.ExpirationDate));
-        this.Winner = data.Winner;
+        this.Winner = ko.observable(data.Winner);
         this.Id = ko.observable(data.Id);
         this.IsVoteable = ko.observable(data.IsVoteable);
         this.IsMine = ko.observable(data.IsMine);
@@ -61,7 +61,7 @@
         this.Name(data.Name);
         this.ViewDate.iso(data.ViewDate);
         this.ExpirationDate.iso(data.ExpirationDate);
-        this.Winner = data.Winner;
+        this.Winner(data.Winner);
         this.Id(data.Id);
         this.IsVoteable(data.IsVoteable);
         this.IsMine(data.IsMine);

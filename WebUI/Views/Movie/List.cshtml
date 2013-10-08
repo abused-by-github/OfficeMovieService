@@ -38,11 +38,11 @@
                     </span>
                     has finished.
                     <span data-bind="visible: Winner">
-                        We will watch <span data-bind="text: Winner && Winner.Name"></span>
+                        We will watch <span data-bind="text: Winner() && Winner().Name"></span>
                         <span data-bind="visible: ViewDate.ui">at <span data-bind="text: ViewDate.ui"></span>.</span>
                         <span data-bind="visible: !ViewDate.ui()">one time.</span>
                     </span>
-                    <span data-bind="visible: !Winner">
+                    <span data-bind="visible: !Winner()">
                         No votes :(
                     </span>
                 </span>
