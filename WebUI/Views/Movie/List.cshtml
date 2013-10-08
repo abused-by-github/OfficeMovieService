@@ -17,11 +17,12 @@
             <span id="pollSummary">
                 <span data-bind="visible: Id() && IsVoteable()">
                     Poll
-                    <span data-bind="text: Name, visible: Id"></span>
+                    <span data-bind="text: Name, visible: Id" class="label label-success"></span>
+                    is going!
                     <span data-bind="visible: IsMine">
                         (You can <a href="JavaScript:void(0)" data-bind="click: edit">edit it</a>)
                     </span>
-                    is going! Try voting.
+                    Try voting.
                     <span data-bind="visible: ExpirationDate.ui">
                         We vote untill <span data-bind="text: ExpirationDate.ui"></span>
                     </span>
