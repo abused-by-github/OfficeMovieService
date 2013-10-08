@@ -167,7 +167,10 @@
 
     };
 
+    //TODO: refactor me. Simplify.
+
     ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
+    ko.applyBindings(viewModel, document.getElementById("loadMoreButton"));
     ko.applyBindings(window.movieService.poll, document.getElementById("pollSummary"));
     var addMovie = document.getElementById("addMovie");
     if (addMovie) {
