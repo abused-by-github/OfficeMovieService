@@ -68,16 +68,6 @@ namespace Svitla.MovieService.Core.Entities
             {
                 throw new EntityInvalidException("Owner must be specified.");
             }
-
-            if (ExpirationDate.HasValue && ExpirationDate <= DateTime.Now || ViewDate <= DateTime.Now)
-            {
-                throw new EntityInvalidException("Expiration date and view date must be in the furture.");
-            }
-
-            if (ExpirationDate.HasValue && ExpirationDate > ViewDate)
-            {
-                throw new EntityInvalidException("Expiration date must be before view date");
-            }
         }
     }
 }

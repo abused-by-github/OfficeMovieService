@@ -118,7 +118,6 @@ ko.bindingHandlers.dateTimePicker = {
             onSelect: function () {
                 $(this).change();
             },
-            minDate: 0,
             dateFormat: 'dd.mm.yy'
         });
     },

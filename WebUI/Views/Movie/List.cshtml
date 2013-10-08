@@ -35,9 +35,15 @@
                     <span data-bind="visible: IsMine">
                         (You can <a href="JavaScript:void(0)" data-bind="click: edit">edit it</a>)
                     </span>
-                    has finished
-                    We will watch <span data-bind="text: Winner && Winner.Name"></span>
-                    at <span data-bind="text: ViewDate.ui"></span>.
+                    has finished.
+                    <span data-bind="visible: Winner">
+                        We will watch <span data-bind="text: Winner && Winner.Name"></span>
+                        <span data-bind="visible: ViewDate.ui">at <span data-bind="text: ViewDate.ui"></span>.</span>
+                        <span data-bind="visible: !ViewDate.ui()">one time.</span>
+                    </span>
+                    <span data-bind="visible: !Winner">
+                        No votes :(
+                    </span>
                 </span>
                 <span data-bind="visible: !Id()">
                     No poll right now.
