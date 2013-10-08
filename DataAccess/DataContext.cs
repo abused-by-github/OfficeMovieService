@@ -12,6 +12,11 @@ namespace Svitla.MovieService.DataAccess
         public DbSet<Movie> Movies { get; private set; }
         public DbSet<Poll> Polls { get; private set; }
 
+        //TODO: can't use IoC because of http://entityframework.codeplex.com/workitem/1131
+        //IDbContextFactory implementation didn't work on AppHarbor servers.
+        //So, connection string is hardcoded.
+        public DataContext() : base("ConnectionString") { }
+
         public DataContext(string connectionString)
             : base(connectionString)
         {
