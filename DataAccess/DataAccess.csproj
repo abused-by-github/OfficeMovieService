@@ -45,6 +45,10 @@
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="Migrations\201310082048457_InitialSchema.cs" />
+    <Compile Include="Migrations\201310082048457_InitialSchema.Designer.cs">
+      <DependentUpon>201310082048457_InitialSchema.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="PollRepository.cs" />
@@ -60,6 +64,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201310082048457_InitialSchema.resx">
+      <DependentUpon>201310082048457_InitialSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

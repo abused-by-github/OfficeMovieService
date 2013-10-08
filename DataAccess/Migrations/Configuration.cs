@@ -2,11 +2,11 @@
 
 namespace Svitla.MovieService.DataAccess.Migrations
 {
-    class Configuration : DbMigrationsConfiguration<DataContext>
+    public sealed class Configuration : DbMigrationsConfiguration<DataContext>
     {
         public Configuration()
         {
-            //Something to cinfigure?
+            AutomaticMigrationsEnabled = false;
         }
     }
 }
