@@ -8,6 +8,11 @@ namespace Svitla.MovieService.DataAccess
 {
     public class DataContext : DbContext, IUnitOfWork
     {
+        static DataContext()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
+        }
+
         public DbSet<User> Users { get; private set; }
         public DbSet<Movie> Movies { get; private set; }
         public DbSet<Poll> Polls { get; private set; }
@@ -28,8 +33,6 @@ namespace Svitla.MovieService.DataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DataContext, Configuration>());
 
             modelBuilder.Entity<User>();
             modelBuilder.Entity<Movie>();
