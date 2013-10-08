@@ -20,7 +20,7 @@
                 <span data-bind="visible: poll() && poll().IsMine">
                     (You can <a href="@ViewBag.BaseUrl/poll/edit" target="_blank">edit it</a>)
                 </span>
-                is going! Try voting. We wote untill <span data-bind="text: poll() && poll().ExpirationDate.ui"></span> and watch movie at
+                is going! Try voting. We vote untill <span data-bind="text: poll() && poll().ExpirationDate.ui"></span> and watch movie at
                 <span data-bind="text: poll() && poll().ViewDate.ui"></span>
             </span>
             <span data-bind="visible: poll() && !poll().IsVoteable">
@@ -35,7 +35,7 @@
                 No poll right now.
                 @if (User.Identity.IsAuthenticated)
                 {<text>
-                     You can <a href="@ViewBag.BaseUrl/poll/add" target="_blank">add one</a>.
+                     You can @Html.ActionLink("add one", "Add", "Poll").
                  </text>}
             </span>
             @if (User.Identity.IsAuthenticated)
@@ -46,7 +46,7 @@
         <div id="scrollContainer" class="row col-md-9" data-bind="foreach: movies">
             <div class="col-md-4 movie">
                 <div class="thumbnail text-center">
-                    <a data-bind="attr: { href: Url }" target="_blank"><img data-bind="attr: { src: ImageUrl }" /></a>
+                    <a data-bind="attr: { href: Url }" target="_blank"><img data-bind="attr: { src: ImageUrl }" width="150px" height="210px" /></a>
                     <div class="caption">
                         <p class="name">
                             <a data-bind="text: Name, attr: { href: Url }" target="_blank"></a>
@@ -84,13 +84,13 @@
                 </div>
             </div>
         </div>
-        <div id="votesContainer" class="col-md-3" style="display: none;">
+        <div id="votesContainer" class="col-md-3">
             Ratings:
-            <table data-bind="foreach: Movies">
+            <table id="ratedMovies" data-bind="foreach: Movies" style="display: none;">
                 <tr>
                     <td data-bind="text: Name"></td>
                     <td style="white-space: nowrap;">
-                        <span data-bind="click: $parent.showVoters, text: Voters().length"></span>&nbsp;
+                        <span data-bind="text: Voters.length"></span>&nbsp;
                         <div class="glyphicon glyphicon-user tooltipVoters">
                             <div class="classic">
                                 Voters:
@@ -102,6 +102,7 @@
                     </td>
                 </tr>
             </table>
+            <div id="noMovies" style="display: none;">No votes yet</div>
         </div>
     </div>
 

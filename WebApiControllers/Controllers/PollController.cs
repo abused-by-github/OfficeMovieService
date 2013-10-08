@@ -77,7 +77,6 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
         
         [HttpPost]
-        [Authorize]
         public ResponseObject<object> GetPollMovies()
         {
             object result = null;

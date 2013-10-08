@@ -19,7 +19,7 @@
                 complete: onComplete,
                 statusCode: {
                     401: function() { //Unauthorized
-                        window.location.href = window.movieService.environment.baseUrl + 'Account/Login';
+                        window.location.href = window.movieService.environment.baseUrl;
                     }
                 }
             });

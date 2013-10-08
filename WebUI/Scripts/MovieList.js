@@ -159,6 +159,7 @@
             movie.IsVoting(true);
             api.call('poll', 'vote', { id: this.Id }, function () {
                 movie.IsVoted(true);
+                viewModel.updateRatings();
             }, function() {
                 movie.IsVoting(false);
             });
@@ -169,15 +170,25 @@
             movie.IsVoting(true);
             api.call('poll', 'unvote', { id: this.Id }, function () {
                 movie.IsVoted(false);
+                viewModel.updateRatings();
             }, function () {
                 movie.IsVoting(false);
             });
+        },
+        
+        updateRatings: function() {
+            if (pollInfo && pollInfo.load) {
+                pollInfo.load();
+            }
         }
+
     };
 
     ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
     ko.applyBindings(viewModel, document.getElementById("scrollContainerPoll"));
-    ko.applyBindings(viewModel, document.getElementById("saveDialog"));
+    if (document.getElementById("saveDialog")) {
+        ko.applyBindings(viewModel, document.getElementById("saveDialog"));
+    }
 
     viewModel.loadPoll();
     viewModel.loadMore(true);
