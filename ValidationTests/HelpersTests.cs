@@ -9,6 +9,7 @@ namespace Svitla.MovieService.Tests.ValidationTests
         public TestContext TestContext { get; set; }
 
         [TestMethod]
+        [DeploymentItem("TestCases.mdb")]
         [DataSource("System.Data.OleDb", "Provider=Microsoft.Jet.OLEDB.4.0; Data Source=\"TestCases.mdb\"", "Url", DataAccessMethod.Sequential)]
         public void Url()
         {
