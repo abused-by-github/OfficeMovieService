@@ -32,18 +32,20 @@
             return {
                 iso: ko.computed({
                     read: function () {
-                        return observable().toISOString();
+                        var date = observable();
+                        return date ? date.toISOString() : '';
                     },
                     write: function (v) {
-                        observable(new Date(v));
+                        observable(v ? new Date(v) : null);
                     }
                 }),
                 ui: ko.computed({
                     read: function () {
-                        return moment(observable()).format('DD.MM.YYYY HH:mm');
+                        var date = observable();
+                        return date ? moment(date).format('DD.MM.YYYY HH:mm') : '';
                     },
                     write: function (v) {
-                        observable(moment(v, 'DD.MM.YYYY HH:mm').toDate());
+                        observable(v ? moment(v, 'DD.MM.YYYY HH:mm').toDate() : null);
                     }
                 })
             };

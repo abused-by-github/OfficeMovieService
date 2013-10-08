@@ -17,12 +17,12 @@ namespace Svitla.MovieService.Core.Entities
         /// <summary>
         /// Date when poll will be closed.
         /// </summary>
-        public DateTimeOffset ExpirationDate { get; set; }
+        public DateTimeOffset? ExpirationDate { get; set; }
 
         /// <summary>
         /// Date when movie which has won will be viewed.
         /// </summary>
-        public DateTimeOffset ViewDate { get; set; }
+        public DateTimeOffset? ViewDate { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -34,7 +34,7 @@ namespace Svitla.MovieService.Core.Entities
         {
             get
             {
-                return ExpirationDate > DateTime.Now;
+                return !ExpirationDate.HasValue || ExpirationDate > DateTime.Now;
             }
         }
 
@@ -69,12 +69,12 @@ namespace Svitla.MovieService.Core.Entities
                 throw new EntityInvalidException("Owner must be specified.");
             }
 
-            if (ExpirationDate <= DateTime.Now || ViewDate <= DateTime.Now)
+            if (ExpirationDate.HasValue && ExpirationDate <= DateTime.Now || ViewDate <= DateTime.Now)
             {
                 throw new EntityInvalidException("Expiration date and view date must be in the furture.");
             }
 
-            if (ExpirationDate > ViewDate)
+            if (ExpirationDate.HasValue && ExpirationDate > ViewDate)
             {
                 throw new EntityInvalidException("Expiration date must be before view date");
             }

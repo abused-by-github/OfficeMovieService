@@ -20,7 +20,7 @@ namespace Svitla.MovieService.Domain.Facades
 
         public Poll GetCurrent()
         {
-            return polls.One(q => q.SingleOrDefault(p => p.IsActive && p.ViewDate > DateTime.Now));
+            return polls.One(q => q.SingleOrDefault(p => p.IsActive && !p.ViewDate.HasValue || p.ViewDate > DateTime.Now));
         }
 
         public void CancelCurrent()

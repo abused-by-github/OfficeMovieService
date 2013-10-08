@@ -3,7 +3,7 @@
     var xKo = window.movieService.core.ko;
 
     var PollViewModel = function (data) {
-        this.Name = ko.observable(data.Name);
+        this.Name = ko.observable(data.Name).extend({ required: true });
         this.ViewDate = xKo.observableDate(new Date(data.ViewDate));
         this.ExpirationDate = xKo.observableDate(new Date(data.ExpirationDate));
         this.Winner = data.Winner;
@@ -70,8 +70,8 @@
     PollViewModel.getDefaultData = function () {
         return {
             Name: '',
-            ViewDate: new Date().toISOString(),
-            ExpirationDate: new Date().toISOString(),
+            ViewDate: null,
+            ExpirationDate: null,
             Winner: null,
             Id: 0,
             IsVoteable: false,

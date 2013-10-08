@@ -155,7 +155,6 @@
     <Content Include="Styles\Bootstrap\js\bootstrap.js" />
     <Content Include="Styles\Bootstrap\js\bootstrap.min.js" />
     <Content Include="Styles\styles.css" />
-    <Content Include="Scripts\PollAdd.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

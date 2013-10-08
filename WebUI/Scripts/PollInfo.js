@@ -10,7 +10,7 @@
 
         OnSuccess: function(r) {
             if (r.Status) {
-                if (r.Data.Movies.length > 0) {
+                if (r.data && r.Data.Movies && r.Data.Movies.length > 0) {
                     viewModel.Movies(r.Data.Movies);
                     //viewModel = ko.mapping.fromJS(r.Data);
                     //viewModel.Poll.ExpirationDate = xKo.observableDate(new Date(r.Data.Poll.ExpirationDate));

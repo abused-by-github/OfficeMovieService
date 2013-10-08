@@ -21,8 +21,14 @@
                     <span data-bind="visible: IsMine">
                         (You can <a href="JavaScript:void(0)" data-bind="click: edit">edit it</a>)
                     </span>
-                    is going! Try voting. We vote untill <span data-bind="text: ExpirationDate.ui"></span>
-                    and watch movie at <span data-bind="text: ViewDate.ui"></span>
+                    is going! Try voting.
+                    <span data-bind="visible: ExpirationDate.ui">
+                        We vote untill <span data-bind="text: ExpirationDate.ui"></span>
+                    </span>
+                    <span data-bind="visible: ExpirationDate.ui() && ViewDate.ui()">and</span>
+                    <span data-bind="visible: ViewDate.ui">
+                        watch movie at <span data-bind="text: ViewDate.ui"></span>
+                    </span>
                 </span>
                 <span data-bind="visible: Id() && !IsVoteable()">
                     Poll <span data-bind="text: Name"></span>
