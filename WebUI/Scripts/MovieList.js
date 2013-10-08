@@ -122,6 +122,8 @@
         },
 
         deleteMovie: function () {
+            if (!confirm("Are you sure you want to delete movie?"))
+                return;
             api.call('movie', 'delete', this.Id, function (response) {
                 if (!!response.Status) {
                     viewModel.reload();
@@ -185,5 +187,9 @@
 
     window.movieService.poll.load();
     viewModel.loadMore(true);
+
+    $("#errorDiv").on("click", function() {
+        $(this).hide();
+    });
 
 });

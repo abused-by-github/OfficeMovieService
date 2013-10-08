@@ -161,4 +161,11 @@
             <button data-bind="click: cancel, visible: Id">Delete</button>
         </div>
     }
+
+    @if (!string.IsNullOrEmpty(ViewBag.LastError))
+    {
+        <div id="errorDiv" class="authError">
+            @ViewBag.LastError
+        </div>
+    }
 }
