@@ -1,4 +1,4 @@
-﻿@{ ViewBag.BaseUrl = ViewContext.HttpContext.Request.Url.GetLeftPart(UriPartial.Authority) + ViewContext.HttpContext.Request.ApplicationPath; }
+﻿@{ ViewBag.BaseUrl = Url.Action("", ""); }
 
 <!DOCTYPE html>
 
