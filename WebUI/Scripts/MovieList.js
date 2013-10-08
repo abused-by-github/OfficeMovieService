@@ -1,11 +1,10 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
-    var xKo = window.movieService.core.ko;
 
     var MovieViewModel = function (data) {
         $.extend(this, data);
         this.Name = ko.observable(data.Name).extend({ required: true });
-        this.Url = ko.observable(data.Url).extend({ required: true });
+        this.Url = ko.observable(data.Url).extend({ required: true, url: true });
         this.ImageUrl = ko.observable(data.ImageUrl).extend({ required: true });
 
         this.errors = ko.validation.group(this);
@@ -24,6 +23,7 @@
         this.Name(data.Name);
         this.Url(data.Url);
         this.ImageUrl(data.ImageUrl);
+        this.Id = data.Id;
         this.errors.showAllMessages(false);
     };
 
@@ -35,7 +35,8 @@
         return {
             Name: this.Name(),
             Url: this.Url(),
-            ImageUrl: this.ImageUrl()
+            ImageUrl: this.ImageUrl(),
+            Id: this.Id
         };
     };
 
@@ -47,7 +48,8 @@
         return {
             Name: '',
             Url: '',
-            ImageUrl: ''
+            ImageUrl: '',
+            Id: 0
         };
     };
 
@@ -55,7 +57,7 @@
         movies: ko.observableArray(),
         currentPage: 0,
         isPageLoading: false,
-        poll: ko.observable(),
+        poll: window.movieService.poll,
         dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
         loadMoreButton: $('#loadMoreButton'),
         currentMovie: MovieViewModel.getDefault(),
@@ -75,12 +77,13 @@
                 if (!!response.Status) {
                     self.dialog.dialog('close');
                     self.reload();
+                    self.updateRatings();
                 } else {
                     alert(response.ErrorMessage);
                 }
             });
         },
-        
+
         reload: function () {
             this.currentPage = 0;
             this.movies.removeAll();
@@ -112,7 +115,7 @@
             viewModel.isPageLoading = false;
             viewModel.loadMoreButton.twButton('reset');
         },
-        
+
         edit: function() {
             viewModel.currentMovie.setData(this);
             viewModel.dialog.dialog('open');
@@ -122,6 +125,7 @@
             api.call('movie', 'delete', this.Id, function (response) {
                 if (!!response.Status) {
                     viewModel.reload();
+                    viewModel.updateRatings();
                 } else {
                     alert(response.ErrorMessage);
                 }
@@ -131,27 +135,6 @@
         openPopup: function () {
             this.currentMovie.setDefaultData();
             viewModel.dialog.dialog('open');
-        },
-        
-        showValidation: function (field, show) {
-            if (show) {
-                field.show();
-            } else {
-                field.hide();
-            }
-        },
-
-        loadPoll: function() {
-            api.call('poll', 'GetCurrent', null, this.pollLoaded);
-        },
-
-        pollLoaded: function (r) {
-            if (r.Data) {
-                r.Data.ViewDate = xKo.observableDate(new Date(r.Data.ViewDate));
-                r.Data.ExpirationDate = xKo.observableDate(new Date(r.Data.ExpirationDate));
-            }
-
-            viewModel.poll(r.Data);
         },
 
         vote: function () {
@@ -185,12 +168,22 @@
     };
 
     ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
-    ko.applyBindings(viewModel, document.getElementById("scrollContainerPoll"));
-    if (document.getElementById("saveDialog")) {
-        ko.applyBindings(viewModel, document.getElementById("saveDialog"));
+    ko.applyBindings(window.movieService.poll, document.getElementById("pollSummary"));
+    var addMovie = document.getElementById("addMovie");
+    if (addMovie) {
+        ko.applyBindings(viewModel, addMovie);
+    }
+    var saveDialog = document.getElementById("saveDialog");
+    if (saveDialog) { //If signed in
+        ko.applyBindings(viewModel, saveDialog);
     }
 
-    viewModel.loadPoll();
+    var editPollContainer = document.getElementById('editPollContainer');
+    if (editPollContainer) {
+        ko.applyBindings(window.movieService.poll, editPollContainer);
+    }
+
+    window.movieService.poll.load();
     viewModel.loadMore(true);
 
 });

@@ -2,6 +2,7 @@
 using System.Linq;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.DataAccessApi;
+using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.Exceptions;
 
@@ -11,7 +12,7 @@ namespace Svitla.MovieService.Domain.Facades
     {
         private readonly IPollRepository polls;
 
-        public PollFacade(IDomainContext domainContext, IUnitOfWork unitOfWork, IPollRepository pollRepository)
+        public PollFacade(DomainContext domainContext, IUnitOfWork unitOfWork, IPollRepository pollRepository)
             : base(unitOfWork, domainContext)
         {
             polls = pollRepository;

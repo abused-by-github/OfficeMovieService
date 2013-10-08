@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.DataAccessApi;
+using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.DomainApi;
 
 namespace Svitla.MovieService.Domain.Facades
@@ -9,7 +10,7 @@ namespace Svitla.MovieService.Domain.Facades
     {
         private readonly IUserRepository users;
 
-        public UserFacade(IDomainContext domainContext, IUnitOfWork unitOfWork, IUserRepository userRepository)
+        public UserFacade(DomainContext domainContext, IUnitOfWork unitOfWork, IUserRepository userRepository)
             : base(unitOfWork, domainContext)
         {
             users = userRepository;

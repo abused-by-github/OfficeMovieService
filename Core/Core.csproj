@@ -42,6 +42,7 @@
     <Compile Include="Exceptions\BaseMovieException.cs" />
     <Compile Include="Exceptions\EntityInvalidException.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
+    <Compile Include="Validation\Url.cs" />
     <Compile Include="ValueObjects\Page.cs" />
     <Compile Include="ValueObjects\Paging.cs" />
   </ItemGroup>

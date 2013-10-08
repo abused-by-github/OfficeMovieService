@@ -88,3 +88,7 @@
  border: 1px solid #FFAD33;
  padding-left: 30px;
 }
+
+.error {
+    color: red;
+}

@@ -6,6 +6,7 @@ using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccessApi;
+using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.DataObjects;
 
@@ -15,7 +16,7 @@ namespace Svitla.MovieService.Domain.Facades
     {
         private readonly IMovieRepository movies;
 
-        public MovieFacade(IDomainContext domainContext, IUnitOfWork unitOfWork, IMovieRepository movies)
+        public MovieFacade(DomainContext domainContext, IUnitOfWork unitOfWork, IMovieRepository movies)
             : base(unitOfWork, domainContext)
         {
             this.movies = movies;
