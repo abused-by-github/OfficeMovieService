@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Configuration;
+using System.Linq;
 using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.Core.Helpers;
@@ -27,6 +28,7 @@ namespace Svitla.MovieService.WebApi.Controllers
             var currentUser = userFacade.GetByEmail(User.Identity.Name);
             var currentPoll = pollFacade.GetCurrent();
             var movies = movieFacade.FindMovies(paging, currentUser, currentPoll);
+            var leftVotes = currentUser == null || currentPoll == null ? int.MaxValue : GetLeftVotes(currentUser, currentPoll.Id);
 
             var dto = new
             {
@@ -40,10 +42,24 @@ namespace Svitla.MovieService.WebApi.Controllers
                     m.Movie.ImageUrl,
                     IsOwner = m.UserName == currentUser.Get(u => u.Name)
                 }).ToList(),
-                movies.Total
+                movies.Total,
+                leftVotes
             };
 
             return Response<object>(dto);
+        }
+
+        private static int GetLeftVotes(User currentUser, long currentPollID)
+        {
+            var maxVotesStr = ConfigurationManager.AppSettings["VotesLimit"];
+            int maxVotes;
+            int leftVotes = int.MaxValue;
+            if (int.TryParse(maxVotesStr, out maxVotes) && maxVotes > 0)
+            {
+                var alreadyVoted = currentUser.Votes.Count(v => v.PollId == currentPollID);
+                leftVotes = maxVotes - alreadyVoted;
+            }
+            return leftVotes;
         }
 
         [HttpPost]

@@ -1,6 +1,5 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
-    //var xKo = window.movieService.core.ko;
     var viewModel = {Movies: ko.observableArray()};
 
     window.pollInfo = {
