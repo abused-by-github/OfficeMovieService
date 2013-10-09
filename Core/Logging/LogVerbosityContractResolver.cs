@@ -18,9 +18,31 @@ namespace Svitla.MovieService.Core.Logging
         protected override JsonProperty CreateProperty(MemberInfo member, MemberSerialization memberSerialization)
         {
             var property = base.CreateProperty(member, memberSerialization);
-            var logSettings = (LogAttribute) member.GetCustomAttributes(typeof (LogAttribute)).SingleOrDefault();
-            property.Ignored = logVerbosity < logSettings.Get(s => s.Verbosity);
 
+            if (!property.Ignored)
+            {
+                var propertyInfo = member as PropertyInfo;
+                if (propertyInfo != null)
+                {
+                    property.Ignored = !propertyInfo.GetMethod.IsPublic;
+                }
+            }
+
+            if (!property.Ignored)
+            {
+                var fieldInfo = member as FieldInfo;
+                if (fieldInfo != null)
+                {
+                    property.Ignored = !fieldInfo.IsPublic;
+                }
+            }
+
+            if (!property.Ignored)
+            {
+                var logSettings = (LogAttribute) member
+                    .GetCustomAttributes(typeof (LogAttribute)).SingleOrDefault();
+                property.Ignored = logVerbosity < logSettings.Get(s => s.Verbosity);
+            }
             return property;
         }
     }

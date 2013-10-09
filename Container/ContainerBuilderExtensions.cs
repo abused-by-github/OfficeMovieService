@@ -12,6 +12,7 @@ namespace Svitla.MovieService.Container
                 .As<TInterface>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
+            builder.Register(c => new LogCallBriefInterceptor());
         }
 
         public static void RegisterWithBriefCallLog<TImplementation>(this ContainerBuilder builder)
@@ -19,6 +20,7 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<TImplementation>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
+            builder.Register(c => new LogCallBriefInterceptor());
         }
 
         public static void RegisterWithFullCallLog<TImplementation, TInterface>(this ContainerBuilder builder)
@@ -26,14 +28,16 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<TImplementation>()
                 .As<TInterface>()
                 .EnableClassInterceptors()
-                .InterceptedBy(typeof(LogCallBriefInterceptor));
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
+            builder.Register(c => new LogCallVerboseInterceptor());
         }
 
         public static void RegisterWithFullCallLog<TImplementation>(this ContainerBuilder builder)
         {
             builder.RegisterType<TImplementation>()
                 .EnableClassInterceptors()
-                .InterceptedBy(typeof(LogCallBriefInterceptor));
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
+            builder.Register(c => new LogCallVerboseInterceptor());
         }
     }
 }

@@ -21,39 +21,48 @@ namespace Svitla.MovieService.Core.Logging
             nLog.ErrorException("", e);
         }
 
-        public static void LogMethodStart(Verbosity verbosity, string type, string method, Dictionary<string, object> args)
+        public static void LogMethodStart(Verbosity verbosity, string type, string method, Dictionary<string, object> args, string callId = "")
         {
             Task.Run(() =>
             {
-                string argsJson;
-                var serializer = new JsonSerializer();
-                serializer.ContractResolver = new LogVerbosityContractResolver(verbosity);
-                using (var writer = new StringWriter())
+                var format = BeforeMethodCallLog;
+                if (!string.IsNullOrEmpty(callId))
                 {
-                    serializer.Serialize(writer, args);
-                    argsJson = writer.ToString();
+                    format = "Call <" + callId + "> " + format;
                 }
-
-                nLog.Info(string.Format(BeforeMethodCallLog, method, type, argsJson));
-            }).Start();
+                var argsJson = Serialize(verbosity, args);
+                nLog.Info(string.Format(format, method, type, argsJson));
+            });
         }
 
-        public static void LogMethodEnd(Verbosity verbosity, string type, string method, object result, bool isSuccess)
+        public static void LogMethodEnd(Verbosity verbosity, string type, string method, object result, bool isSuccess, string callId = "")
         {
             Task.Run(() =>
             {
-                string resultJson;
-                var serializer = new JsonSerializer();
-                serializer.ContractResolver = new LogVerbosityContractResolver(verbosity);
-                using (var writer = new StringWriter())
+                var format = isSuccess ? AfterMethodSuccessCallLog : AfterMethodUnSuccessCallLog;
+                if (!string.IsNullOrEmpty(callId))
                 {
-                    serializer.Serialize(writer, result);
-                    resultJson = writer.ToString();
+                    format = "Call <" + callId + "> " + format;
                 }
+                var resultJson = Serialize(verbosity, result);
+                nLog.Info(string.Format(format, method, type, resultJson));
+            });
+        }
 
-                var message = isSuccess ? AfterMethodSuccessCallLog : AfterMethodUnSuccessCallLog;
-                nLog.Info(string.Format(message, method, type, resultJson));
-            }).Start();
+        private static string Serialize(Verbosity verbosity, object obj)
+        {
+            string result;
+
+            var serializer = new JsonSerializer();
+            serializer.ContractResolver = new LogVerbosityContractResolver(verbosity);
+            serializer.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            using (var writer = new StringWriter())
+            {
+                serializer.Serialize(writer, obj);
+                result = writer.ToString();
+            }
+
+            return result;
         }
     }
 }

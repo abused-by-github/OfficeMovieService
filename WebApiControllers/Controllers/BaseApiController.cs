@@ -1,4 +1,8 @@
-﻿using System.Web.Http;
+﻿using System.Net.Http;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Web.Http;
+using System.Web.Http.Controllers;
 using Svitla.MovieService.WebApi.Dto;
 using Svitla.MovieService.WebApi.Filters;
 
@@ -15,6 +19,18 @@ namespace Svitla.MovieService.WebApi.Controllers
         protected EmptyResponseObject Response()
         {
             return new EmptyResponseObject(true, "");
+        }
+
+        //Prevent creating proxy
+        public sealed override Task<HttpResponseMessage> ExecuteAsync(HttpControllerContext controllerContext, CancellationToken cancellationToken)
+        {
+            return base.ExecuteAsync(controllerContext, cancellationToken);
+        }
+
+        //Prevent creating proxy
+        protected sealed override void Initialize(HttpControllerContext controllerContext)
+        {
+            base.Initialize(controllerContext);
         }
     }
 }

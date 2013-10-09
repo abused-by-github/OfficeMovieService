@@ -16,22 +16,24 @@ namespace Svitla.MovieService.Logging.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
+            string callId = Guid.NewGuid().ToString();
+
             Dictionary<string, object> args = new Dictionary<string, object>();
             var @params = invocation.Method.GetParameters();
             for (var i = 0; i < @params.Length; ++i)
             {
                 args[@params[i].Name] = invocation.Arguments[i];
             }
-            Logger.LogMethodStart(verbosity, invocation.TargetType.FullName, invocation.Method.Name, args);
+            Logger.LogMethodStart(verbosity, invocation.TargetType.FullName, invocation.Method.Name, args, callId);
 
             try
             {
                 invocation.Proceed();
-                Logger.LogMethodEnd(verbosity, invocation.TargetType.FullName, invocation.Method.Name, invocation.ReturnValue, true);
+                Logger.LogMethodEnd(verbosity, invocation.TargetType.FullName, invocation.Method.Name, invocation.ReturnValue, true, callId);
             }
             catch (Exception e)
             {
-                Logger.LogMethodEnd(verbosity, invocation.TargetType.FullName, invocation.Method.Name, e, false);
+                Logger.LogMethodEnd(verbosity, invocation.TargetType.FullName, invocation.Method.Name, e, false, callId);
                 throw;
             }
         }
