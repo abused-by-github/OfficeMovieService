@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcControllers", "MvcContro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationTests", "ValidationTests\ValidationTests.csproj", "{796941A7-C22D-4B87-BA84-3C4B0DA978FF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{278A948D-F4D0-466E-90DA-39272317386C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{796941A7-C22D-4B87-BA84-3C4B0DA978FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{278A948D-F4D0-466E-90DA-39272317386C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{278A948D-F4D0-466E-90DA-39272317386C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{278A948D-F4D0-466E-90DA-39272317386C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{278A948D-F4D0-466E-90DA-39272317386C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

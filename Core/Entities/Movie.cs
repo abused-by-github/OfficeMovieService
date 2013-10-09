@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Svitla.MovieService.Core.Exceptions;
+using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.Core.Entities
 {
@@ -36,7 +37,10 @@ namespace Svitla.MovieService.Core.Entities
         public DateTimeOffset CreatedDate { get; set; }
         public DateTimeOffset ModifiedDate { get; set; }
 
+        [Log(Verbosity.Full)]
         public virtual User User { get; set; }
+
+        [Log(Verbosity.Full)]
         public virtual ICollection<Vote> Votes { get; set; }
 
         public Movie()
