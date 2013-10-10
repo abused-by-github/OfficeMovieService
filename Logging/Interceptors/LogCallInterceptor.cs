@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Castle.DynamicProxy;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.Logging.Interceptors
@@ -16,26 +18,49 @@ namespace Svitla.MovieService.Logging.Interceptors
 
         public void Intercept(IInvocation invocation)
         {
-            string callId = Guid.NewGuid().ToString();
-
-            Dictionary<string, object> args = new Dictionary<string, object>();
-            var @params = invocation.Method.GetParameters();
-            for (var i = 0; i < @params.Length; ++i)
+            if (IsMethodLogable(invocation.Method))
             {
-                args[@params[i].Name] = invocation.Arguments[i];
-            }
-            Logger.LogMethodStart(verbosity, invocation.TargetType.FullName, invocation.Method.Name, args, callId);
+                //We need some tag which allow us to match method start and end in log.
+                var callId = Guid.NewGuid().ToString();
+                var method = invocation.Method.Name;
+                var type = invocation.TargetType.FullName;
 
-            try
+                Dictionary<string, object> args = new Dictionary<string, object>();
+                var @params = invocation.Method.GetParameters();
+                for (var i = 0; i < @params.Length; ++i)
+                {
+                    args[@params[i].Name] = invocation.Arguments[i];
+                }
+
+                Logger.LogMethodStart(verbosity, type, method, args, callId);
+
+                try
+                {
+                    invocation.Proceed();
+                    Logger.LogMethodEnd(verbosity, type, method, invocation.ReturnValue, true, callId);
+                }
+                catch (Exception e)
+                {
+                    Logger.LogMethodEnd(verbosity, type, method, e, false, callId);
+                    throw;
+                }
+            }
+            else
             {
                 invocation.Proceed();
-                Logger.LogMethodEnd(verbosity, invocation.TargetType.FullName, invocation.Method.Name, invocation.ReturnValue, true, callId);
             }
-            catch (Exception e)
+        }
+
+        //TODO: proxy shouldn't be created for not logable methods at all
+        private bool IsMethodLogable(MethodInfo method)
+        {
+            var result = method.IsPublic;
+            if (result)
             {
-                Logger.LogMethodEnd(verbosity, invocation.TargetType.FullName, invocation.Method.Name, e, false, callId);
-                throw;
+                var methodVerbosity = method.GetCustomAttribute<LogAttribute>().Get(a => a.Verbosity);
+                result = verbosity >= methodVerbosity;
             }
+            return result;
         }
     }
 }

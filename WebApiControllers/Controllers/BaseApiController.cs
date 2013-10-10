@@ -26,11 +26,5 @@ namespace Svitla.MovieService.WebApi.Controllers
         {
             return base.ExecuteAsync(controllerContext, cancellationToken);
         }
-
-        //Prevent creating proxy
-        protected sealed override void Initialize(HttpControllerContext controllerContext)
-        {
-            base.Initialize(controllerContext);
-        }
     }
 }
