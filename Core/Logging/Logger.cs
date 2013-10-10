@@ -46,7 +46,14 @@ namespace Svitla.MovieService.Core.Logging
                     format = "Call <" + callId + "> " + format;
                 }
                 var resultJson = Serialize(verbosity, result);
-                nLog.Info(string.Format(format, method, type, resultJson));
+                if (isSuccess)
+                {
+                    nLog.Info(string.Format(format, method, type, resultJson));
+                }
+                else
+                {
+                    nLog.Error(string.Format(format, method, type, resultJson));
+                }
             });
         }
 
