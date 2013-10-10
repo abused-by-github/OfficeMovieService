@@ -10,3 +10,4 @@ Process is next: create feature in Development through set of commits; when it's
 to Production. Each commit to Production is automatically deployed to AppHarbor.
 "master" branch is not used at all. Any changes in domain model / DB must have corresponding data migrations. Data migrations are
 applied while application startup.
+2. [Logging] (https://github.com/ikesler/OfficeMovieService/wiki/Logging)
