@@ -13,7 +13,7 @@
                     if (r.Status) {
                         onSuccess(r);
                     } else {
-                        $('<span>' + r.ErrorMessage + '</span>').dialog({ modal: true, title: 'An error occured.' });
+                        window.movieService.core.ui.showError(r.ErrorMessage);
                     }
                 },
                 complete: onComplete,
@@ -55,6 +55,15 @@
     ui: {
         showInfo: function (text) {
             $('<div>' + text + '</div>').dialog();
+        },
+        showError: function(text) {
+            $('<div>' + text + '</div>').dialog({
+                width: 'auto',
+                minHeight: 'auto',
+                title: 'Error',
+                modal: true,
+                dialogClass: 'error'
+            });
         }
     }
 };
