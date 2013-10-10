@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -23,7 +24,7 @@ namespace Svitla.MovieService.Core.Logging
 
         public static void LogMethodStart(Verbosity verbosity, string type, string method, Dictionary<string, object> args, string callId = "")
         {
-            Task.Run(() =>
+            LogAsync(() =>
             {
                 var format = BeforeMethodCallLog;
                 if (!string.IsNullOrEmpty(callId))
@@ -37,7 +38,7 @@ namespace Svitla.MovieService.Core.Logging
 
         public static void LogMethodEnd(Verbosity verbosity, string type, string method, object result, bool isSuccess, string callId = "")
         {
-            Task.Run(() =>
+            LogAsync(() =>
             {
                 var format = isSuccess ? AfterMethodSuccessCallLog : AfterMethodUnSuccessCallLog;
                 if (!string.IsNullOrEmpty(callId))
@@ -63,6 +64,19 @@ namespace Svitla.MovieService.Core.Logging
             }
 
             return result;
+        }
+
+        private static void LogAsync(Action action)
+        {
+            var useAsync = bool.Parse(ConfigurationManager.AppSettings["UseAsyncLogSerialization"]);
+            if (useAsync)
+            {
+                Task.Run(action);
+            }
+            else
+            {
+                action();
+            }
         }
     }
 }
