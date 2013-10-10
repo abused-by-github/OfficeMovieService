@@ -42,6 +42,7 @@
     <Compile Include="Exceptions\BaseMovieException.cs" />
     <Compile Include="Exceptions\EntityInvalidException.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
     <Compile Include="Logging\LogVerbosityContractResolver.cs" />
     <Compile Include="Logging\LogAttribute.cs" />
     <Compile Include="Logging\Logger.cs" />
@@ -59,6 +60,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
+    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

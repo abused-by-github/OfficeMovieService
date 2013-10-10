@@ -121,6 +121,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_GlobalResources\ErrorMessages.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -143,6 +148,7 @@
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_glass_85_dfeffc_1x400.png" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_glass_95_fef1ec_1x400.png" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_gloss-wave_55_5c9ccc_500x100.png" />
+    <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_highlight-soft_75_ff0000_1x100.png" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_inset-hard_100_f5f8f9_1x100.png" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-bg_inset-hard_100_fcfdfd_1x100.png" />
     <Content Include="Scripts\JQueryUI\css\redmond\images\ui-icons_217bc0_256x240.png" />
@@ -230,6 +236,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\InviteFriend.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_GlobalResources\ErrorMessages.resx">
+      <Generator>GlobalResourceProxyGenerator</Generator>
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

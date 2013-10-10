@@ -44,7 +44,7 @@ namespace Svitla.MovieService.Domain.Facades
             var existingUser = GetByEmail(friend.Name);
             if (existingUser != null)
             {
-                throw new UserAlreadyExistsException();
+                throw new UserAlreadyExistsException(friend.Name);
             }
             friend.InvitedBy = DomainContext.CurrentUser;
             users.Add(friend);
