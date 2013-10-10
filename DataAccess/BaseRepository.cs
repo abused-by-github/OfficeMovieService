@@ -66,9 +66,9 @@ namespace Svitla.MovieService.DataAccess
             return query(Queryable);
         }
 
-        public virtual IEnumerable<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query)
+        public virtual List<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query)
         {
-            return query(Queryable);
+            return query(Queryable).ToList();
         }
 
         public Page<TResult> Page<TResult>(Func<IQueryable<TEntity>, IOrderedQueryable<TResult>> query, Paging paging)
