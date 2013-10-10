@@ -49,27 +49,24 @@ namespace Svitla.MovieService.Container
                 .As<DataContext>()
                 .InstancePerApiRequest();
 
-            builder.RegisterType<MovieRepository>().As<IMovieRepository>();
-            builder.RegisterType<PollRepository>().As<IPollRepository>();
-            builder.RegisterType<UserRepository>().As<IUserRepository>();
+            builder.RegisterWithBriefCallLog<MovieRepository, IMovieRepository>();
+            builder.RegisterWithBriefCallLog<PollRepository, IPollRepository>();
+            builder.RegisterWithBriefCallLog<UserRepository, IUserRepository>();
         }
 
         private static void registerDomain(ContainerBuilder builder)
         {
-            builder.RegisterType<MovieFacade>()
-                .As<IMovieFacade>();
-            builder.RegisterType<PollFacade>()
-                .As<IPollFacade>();
-            builder.RegisterType<UserFacade>()
-                .As<IUserFacade>();
+            builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>();
+            builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>();
+            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>();
 
             builder.Register(resolveDomainContext);
         }
 
         private static void registerWebApi(ContainerBuilder builder)
         {
-            builder.RegisterType<MovieController>();
-            builder.RegisterType<PollController>();
+            builder.RegisterWithFullCallLog<MovieController>();
+            builder.RegisterWithFullCallLog<PollController>();
         }
 
         private static DomainContext resolveDomainContext(IComponentContext context)

@@ -13,7 +13,7 @@ namespace Svitla.MovieService.DataAccessApi
         void Remove(TEntity entity);
         TEntity this[long id] { get; set; }
         TEntity One(Func<IQueryable<TEntity>, TEntity> query);
-        IEnumerable<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query);
+        List<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query);
         Page<TResult> Page<TResult> (Func<IQueryable<TEntity>, IOrderedQueryable<TResult>> query, Paging paging);
     }
 }

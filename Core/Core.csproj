@@ -42,12 +42,26 @@
     <Compile Include="Exceptions\BaseMovieException.cs" />
     <Compile Include="Exceptions\EntityInvalidException.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
+    <Compile Include="Logging\LogVerbosityContractResolver.cs" />
+    <Compile Include="Logging\LogAttribute.cs" />
+    <Compile Include="Logging\Logger.cs" />
+    <Compile Include="Logging\Verbosity.cs" />
     <Compile Include="Validation\Url.cs" />
     <Compile Include="ValueObjects\Page.cs" />
     <Compile Include="ValueObjects\Paging.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
