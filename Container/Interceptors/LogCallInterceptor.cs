@@ -5,7 +5,7 @@ using Castle.DynamicProxy;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Logging.Interceptors
+namespace Svitla.MovieService.Container.Interceptors
 {
     public abstract class LogCallInterceptor : IInterceptor
     {

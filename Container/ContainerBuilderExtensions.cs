@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Autofac.Extras.DynamicProxy2;
-using Svitla.MovieService.Logging.Interceptors;
+using Svitla.MovieService.Container.Interceptors;
 
 namespace Svitla.MovieService.Container
 {
