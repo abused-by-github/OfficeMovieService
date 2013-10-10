@@ -49,8 +49,12 @@
                     }
                 })
             };
+        }
+    },
 
-            
+    ui: {
+        showInfo: function (text) {
+            $('<div>' + text + '</div>').dialog();
         }
     }
 };
@@ -126,4 +130,11 @@ ko.bindingHandlers.dateTimePicker = {
         // and again whenever the associated observable changes value.
         // Update the DOM element based on the supplied values here.
     }
+};
+
+$.fn.koBind = function (viewModel) {
+    this.each(function(i, e) {
+        ko.applyBindings(viewModel, e);
+    });
+    return this;
 };

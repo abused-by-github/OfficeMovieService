@@ -157,6 +157,7 @@
     <Content Include="Scripts\knockout-2.3.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
     <Content Include="Scripts\knockout.validation.min.js" />
+    <Content Include="Scripts\Layout.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MovieList.js" />
     <Content Include="Scripts\PollInfo.js" />
@@ -226,6 +227,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\Poll.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Scripts\InviteFriend.js" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

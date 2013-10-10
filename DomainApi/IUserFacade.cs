@@ -6,5 +6,6 @@ namespace Svitla.MovieService.DomainApi
     {
         User GetByEmail(string email);
         void Save(User user);
+        void InviteFriend(User user);
     }
 }

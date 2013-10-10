@@ -36,6 +36,8 @@
     <Compile Include="DataObjects\VoteableMovie.cs" />
     <Compile Include="Exceptions\AccessDeniedException.cs" />
     <Compile Include="Exceptions\SinglePollAllowedException.cs" />
+    <Compile Include="Exceptions\UserAlreadyExistsException.cs" />
+    <Compile Include="Exceptions\UserDomainDeniedException.cs" />
     <Compile Include="IMovieFacade.cs" />
     <Compile Include="IPollFacade.cs" />
     <Compile Include="IUserFacade.cs" />
