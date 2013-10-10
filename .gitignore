@@ -6,3 +6,4 @@ TestResults
 *.DotSettings.user
 *.log
 *.user
+App_Data

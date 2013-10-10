@@ -10,6 +10,7 @@
         this.Id = ko.observable(data.Id);
         this.IsVoteable = ko.observable(data.IsVoteable);
         this.IsMine = ko.observable(data.IsMine);
+        this.MaxVotes = ko.observable(data.MaxVotes);
     };
 
     PollViewModel.prototype.load = function () {
@@ -65,6 +66,7 @@
         this.Id(data.Id);
         this.IsVoteable(data.IsVoteable);
         this.IsMine(data.IsMine);
+        this.MaxVotes(data.MaxVotes);
     };
 
     PollViewModel.getDefaultData = function () {

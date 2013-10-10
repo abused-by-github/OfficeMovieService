@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Svitla.MovieService.Core.Exceptions;
+using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.Core.Entities
 {
@@ -26,8 +27,10 @@ namespace Svitla.MovieService.Core.Entities
 
         public bool IsActive { get; set; }
 
+        [Log(Verbosity.Full)]
         public virtual User Owner { get; set; }
 
+        [Log(Verbosity.Full)]
         public virtual ICollection<Vote> Votes { get; set; }
 
         public bool IsVoteable
@@ -39,6 +42,8 @@ namespace Svitla.MovieService.Core.Entities
         }
 
         private Movie winner;
+
+        [Log(Verbosity.Full)]
         public Movie Winner
         {
             get

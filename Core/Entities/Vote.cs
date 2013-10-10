@@ -1,4 +1,5 @@
 ﻿using System;
+using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.Core.Entities
 {
@@ -8,8 +9,13 @@ namespace Svitla.MovieService.Core.Entities
         public long MovieId { get; set; }
         public long PollId { get; set; }
 
+        [Log(Verbosity.Full)]
         public virtual User User { get; set; }
+
+        [Log(Verbosity.Full)]
         public virtual Poll Poll { get; set; }
+
+        [Log(Verbosity.Full)]
         public virtual Movie Movie { get; set; }
 
         public bool Equals(Vote other)

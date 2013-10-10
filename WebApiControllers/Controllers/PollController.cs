@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Web.Http;
 using Svitla.MovieService.Core.Entities;
@@ -99,6 +100,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         private object CreatePollDto(Poll poll)
         {
             var currentUser = userFacade.GetByEmail(User.Identity.Name);
+            var maxVotes = ConfigurationManager.AppSettings["VotesLimit"];
             object dto = null;
             if (poll != null)
             {
@@ -111,7 +113,8 @@ namespace Svitla.MovieService.WebApi.Controllers
                     poll.Name,
                     poll.ViewDate,
                     Winner = poll.Winner.Get(m => new { m.Id, m.Name }),
-                    IsMine = poll.Owner == currentUser
+                    IsMine = poll.Owner == currentUser,
+                    MaxVotes = maxVotes
                 };
             }
             return dto;

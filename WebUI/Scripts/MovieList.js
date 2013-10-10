@@ -61,6 +61,7 @@
         dialog: $("#saveDialog").dialog({ modal: true, autoOpen: false, resizable: false, width: 'auto', title: 'Add New Movie to Collection' }),
         loadMoreButton: $('#loadMoreButton'),
         currentMovie: MovieViewModel.getDefault(),
+        LeftVotes: ko.observable(),
 
         cancelDialog: function () {
             this.dialog.dialog('close');
@@ -109,6 +110,7 @@
                 $(window).scrollTop($(document).height());
             }
             ++viewModel.currentPage;
+            viewModel.LeftVotes(r.Data.leftVotes);
         },
 
         fetchMoreMoviesComplete: function () {
@@ -145,6 +147,7 @@
             api.call('poll', 'vote', { id: this.Id }, function () {
                 movie.IsVoted(true);
                 viewModel.updateRatings();
+                viewModel.LeftVotes(viewModel.LeftVotes() - 1);
             }, function() {
                 movie.IsVoting(false);
             });
@@ -156,6 +159,7 @@
             api.call('poll', 'unvote', { id: this.Id }, function () {
                 movie.IsVoted(false);
                 viewModel.updateRatings();
+                viewModel.LeftVotes(viewModel.LeftVotes() + 1);
             }, function () {
                 movie.IsVoting(false);
             });

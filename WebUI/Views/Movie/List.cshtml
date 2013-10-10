@@ -30,6 +30,9 @@
                     <span data-bind="visible: ViewDate.ui">
                         watch movie at <span data-bind="text: ViewDate.ui"></span>
                     </span>
+                    <span data-bind="visible: MaxVotes() != '0'">
+                        You have <span data-bind="text: MaxVotes"></span> vote<span data-bind="visible: MaxVotes() != '1'">s</span>.
+                    </span>
                 </span>
                 <span data-bind="visible: Id() && !IsVoteable()">
                     Poll <span data-bind="text: Name"></span>
@@ -50,8 +53,8 @@
                     No poll right now.
                     @if (User.Identity.IsAuthenticated)
                     {<text>
-                            You can <a href="JavaScript:void(0)" data-bind="click: edit">add one</a>.
-                        </text>}
+                         You can <a href="JavaScript:void(0)" data-bind="click: edit">add one</a>.
+                     </text>}
                 </span>
             </span>
             @if (User.Identity.IsAuthenticated)
@@ -80,10 +83,12 @@
                                 </button>
                             </div>
                             <div class="movie-toolbar-right" data-bind="visible: $parent.poll.IsVoteable">
-                                <button type="button" class="btn btn-default btn-xs" title="Vote"
-                                        data-bind="visible: !IsVoted(), disable: IsVoting, click: $parent.vote">
-                                    <span class="glyphicon glyphicon-thumbs-up"></span>
-                                </button>
+                                <div title="You already spent all you votes">
+                                    <button type="button" class="btn btn-default btn-xs" title="Vote"
+                                            data-bind="visible: !IsVoted(), disable: $parent.LeftVotes() == 0 || IsVoting, click: $parent.vote">
+                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    </button>
+                                </div>
                                 <button type="button" class="btn btn-default btn-xs" title="Unvote"
                                         data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">
                                     <span class="glyphicon glyphicon-thumbs-down"></span>
@@ -95,7 +100,7 @@
             </div>
         </div>
         <div id="votesContainer" class="col-md-3">
-            Ratings:
+            <h3>Ratings:</h3>
             <table id="ratedMovies" data-bind="foreach: Movies" style="display: none;">
                 <tr>
                     <td data-bind="text: Name"></td>
