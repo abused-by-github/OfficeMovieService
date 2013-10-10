@@ -62,6 +62,7 @@
         loadMoreButton: $('#loadMoreButton'),
         currentMovie: MovieViewModel.getDefault(),
         LeftVotes: ko.observable(),
+        inviteFriend: new window.movieService.InviteFriendViewModel(),
 
         cancelDialog: function () {
             this.dialog.dialog('close');

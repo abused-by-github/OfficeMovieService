@@ -13,7 +13,7 @@
                     if (r.Status) {
                         onSuccess(r);
                     } else {
-                        $('<span>' + r.ErrorMessage + '</span>').dialog({ modal: true, title: 'An error occured.' });
+                        window.movieService.core.ui.showError(r.ErrorMessage);
                     }
                 },
                 complete: onComplete,
@@ -49,8 +49,21 @@
                     }
                 })
             };
+        }
+    },
 
-            
+    ui: {
+        showInfo: function (text) {
+            $('<div>' + text + '</div>').dialog();
+        },
+        showError: function(text) {
+            $('<div>' + text + '</div>').dialog({
+                width: 'auto',
+                minHeight: 'auto',
+                title: 'Error',
+                modal: true,
+                dialogClass: 'error'
+            });
         }
     }
 };
@@ -126,4 +139,11 @@ ko.bindingHandlers.dateTimePicker = {
         // and again whenever the associated observable changes value.
         // Update the DOM element based on the supplied values here.
     }
+};
+
+$.fn.koBind = function (viewModel) {
+    this.each(function(i, e) {
+        ko.applyBindings(viewModel, e);
+    });
+    return this;
 };

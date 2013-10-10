@@ -49,6 +49,10 @@
     <Compile Include="Migrations\201310082048457_InitialSchema.Designer.cs">
       <DependentUpon>201310082048457_InitialSchema.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310101851129_AddUserInvitedBy.cs" />
+    <Compile Include="Migrations\201310101851129_AddUserInvitedBy.Designer.cs">
+      <DependentUpon>201310101851129_AddUserInvitedBy.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="PollRepository.cs" />
@@ -68,6 +72,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201310082048457_InitialSchema.resx">
       <DependentUpon>201310082048457_InitialSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310101851129_AddUserInvitedBy.resx">
+      <DependentUpon>201310101851129_AddUserInvitedBy.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

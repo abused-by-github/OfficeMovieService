@@ -58,7 +58,8 @@ namespace Svitla.MovieService.Container
         {
             builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>();
             builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>();
-            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>();
+            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>()
+                .OnActivated(uf => uf.Instance.AllowedDomain = "AllowedDomain");
 
             builder.Register(resolveDomainContext);
         }
@@ -67,6 +68,7 @@ namespace Svitla.MovieService.Container
         {
             builder.RegisterWithFullCallLog<MovieController>();
             builder.RegisterWithFullCallLog<PollController>();
+            builder.RegisterWithFullCallLog<AccountController>();
         }
 
         private static DomainContext resolveDomainContext(IComponentContext context)

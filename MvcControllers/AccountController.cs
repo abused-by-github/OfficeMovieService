@@ -8,6 +8,7 @@ using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.DomainApi.Exceptions;
 
 namespace Svitla.MovieService.MvcControllers
 {
@@ -62,14 +63,17 @@ namespace Svitla.MovieService.MvcControllers
                 {
                     case AuthenticationStatus.Authenticated:
                         var fetches = response.GetExtension<FetchResponse>();
-                        var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];
-                        var allowedDomain = ConfigurationManager.AppSettings["AllowedDomain"];
-                        if (!IsEmailDomainValid(email, allowedDomain))
+
+                        try
                         {
-                            Session["ViewError"] = string.Format("Sorry, but only emails from {0} domain are allowed for registration", allowedDomain);
-                            return RedirectToLandingAction();
+                            SaveUser(fetches);
                         }
-                        SaveUser(fetches);
+                        catch (UserDomainDeniedException e)
+                        {
+                            Session["ViewError"] = string.Format("Sorry, but only emails from {0} domain are allowed for registration", e.AllowedDomain);
+                        }
+
+                        var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];
                         FormsAuthentication.SetAuthCookie(email, false);
                         return RedirectToLandingAction();
                         break;

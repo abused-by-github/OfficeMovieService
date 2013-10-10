@@ -111,3 +111,16 @@
     padding-top: 38px;
     text-align:center
 }
+
+.error .ui-widget-header {
+    background:  #ff0000 url(../Scripts/JQueryUI/css/redmond/images/ui-bg_highlight-soft_75_ff0000_1x100.png) 50% 50% repeat-x;
+    border: #a6040c;
+}
+
+.error .ui-widget-header button {
+    border: #a6040c;
+}
+
+.error.ui-dialog {
+    border: #a6040c;
+}
