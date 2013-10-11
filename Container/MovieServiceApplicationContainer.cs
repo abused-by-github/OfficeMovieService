@@ -59,7 +59,7 @@ namespace Svitla.MovieService.Container
             builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>();
             builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>();
             builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>()
-                .OnActivated(uf => uf.Instance.AllowedDomain = "AllowedDomain");
+                .OnActivated(uf => uf.Instance.AllowedDomain = ConfigurationManager.AppSettings["AllowedDomain"]);
 
             builder.Register(resolveDomainContext);
         }
