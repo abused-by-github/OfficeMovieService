@@ -71,6 +71,7 @@ namespace Svitla.MovieService.MvcControllers
                         catch (UserDomainDeniedException e)
                         {
                             Session["ViewError"] = string.Format("Sorry, but only emails from {0} domain are allowed for registration", e.AllowedDomain);
+                            return RedirectToLandingAction();
                         }
 
                         var email = fetches.Attributes[WellKnownAttributes.Contact.Email].Values[0];

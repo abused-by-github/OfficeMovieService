@@ -68,5 +68,14 @@ namespace Resources {
                 return ResourceManager.GetString("UserAlreadyExistsException", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only next email domains are allowed: {AllowedDomain}.
+        /// </summary>
+        internal static string UserDomainDeniedException {
+            get {
+                return ResourceManager.GetString("UserDomainDeniedException", resourceCulture);
+            }
+        }
     }
 }
