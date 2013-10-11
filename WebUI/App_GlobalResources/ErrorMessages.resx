@@ -120,4 +120,7 @@
   <data name="UserAlreadyExistsException" xml:space="preserve">
     <value>User with email {Email} already exists.</value>
   </data>
+  <data name="UserDomainDeniedException" xml:space="preserve">
+    <value>Only next email domains are allowed: {AllowedDomain}</value>
+  </data>
 </root>

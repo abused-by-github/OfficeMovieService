@@ -10,6 +10,8 @@ namespace Svitla.MovieService.Domain.Facades
     public class UserFacade : BaseFacade, IUserFacade
     {
         private readonly IUserRepository users;
+        //These domains are supported by oAuth
+        private readonly string[] domainsAllowedForInvintation = { "gmail.com", "svitla.com" };
 
         public string AllowedDomain { get; set; }
 
@@ -41,6 +43,11 @@ namespace Svitla.MovieService.Domain.Facades
 
         public void InviteFriend(User friend)
         {
+            if (domainsAllowedForInvintation.All(d => !friend.Name.EndsWith(d)))
+            {
+                var domains = domainsAllowedForInvintation.Aggregate("", (s, d) => s + ", " + d);
+                throw new UserDomainDeniedException(domains.Substring(2));
+            }
             var existingUser = GetByEmail(friend.Name);
             if (existingUser != null)
             {
