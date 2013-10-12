@@ -26,12 +26,12 @@ namespace Svitla.MovieService.Domain.Facades
             this.inviteEmailFactory = inviteEmailFactory;
         }
 
-        public User GetByEmail(string email)
+        public virtual User GetByEmail(string email)
         {
             return users.One(q => q.FirstOrDefault(u => u.Name == email));
         }
         
-        public void Save(User user)
+        public virtual void Save(User user)
         {
             var existedUser = GetByEmail(user.Name);
             if (existedUser != null)
@@ -46,7 +46,7 @@ namespace Svitla.MovieService.Domain.Facades
             UnitOfWork.Commit();
         }
 
-        public void InviteFriend(User friend)
+        public virtual void InviteFriend(User friend)
         {
             if (domainsAllowedForInvintation.All(d => !friend.Name.EndsWith(d)))
             {

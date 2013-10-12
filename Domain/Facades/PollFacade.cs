@@ -18,12 +18,12 @@ namespace Svitla.MovieService.Domain.Facades
             polls = pollRepository;
         }
 
-        public Poll GetCurrent()
+        public virtual Poll GetCurrent()
         {
             return polls.One(q => q.SingleOrDefault(p => p.IsActive && !p.ViewDate.HasValue || p.ViewDate > DateTime.Now));
         }
 
-        public void CancelCurrent()
+        public virtual void CancelCurrent()
         {
             var current = GetCurrent();
             current.IsActive = false;
@@ -31,7 +31,7 @@ namespace Svitla.MovieService.Domain.Facades
             UnitOfWork.Commit();
         }
 
-        public void Save(Poll poll)
+        public virtual void Save(Poll poll)
         {
             var currentPoll = GetCurrent();
             if (currentPoll != null)
@@ -55,7 +55,7 @@ namespace Svitla.MovieService.Domain.Facades
             UnitOfWork.Commit();
         }
 
-        public void Vote(User user, Movie movie, bool isSelected)
+        public virtual void Vote(User user, Movie movie, bool isSelected)
         {
             var poll = GetCurrent();
             var vote = new Vote { Movie = movie, Poll = poll, User = user };
