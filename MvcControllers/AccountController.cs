@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -43,8 +45,16 @@ namespace Svitla.MovieService.MvcControllers
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
             request.AddExtension(fetch);
-            Logger.LogInfo("Google openID request details: {0}", request);
+            LogAutRequest(request);
             return request.RedirectingResponse.AsActionResult();
+        }
+
+        private static void LogAutRequest(IAuthenticationRequest request)
+        {
+            var headers =
+                request.RedirectingResponse.Headers.AllKeys.Select(
+                    k => new KeyValuePair<string, string>(k, request.RedirectingResponse.Headers[k])).ToList();
+            Logger.LogInfo("Google openID request details: {0}", new { headers, request.RedirectingResponse.Body });
         }
 
         private string GetBaseUrl(string path = null)
