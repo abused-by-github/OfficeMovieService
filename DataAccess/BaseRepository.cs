@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Logging;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccessApi;
 
@@ -61,17 +62,17 @@ namespace Svitla.MovieService.DataAccess
         }
 
 
-        public virtual TEntity One(Func<IQueryable<TEntity>, TEntity> query)
+        public virtual TEntity One([Log(Verbosity.Full)] Func<IQueryable<TEntity>, TEntity> query)
         {
             return query(Queryable);
         }
 
-        public virtual List<TEntity> Many(Func<IQueryable<TEntity>, IQueryable<TEntity>> query)
+        public virtual List<TEntity> Many([Log(Verbosity.Full)] Func<IQueryable<TEntity>, IQueryable<TEntity>> query)
         {
             return query(Queryable).ToList();
         }
 
-        public Page<TResult> Page<TResult>(Func<IQueryable<TEntity>, IOrderedQueryable<TResult>> query, Paging paging)
+        public Page<TResult> Page<TResult>([Log(Verbosity.Full)] Func<IQueryable<TEntity>, IOrderedQueryable<TResult>> query, Paging paging)
         {
             var queryable = query(Queryable);
             var page = new Page<TResult>();
