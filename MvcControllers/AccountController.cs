@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -9,7 +7,6 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Logging;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.Exceptions;
 
@@ -33,30 +30,17 @@ namespace Svitla.MovieService.MvcControllers
         //}
 
         [HttpPost]
-        [return:Log(Verbosity.Full)]
-        public virtual ActionResult LoginGoogle()
+        public ActionResult LoginGoogle()
         {
             OpenIdRelyingParty openID = new OpenIdRelyingParty();
             var callbackUrl = GetBaseUrl(Url.Action("LoginCallback", "Account"));
-
-            var realm = GetBaseUrl(Url.Action("", "Account"));
-            Logger.LogInfo("Google openID request: {0}", new { callbackUrl, realm });
-            var request = openID.CreateRequest(GoogleOpenID, realm, new Uri(callbackUrl));
+            var request = openID.CreateRequest(GoogleOpenID, GetBaseUrl(), new Uri(callbackUrl));
             FetchRequest fetch = new FetchRequest();
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
             request.AddExtension(fetch);
-            LogAutRequest(request);
             return request.RedirectingResponse.AsActionResult();
-        }
-
-        private static void LogAutRequest(IAuthenticationRequest request)
-        {
-            var headers =
-                request.RedirectingResponse.Headers.AllKeys.Select(
-                    k => new KeyValuePair<string, string>(k, request.RedirectingResponse.Headers[k])).ToList();
-            Logger.LogInfo("Google openID request details: {0}", new { headers, request.RedirectingResponse.Body });
         }
 
         private string GetBaseUrl(string path = null)
@@ -69,12 +53,10 @@ namespace Svitla.MovieService.MvcControllers
             return baseUrl;
         }
 
-        [return: Log(Verbosity.Full)]
-        public virtual ActionResult LoginCallback()
+        public ActionResult LoginCallback()
         {
             OpenIdRelyingParty rp = new OpenIdRelyingParty();
             var response = rp.GetResponse();
-            Logger.LogInfo("Google OAuth response: {0}", response);
             if (response != null)
             {
                 switch (response.Status)
@@ -110,7 +92,7 @@ namespace Svitla.MovieService.MvcControllers
             return RedirectToLandingAction();
         }
 
-        public virtual void SaveUser(FetchResponse data)
+        public void SaveUser(FetchResponse data)
         {
             var email = data.Attributes[WellKnownAttributes.Contact.Email].Values[0];
             var firstname = data.Attributes[WellKnownAttributes.Name.First].Values[0];
@@ -122,17 +104,15 @@ namespace Svitla.MovieService.MvcControllers
             userFacade.Save(user);
         }
 
-        [return: Log(Verbosity.Full)]
-        public virtual ActionResult Logoff()
+        public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
             return RedirectToLandingAction();
         }
-
+        
         [Authorize]
-        [return: Log(Verbosity.Full)]
-        public virtual ActionResult UserProfile()
+        public ActionResult UserProfile()
         {
             return View();
         }
@@ -141,5 +121,11 @@ namespace Svitla.MovieService.MvcControllers
         {
             return RedirectToAction("List", "Movie");
         }
+
+        private bool IsEmailDomainValid(string email, string allowedDomain)
+        {
+            return string.IsNullOrEmpty(allowedDomain) || email.EndsWith(allowedDomain);
+        }
+
     }
 }
