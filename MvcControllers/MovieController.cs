@@ -1,12 +1,13 @@
-﻿using System.Configuration;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.MvcControllers
 {
     public class MovieController : Controller
     {
         [HttpGet]
-        public ViewResult List()
+        [return: Log(Verbosity.Full)]
+        public virtual ViewResult List()
         {
             if (Session["ViewError"] != null)
             {
