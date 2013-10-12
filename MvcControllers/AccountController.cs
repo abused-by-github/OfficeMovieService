@@ -39,7 +39,10 @@ namespace Svitla.MovieService.MvcControllers
             OpenIdRelyingParty openID = new OpenIdRelyingParty();
             var callbackUrl = GetBaseUrl(Url.Action("LoginCallback", "Account"));
             Logger.LogInfo("Google openID request: {0}", new { callbackUrl, realm = GetBaseUrl() });
-            var request = openID.CreateRequest(GoogleOpenID, GetBaseUrl(), new Uri(callbackUrl));
+            var realm = GetBaseUrl();
+            if (realm.Last() == '/')
+                realm = realm.Substring(0, realm.Length - 1);
+            var request = openID.CreateRequest(GoogleOpenID, realm, new Uri(callbackUrl));
             FetchRequest fetch = new FetchRequest();
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Contact.Email, true));
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.First, true));
