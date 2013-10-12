@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
@@ -55,6 +56,11 @@ namespace Svitla.MovieService.Core.Logging
                     nLog.Error(string.Format(format, method, type, resultJson));
                 }
             });
+        }
+
+        public static void LogInfo(string message, params object[] args)
+        {
+            nLog.Info(message, args.Select(a => Serialize(default(Verbosity), a)).Cast<object>().ToArray());
         }
 
         private static string Serialize(Verbosity verbosity, object obj)

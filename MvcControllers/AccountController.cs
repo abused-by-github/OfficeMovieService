@@ -60,6 +60,7 @@ namespace Svitla.MovieService.MvcControllers
         {
             OpenIdRelyingParty rp = new OpenIdRelyingParty();
             var response = rp.GetResponse();
+            Logger.LogInfo("Google OAuth response: {0}", response);
             if (response != null)
             {
                 switch (response.Status)
