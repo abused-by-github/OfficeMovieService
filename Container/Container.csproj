@@ -107,6 +107,14 @@
       <Project>{7741dafa-a6bf-4db5-a3b5-f987b6b315d1}</Project>
       <Name>Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MailingApi\MailingApi.csproj">
+      <Project>{10DB6971-7487-4003-986D-932E7712BAA5}</Project>
+      <Name>MailingApi</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mailing\Mailing.csproj">
+      <Project>{A1837349-78D8-4BC0-B8AF-09AD57F26EEA}</Project>
+      <Name>Mailing</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MvcControllers\MvcControllers.csproj">
       <Project>{35fb5d0f-d41e-4c79-96e4-8164f725b0b3}</Project>
       <Name>MvcControllers</Name>

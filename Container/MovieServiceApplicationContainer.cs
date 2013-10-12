@@ -1,7 +1,9 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Linq;
 using System.Web;
-using System.Web.Http.Dependencies;
+using System.Web.Mvc;
+using System.Web.Routing;
 using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
@@ -11,7 +13,12 @@ using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.Domain.Facades;
 using Svitla.MovieService.DomainApi;
+using Svitla.MovieService.Mailing.Core;
+using Svitla.MovieService.Mailing.Core.Client;
+using Svitla.MovieService.Mailing.Emails;
+using Svitla.MovieService.MailingApi;
 using Svitla.MovieService.WebApi.Controllers;
+using IDependencyResolver = System.Web.Http.Dependencies.IDependencyResolver;
 
 namespace Svitla.MovieService.Container
 {
@@ -27,6 +34,7 @@ namespace Svitla.MovieService.Container
             var builder = new ContainerBuilder();
 
             registerDataAccess(builder);
+            registerMailing(builder);
             registerDomain(builder);
             registerWebApi(builder);
             registerMvcControllers(builder);
@@ -56,6 +64,14 @@ namespace Svitla.MovieService.Container
 
         private static void registerDomain(ContainerBuilder builder)
         {
+            builder.Register<Func<IInviteEmail>>(c =>
+            {
+                //One more resolve because of
+                //http://stackoverflow.com/questions/5383888/autofac-registration-issue-in-release-v2-4-5-724
+                var ctx = c.Resolve<IComponentContext>();
+                return () => ctx.Resolve<InviteEmail>();
+            });
+
             builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>();
             builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>();
             builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>()
@@ -69,6 +85,35 @@ namespace Svitla.MovieService.Container
             builder.RegisterWithFullCallLog<MovieController>();
             builder.RegisterWithFullCallLog<PollController>();
             builder.RegisterWithFullCallLog<AccountController>();
+        }
+
+        private void registerMailing(ContainerBuilder builder)
+        {
+            builder.Register(c => resolveEmailConfig());
+            builder.Register(c => resolveSmtpConfig());
+            builder.RegisterWithBriefCallLog<SmtpClient, IEmailClient>();
+            builder.RegisterWithBriefCallLog<InviteEmail, InviteEmail>();
+        }
+
+        private EmailConfig resolveEmailConfig()
+        {
+            return new EmailConfig
+            {
+                DefaultFrom = ConfigurationManager.AppSettings["Mail.DefaultFrom"],
+                WebAppUrl = ConfigurationManager.AppSettings["WebAppUrl"],
+            };
+        }
+
+        private SmtpConfig resolveSmtpConfig()
+        {
+            return new SmtpConfig
+            {
+                Host = ConfigurationManager.AppSettings["Mail.SmtpHost"],
+                Login = ConfigurationManager.AppSettings["Mail.SmtpLogin"],
+                Password = ConfigurationManager.AppSettings["Mail.SmtpPassword"],
+                Port = int.Parse(ConfigurationManager.AppSettings["Mail.SmtpPort"]),
+                UseSsl = bool.Parse(ConfigurationManager.AppSettings["Mail.SmtpUseSsl"])
+            };
         }
 
         private static DomainContext resolveDomainContext(IComponentContext context)

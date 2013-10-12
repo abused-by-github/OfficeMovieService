@@ -1,24 +1,29 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Svitla.MovieService.Core.Entities;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.Exceptions;
+using Svitla.MovieService.MailingApi;
 
 namespace Svitla.MovieService.Domain.Facades
 {
     public class UserFacade : BaseFacade, IUserFacade
     {
         private readonly IUserRepository users;
+        private readonly Func<IInviteEmail> inviteEmailFactory;
+
         //These domains are supported by oAuth
         private readonly string[] domainsAllowedForInvintation = { "gmail.com", "svitla.com" };
 
         public string AllowedDomain { get; set; }
 
-        public UserFacade(DomainContext domainContext, IUnitOfWork unitOfWork, IUserRepository userRepository)
+        public UserFacade(DomainContext domainContext, IUnitOfWork unitOfWork, IUserRepository userRepository, Func<IInviteEmail> inviteEmailFactory)
             : base(unitOfWork, domainContext)
         {
             users = userRepository;
+            this.inviteEmailFactory = inviteEmailFactory;
         }
 
         public User GetByEmail(string email)
@@ -56,6 +61,10 @@ namespace Svitla.MovieService.Domain.Facades
             friend.InvitedBy = DomainContext.CurrentUser;
             users.Add(friend);
             UnitOfWork.Commit();
+
+            var email = inviteEmailFactory();
+            email.Bind(friend);
+            email.Send(new [] { new EmailAddress(friend.Name) });
         }
 
         private bool IsDomainValid(string email)

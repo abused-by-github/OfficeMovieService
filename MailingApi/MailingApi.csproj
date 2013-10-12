@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BEA9BB36-C58E-4629-AF41-BB626314D169}</ProjectGuid>
+    <ProjectGuid>{10DB6971-7487-4003-986D-932E7712BAA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.Core</RootNamespace>
-    <AssemblyName>Core</AssemblyName>
+    <RootNamespace>Svitla.MovieService.MailingApi</RootNamespace>
+    <AssemblyName>MailingApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,38 +33,18 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\IModifiable.cs" />
-    <Compile Include="Entities\Movie.cs" />
-    <Compile Include="Entities\Poll.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\Vote.cs" />
-    <Compile Include="Exceptions\BaseMovieException.cs" />
-    <Compile Include="Exceptions\EntityInvalidException.cs" />
-    <Compile Include="Helpers\EnumerableExtensions.cs" />
-    <Compile Include="Helpers\ObjectExtensions.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
-    <Compile Include="Logging\LogVerbosityContractResolver.cs" />
-    <Compile Include="Logging\LogAttribute.cs" />
-    <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Logging\Verbosity.cs" />
-    <Compile Include="Validation\Url.cs" />
-    <Compile Include="ValueObjects\Page.cs" />
-    <Compile Include="ValueObjects\Paging.cs" />
+    <Compile Include="EmailAddress.cs" />
+    <Compile Include="IEmail.cs" />
+    <Compile Include="IInviteEmail.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{bea9bb36-c58e-4629-af41-bb626314d169}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
