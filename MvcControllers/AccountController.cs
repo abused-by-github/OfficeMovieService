@@ -36,7 +36,7 @@ namespace Svitla.MovieService.MvcControllers
         [return:Log(Verbosity.Full)]
         public virtual ActionResult LoginGoogle()
         {
-            OpenIdRelyingParty openID = new OpenIdRelyingParty();
+            OpenIdRelyingParty openID = new OpenIdRelyingParty(null);
             var callbackUrl = GetBaseUrl(Url.Action("LoginCallback", "Account"));
 
             var realm = GetBaseUrl();
