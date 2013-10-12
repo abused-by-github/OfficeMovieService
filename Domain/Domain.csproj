@@ -45,6 +45,10 @@
       <Project>{3dc43402-0012-42b1-a854-f755a002f553}</Project>
       <Name>DomainApi</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MailingApi\MailingApi.csproj">
+      <Project>{10DB6971-7487-4003-986D-932E7712BAA5}</Project>
+      <Name>MailingApi</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\DomainContext.cs" />

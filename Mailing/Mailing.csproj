@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{BEA9BB36-C58E-4629-AF41-BB626314D169}</ProjectGuid>
+    <ProjectGuid>{A1837349-78D8-4BC0-B8AF-09AD57F26EEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.Core</RootNamespace>
-    <AssemblyName>Core</AssemblyName>
+    <RootNamespace>Svitla.MovieService.Mailing</RootNamespace>
+    <AssemblyName>Mailing</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -33,38 +33,41 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\IModifiable.cs" />
-    <Compile Include="Entities\Movie.cs" />
-    <Compile Include="Entities\Poll.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\Vote.cs" />
-    <Compile Include="Exceptions\BaseMovieException.cs" />
-    <Compile Include="Exceptions\EntityInvalidException.cs" />
-    <Compile Include="Helpers\EnumerableExtensions.cs" />
-    <Compile Include="Helpers\ObjectExtensions.cs" />
-    <Compile Include="Helpers\StringExtensions.cs" />
-    <Compile Include="Logging\LogVerbosityContractResolver.cs" />
-    <Compile Include="Logging\LogAttribute.cs" />
-    <Compile Include="Logging\Logger.cs" />
-    <Compile Include="Logging\Verbosity.cs" />
-    <Compile Include="Validation\Url.cs" />
-    <Compile Include="ValueObjects\Page.cs" />
-    <Compile Include="ValueObjects\Paging.cs" />
+    <Compile Include="Core\BaseEmail.cs" />
+    <Compile Include="Core\Client\IEmailClient.cs" />
+    <Compile Include="Core\Client\SmtpClient.cs" />
+    <Compile Include="Core\Client\SmtpConfig.cs" />
+    <Compile Include="Core\EmailConfig.cs" />
+    <Compile Include="Emails\InviteEmail.cs" />
+    <Compile Include="Emails\T4Helper.cs" />
+    <Compile Include="Templates\InviteEmail.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InviteEmail.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\InviteEmailViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.1.2\lib\net45\NLog.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{BEA9BB36-C58E-4629-AF41-BB626314D169}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MailingApi\MailingApi.csproj">
+      <Project>{10DB6971-7487-4003-986D-932E7712BAA5}</Project>
+      <Name>MailingApi</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\InviteEmail.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>InviteEmail.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
