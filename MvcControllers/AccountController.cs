@@ -7,6 +7,7 @@ using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.RelyingParty;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Logging;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.Exceptions;
 
@@ -30,7 +31,8 @@ namespace Svitla.MovieService.MvcControllers
         //}
 
         [HttpPost]
-        public ActionResult LoginGoogle()
+        [return:Log(Verbosity.Full)]
+        public virtual ActionResult LoginGoogle()
         {
             OpenIdRelyingParty openID = new OpenIdRelyingParty();
             var callbackUrl = GetBaseUrl(Url.Action("LoginCallback", "Account"));
@@ -53,7 +55,8 @@ namespace Svitla.MovieService.MvcControllers
             return baseUrl;
         }
 
-        public ActionResult LoginCallback()
+        [return: Log(Verbosity.Full)]
+        public virtual ActionResult LoginCallback()
         {
             OpenIdRelyingParty rp = new OpenIdRelyingParty();
             var response = rp.GetResponse();
@@ -92,7 +95,7 @@ namespace Svitla.MovieService.MvcControllers
             return RedirectToLandingAction();
         }
 
-        public void SaveUser(FetchResponse data)
+        public virtual void SaveUser(FetchResponse data)
         {
             var email = data.Attributes[WellKnownAttributes.Contact.Email].Values[0];
             var firstname = data.Attributes[WellKnownAttributes.Name.First].Values[0];
@@ -104,15 +107,17 @@ namespace Svitla.MovieService.MvcControllers
             userFacade.Save(user);
         }
 
-        public ActionResult Logoff()
+        [return: Log(Verbosity.Full)]
+        public virtual ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
             Session.Abandon();
             return RedirectToLandingAction();
         }
-        
+
         [Authorize]
-        public ActionResult UserProfile()
+        [return: Log(Verbosity.Full)]
+        public virtual ActionResult UserProfile()
         {
             return View();
         }
@@ -121,11 +126,5 @@ namespace Svitla.MovieService.MvcControllers
         {
             return RedirectToAction("List", "Movie");
         }
-
-        private bool IsEmailDomainValid(string email, string allowedDomain)
-        {
-            return string.IsNullOrEmpty(allowedDomain) || email.EndsWith(allowedDomain);
-        }
-
     }
 }

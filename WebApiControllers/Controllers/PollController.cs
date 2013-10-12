@@ -23,7 +23,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [HttpPost]
-        public ResponseObject<object> GetCurrent()
+        public virtual ResponseObject<object> GetCurrent()
         {
             var poll = pollFacade.GetCurrent();
             object dto = CreatePollDto(poll);
@@ -32,7 +32,7 @@ namespace Svitla.MovieService.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public EmptyResponseObject CancelCurrent()
+        public virtual EmptyResponseObject CancelCurrent()
         {
             pollFacade.CancelCurrent();
 
@@ -40,7 +40,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [Authorize]
-        public ResponseObject<object> Save(Poll poll)
+        public virtual ResponseObject<object> Save(Poll poll)
         {
             pollFacade.Save(poll);
             return Response(CreatePollDto(poll));
@@ -48,7 +48,7 @@ namespace Svitla.MovieService.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public EmptyResponseObject Vote(EntityId id)
+        public virtual EmptyResponseObject Vote(EntityId id)
         {
             Vote(id.Id, true);
             return Response();
@@ -56,14 +56,14 @@ namespace Svitla.MovieService.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public EmptyResponseObject Unvote(EntityId id)
+        public virtual EmptyResponseObject Unvote(EntityId id)
         {
             Vote(id.Id, false);
             return Response();
         }
         
         [HttpPost]
-        public ResponseObject<object> GetPollMovies()
+        public virtual ResponseObject<object> GetPollMovies()
         {
             object result = null;
             var poll = pollFacade.GetCurrent();

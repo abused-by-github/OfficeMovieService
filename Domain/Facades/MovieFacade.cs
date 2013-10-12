@@ -22,7 +22,7 @@ namespace Svitla.MovieService.Domain.Facades
             this.movies = movies;
         }
 
-        public void SaveMovie(Movie movie)
+        public virtual void SaveMovie(Movie movie)
         {
             movie.Validate();
             var existedMovie = movies[movie.Id];
@@ -39,12 +39,12 @@ namespace Svitla.MovieService.Domain.Facades
             UnitOfWork.Commit();
         }
 
-        public Movie LoadById(long id)
+        public virtual Movie LoadById(long id)
         {
             return movies.One(q => q.FirstOrDefault(m => m.Id == id));
         }
 
-        public Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll)
+        public virtual Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll)
         {
             var userId = user.Get(u => u.Id);
             var pollId = poll.Get(p => p.Id);
@@ -58,14 +58,14 @@ namespace Svitla.MovieService.Domain.Facades
                 .OrderByDescending(m => m.Movie.ModifiedDate)
                 , paging);
         }
-        
-        public List<Movie> FindMoviesForPoll(long pollId)
+
+        public virtual List<Movie> FindMoviesForPoll(long pollId)
         {
             return movies.Many(q => q.Where(m => m.Votes.Any(v => v.PollId == pollId))).
                 OrderByDescending(m => m.Votes.Count(v => v.PollId == pollId)).ToList();
         }
 
-        public void DeleteMovie(long id)
+        public virtual void DeleteMovie(long id)
         {
             var movie = movies[id];
             if (movie != null)

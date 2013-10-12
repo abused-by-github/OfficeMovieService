@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
+using Castle.Core.Internal;
 using Castle.DynamicProxy;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.Logging;
@@ -9,6 +11,7 @@ namespace Svitla.MovieService.Container.Interceptors
 {
     public abstract class LogCallInterceptor : IInterceptor
     {
+        private static readonly object logSkipped = new { LogSkipped = "Due to verbosity" };
         private readonly Verbosity verbosity;
 
         protected LogCallInterceptor(Verbosity verbosity)
@@ -29,7 +32,9 @@ namespace Svitla.MovieService.Container.Interceptors
                 var @params = invocation.Method.GetParameters();
                 for (var i = 0; i < @params.Length; ++i)
                 {
-                    args[@params[i].Name] = invocation.Arguments[i];
+                    var paramVerbosity = @params[i].GetCustomAttribute<LogAttribute>().Get(a => a.Verbosity);
+                    var islogable = verbosity >= paramVerbosity;
+                    args[@params[i].Name] = islogable ? invocation.Arguments[i] : logSkipped;
                 }
 
                 Logger.LogMethodStart(verbosity, type, method, args, callId);
@@ -37,7 +42,13 @@ namespace Svitla.MovieService.Container.Interceptors
                 try
                 {
                     invocation.Proceed();
-                    Logger.LogMethodEnd(verbosity, type, method, invocation.ReturnValue, true, callId);
+                    var returnVerbosity = invocation.Method.ReturnTypeCustomAttributes
+                        .GetCustomAttributes(typeof(LogAttribute), false)
+                        .Cast<LogAttribute>()
+                        .FirstOrDefault()
+                        .Get(a => a.Verbosity);
+                    object returnValue = verbosity >= returnVerbosity ? invocation.ReturnValue : logSkipped;
+                    Logger.LogMethodEnd(verbosity, type, method, returnValue, true, callId);
                 }
                 catch (Exception e)
                 {

@@ -16,7 +16,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [HttpPost]
-        public EmptyResponseObject Invite(User user)
+        public virtual EmptyResponseObject Invite(User user)
         {
             userFacade.InviteFriend(user);
             return Response();

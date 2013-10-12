@@ -118,7 +118,6 @@
   <ItemGroup>
     <Compile Include="AccountController.cs" />
     <Compile Include="MovieController.cs" />
-    <Compile Include="PollController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

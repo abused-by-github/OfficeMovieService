@@ -47,7 +47,8 @@ namespace Svitla.MovieService.Container
 
         private static void registerMvcControllers(ContainerBuilder builder)
         {
-            builder.RegisterControllers(typeof (MvcControllers.AccountController).Assembly);
+            builder.RegisterWithBriefCallLog<MvcControllers.AccountController>();
+            builder.RegisterWithBriefCallLog<MvcControllers.MovieController>();
         }
 
         private static void registerDataAccess(ContainerBuilder builder)

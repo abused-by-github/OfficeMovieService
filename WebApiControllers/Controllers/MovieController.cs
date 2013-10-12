@@ -23,7 +23,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         }
 
         [HttpPost]
-        public ResponseObject<object> List(Paging paging)
+        public virtual ResponseObject<object> List(Paging paging)
         {
             var currentUser = userFacade.GetByEmail(User.Identity.Name);
             var currentPoll = pollFacade.GetCurrent();
@@ -64,7 +64,7 @@ namespace Svitla.MovieService.WebApi.Controllers
 
         [HttpPost]
         [Authorize]
-        public EmptyResponseObject Save(Movie movie)
+        public virtual EmptyResponseObject Save(Movie movie)
         {
             if (movie == null)
                 return new EmptyResponseObject(true, "Movie is empty");
@@ -74,7 +74,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         
         [HttpPost]
         [Authorize]
-        public EmptyResponseObject Delete([FromBody]long id)
+        public virtual EmptyResponseObject Delete([FromBody]long id)
         {
             movieFacade.DeleteMovie(id);
             return new EmptyResponseObject(true, "Movie deleted");
