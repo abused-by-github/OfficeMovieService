@@ -64,7 +64,7 @@ namespace Svitla.MovieService.Domain.Facades
 
             var email = inviteEmailFactory();
             email.Bind(friend);
-            email.Send(new [] { friend.Name });
+            email.Send(new [] { new EmailAddress(friend.Name) });
         }
 
         private bool IsDomainValid(string email)

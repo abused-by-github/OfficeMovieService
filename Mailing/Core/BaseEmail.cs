@@ -26,9 +26,9 @@ namespace Svitla.MovieService.Mailing.Core
             EmailConfig = emailConfig;
         }
 
-        public void Send(IEnumerable<string> to, IEnumerable<string> cc = null, IEnumerable<string> bcc = null, string from = null)
+        public void Send(IEnumerable<EmailAddress> to, IEnumerable<EmailAddress> cc = null, IEnumerable<EmailAddress> bcc = null, EmailAddress from = null)
         {
-            client.Send(Subject, Body, to, cc, bcc, @from ?? EmailConfig.DefaultFrom);
+            client.Send(Subject, Body, to, cc, bcc, from ?? new EmailAddress(EmailConfig.DefaultFrom));
         }
 
         public abstract void Bind(T model);

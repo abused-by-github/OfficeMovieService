@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
 using Svitla.MovieService.Core.Helpers;
+using Svitla.MovieService.MailingApi;
 
 namespace Svitla.MovieService.Mailing.Core.Client
 {
@@ -16,11 +16,11 @@ namespace Svitla.MovieService.Mailing.Core.Client
             smtpConfig = config;
         }
 
-        public void Send(string subject, string body, IEnumerable<string> to, IEnumerable<string> cc, IEnumerable<string> bcc, string @from)
+        public void Send(string subject, string body, IEnumerable<EmailAddress> to, IEnumerable<EmailAddress> cc, IEnumerable<EmailAddress> bcc, EmailAddress from)
         {
             var message = new MailMessage
             {
-                From = new MailAddress(from),
+                From = from.ToMailAddress(),
                 Subject = subject,
                 SubjectEncoding = Encoding.UTF8,
                 IsBodyHtml = true,
@@ -28,9 +28,9 @@ namespace Svitla.MovieService.Mailing.Core.Client
                 BodyEncoding = Encoding.UTF8
             };
 
-            to.ForEach(a => message.To.Add(new MailAddress(a)));
-            cc.ForEach(a => message.CC.Add(new MailAddress(a)));
-            bcc.ForEach(a => message.Bcc.Add(new MailAddress(a)));
+            to.ForEach(a => message.To.Add(a.ToMailAddress()));
+            cc.ForEach(a => message.CC.Add(a.ToMailAddress()));
+            bcc.ForEach(a => message.Bcc.Add(a.ToMailAddress()));
 
             var client = new System.Net.Mail.SmtpClient();
             client.Host = smtpConfig.Host;

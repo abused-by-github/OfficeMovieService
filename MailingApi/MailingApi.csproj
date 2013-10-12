@@ -33,6 +33,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailAddress.cs" />
     <Compile Include="IEmail.cs" />
     <Compile Include="IInviteEmail.cs" />
   </ItemGroup>

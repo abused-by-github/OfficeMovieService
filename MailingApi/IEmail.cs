@@ -4,7 +4,7 @@ namespace Svitla.MovieService.MailingApi
 {
     public interface IEmail<TModel>
     {
-        void Send(IEnumerable<string> to, IEnumerable<string> cc = null, IEnumerable<string> bcc = null, string from = null);
+        void Send(IEnumerable<EmailAddress> to, IEnumerable<EmailAddress> cc = null, IEnumerable<EmailAddress> bcc = null, EmailAddress from = null);
         void Bind(TModel model);
     }
 }
