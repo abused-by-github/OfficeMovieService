@@ -63,7 +63,7 @@
         currentMovie: MovieViewModel.getDefault(),
         LeftVotes: ko.observable(),
         inviteFriend: new window.movieService.InviteFriendViewModel(),
-
+        totalMovies: ko.observable(0),
         cancelDialog: function () {
             this.dialog.dialog('close');
         },
@@ -94,7 +94,7 @@
 
         loadMore: function (doNotScroll) {
             this.loadMoreButton.twButton('loading');
-            var paging = { PageNumber: this.currentPage + 1, PageSize: 10 };
+            var paging = { PageNumber: this.currentPage + 1, PageSize: 12 };
             this.isPageLoading = true;
             api.call('movie', 'list', paging, function(r) {
                  viewModel.fetchMoreMoviesSuccess(r, doNotScroll);
@@ -107,6 +107,7 @@
                 e.IsVoted = ko.observable(e.IsVoted);
                 viewModel.movies.push(e);
             });
+            viewModel.totalMovies(r.Data.Total);
             if (!doNotScroll) {
                 $(window).scrollTop($(document).height());
             }
@@ -171,27 +172,14 @@
                 pollInfo.load();
             }
         }
-
     };
 
-    //TODO: refactor me. Simplify.
+    viewModel.hasMoreMovies = ko.computed(function() {
+        return this.totalMovies() > this.movies().length;
+    }, viewModel);
 
-    ko.applyBindings(viewModel, document.getElementById("scrollContainer"));
-    ko.applyBindings(viewModel, document.getElementById("loadMoreButton"));
-    ko.applyBindings(window.movieService.poll, document.getElementById("pollSummary"));
-    var addMovie = document.getElementById("addMovie");
-    if (addMovie) {
-        ko.applyBindings(viewModel, addMovie);
-    }
-    var saveDialog = document.getElementById("saveDialog");
-    if (saveDialog) { //If signed in
-        ko.applyBindings(viewModel, saveDialog);
-    }
-
-    var editPollContainer = document.getElementById('editPollContainer');
-    if (editPollContainer) {
-        ko.applyBindings(window.movieService.poll, editPollContainer);
-    }
+    $('#scrollContainer, #pagingContainer, #addMovie, #saveDialog').koBind(viewModel);
+    $('#pollSummary, #editPollContainer').koBind(window.movieService.poll);
 
     window.movieService.poll.load();
     viewModel.loadMore(true);

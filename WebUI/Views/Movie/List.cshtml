@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Views/Layout.cshtml";
-    ViewBag.Title = "Movies";
 }
 
 @section Scripts
@@ -99,6 +98,24 @@
                 </div>
             </div>
         </div>
+        <div id="pagingContainer" class="row col-md-9 text-center" style="margin-top: 20px">
+            <span>
+                <span data-bind="text: movies().length"></span>
+                of <span data-bind="text: totalMovies"></span>
+                <span data-bind="visible: movies().length == 1">is</span>
+                <span data-bind="visible: movies().length != 1">are</span>
+                shown
+            </span>
+            <button id="loadMoreButton" type="button" class="btn btn-primary"
+                    data-loading-text="Loading..."
+                    data-bind="click: loadMore, visible: hasMoreMovies" >
+                More...
+            </button>
+            <button type="button" class="btn btn-primary disabled"
+                    data-bind="visible: !hasMoreMovies()">
+                No more movies
+            </button>
+        </div>
         <div id="votesContainer" class="col-md-3">
             <h3>Ratings:</h3>
             <table id="ratedMovies" data-bind="foreach: Movies" style="display: none;">
@@ -134,16 +151,6 @@
         </div>
     </div>
 
-    <div style="clear: both"></div>
-    
-    <div class="text-center" style="margin-top: 20px">
-        <button id="loadMoreButton" type="button" data-loading-text="Loading..." data-bind="click: loadMore" class="btn btn-primary">
-            More...
-        </button>
-    </div>
-
-    
-    
     @if (User.Identity.IsAuthenticated)
     {
         <div id="saveDialog">
