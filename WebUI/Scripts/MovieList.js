@@ -178,7 +178,7 @@
         return this.totalMovies() > this.movies().length;
     }, viewModel);
 
-    $('#scrollContainer, #pagingContainer, #addMovie, #saveDialog').koBind(viewModel);
+    $('#scrollContainer, #addMovie, #saveDialog').koBind(viewModel);
     $('#pollSummary, #editPollContainer').koBind(window.movieService.poll);
 
     window.movieService.poll.load();

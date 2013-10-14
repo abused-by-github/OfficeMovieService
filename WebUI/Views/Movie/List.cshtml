@@ -61,60 +61,63 @@
                 <button data-bind="click: openPopup" id="addMovie" class="btn btn-success pull-right">Add Movie</button>
             }
         </div>
-        <div id="scrollContainer" class="row col-md-9" data-bind="foreach: movies">
-            <div class="col-md-4 movie">
-                <div class="thumbnail text-center">
-                    <a data-bind="attr: { href: Url }" target="_blank"><img data-bind="attr: { src: ImageUrl }" width="150px" height="210px" /></a>
-                    <div class="caption">
-                        <p class="name">
-                            <a data-bind="text: Name, attr: { href: Url }" target="_blank"></a>
-                        </p>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <div class="movie-toolbar-left" data-bind="visible: IsOwner">
-                                <button type="button" class="btn btn-default btn-xs" title="Edit"
-                                        data-bind="click: $parent.edit">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                                </button>
-                                <button type="button" class="btn btn-default btn-xs" title="Delete"
-                                        data-bind="click: $parent.deleteMovie">
-                                    <span class="glyphicon glyphicon-remove"></span>
-                                </button>
-                            </div>
-                            <div class="movie-toolbar-right" data-bind="visible: $parent.poll.IsVoteable">
-                                <div title="You already spent all you votes">
-                                    <button type="button" class="btn btn-default btn-xs" title="Vote"
-                                            data-bind="visible: !IsVoted(), disable: $parent.LeftVotes() == 0 || IsVoting, click: $parent.vote">
-                                        <span class="glyphicon glyphicon-thumbs-up"></span>
+        <div id="scrollContainer" class="row col-md-9">
+            <div data-bind="foreach: movies">
+                <div class="col-md-4 movie">
+                    <div class="thumbnail text-center">
+                        <a data-bind="attr: { href: Url }" target="_blank"><img data-bind="attr: { src: ImageUrl }" width="150px" height="210px" /></a>
+                        <div class="caption">
+                            <p class="name">
+                                <a data-bind="text: Name, attr: { href: Url }" target="_blank"></a>
+                            </p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <div class="movie-toolbar-left" data-bind="visible: IsOwner">
+                                    <button type="button" class="btn btn-default btn-xs" title="Edit"
+                                            data-bind="click: $parent.edit">
+                                        <span class="glyphicon glyphicon-pencil"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-xs" title="Delete"
+                                            data-bind="click: $parent.deleteMovie">
+                                        <span class="glyphicon glyphicon-remove"></span>
                                     </button>
                                 </div>
-                                <button type="button" class="btn btn-default btn-xs" title="Unvote"
-                                        data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">
-                                    <span class="glyphicon glyphicon-thumbs-down"></span>
-                                </button>
-                            </div>
-                        }
+                                <div class="movie-toolbar-right" data-bind="visible: $parent.poll.IsVoteable">
+                                    <div title="You already spent all you votes">
+                                        <button type="button" class="btn btn-default btn-xs" title="Vote"
+                                                data-bind="visible: !IsVoted(), disable: $parent.LeftVotes() == 0 || IsVoting, click: $parent.vote">
+                                            <span class="glyphicon glyphicon-thumbs-up"></span>
+                                        </button>
+                                    </div>
+                                    <button type="button" class="btn btn-default btn-xs" title="Unvote"
+                                            data-bind="visible: IsVoted(), disable: IsVoting, click: $parent.unvote">
+                                        <span class="glyphicon glyphicon-thumbs-down"></span>
+                                    </button>
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="pagingContainer" class="row col-md-9 text-center" style="margin-top: 20px">
-            <span>
-                <span data-bind="text: movies().length"></span>
-                of <span data-bind="text: totalMovies"></span>
-                <span data-bind="visible: movies().length == 1">is</span>
-                <span data-bind="visible: movies().length != 1">are</span>
-                shown
-            </span>
-            <button id="loadMoreButton" type="button" class="btn btn-primary"
-                    data-loading-text="Loading..."
-                    data-bind="click: loadMore, visible: hasMoreMovies" >
-                More...
-            </button>
-            <button type="button" class="btn btn-primary disabled"
-                    data-bind="visible: !hasMoreMovies()">
-                No more movies
-            </button>
+            <div class="clearfix"></div>
+            <div class="text-center" style="margin-top: 20px">
+                <span>
+                    <span data-bind="text: movies().length"></span>
+                    of <span data-bind="text: totalMovies"></span>
+                    <span data-bind="visible: movies().length == 1">is</span>
+                    <span data-bind="visible: movies().length != 1">are</span>
+                    shown
+                </span>
+                <button id="loadMoreButton" type="button" class="btn btn-primary"
+                        data-loading-text="Loading..."
+                        data-bind="click: loadMore, visible: hasMoreMovies" >
+                    More...
+                </button>
+                <button type="button" class="btn btn-primary disabled"
+                        data-bind="visible: !hasMoreMovies()">
+                    No more movies
+                </button>
+            </div>
         </div>
         <div id="votesContainer" class="col-md-3">
             <h3>Ratings:</h3>
