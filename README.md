@@ -11,3 +11,4 @@ to Production. Each commit to Production is automatically deployed to AppHarbor.
 "master" branch is not used at all. Any changes in domain model / DB must have corresponding data migrations. Data migrations are
 applied while application startup.
 2. [Logging] (https://github.com/ikesler/OfficeMovieService/wiki/Logging)
+3. [Emails] (https://github.com/ikesler/OfficeMovieService/wiki/Email-Framework)
