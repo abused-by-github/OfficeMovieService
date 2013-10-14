@@ -101,7 +101,7 @@ namespace Svitla.MovieService.Container
             return new EmailConfig
             {
                 DefaultFrom = ConfigurationManager.AppSettings["Mail.DefaultFrom"],
-                WebAppUrl = ConfigurationManager.AppSettings["WebAppUrl"],
+                WebAppUrl = GetBaseUrl(),
             };
         }
 
@@ -128,6 +128,16 @@ namespace Svitla.MovieService.Container
                 result.CurrentUser = user;
             }
             return result;
+        }
+
+        private string GetBaseUrl(string path = null)
+        {
+            var request = HttpContext.Current.Request;
+            if (request == null || request.Url == null)
+                throw new Exception("Request is null");
+            path = path ?? HttpRuntime.AppDomainAppVirtualPath;
+            string baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, path);
+            return baseUrl;
         }
     }
 }
