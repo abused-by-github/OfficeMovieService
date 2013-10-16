@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Svitla.MovieService.Core.Exceptions;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.Core.Entities
@@ -9,8 +10,12 @@ namespace Svitla.MovieService.Core.Entities
     {
         public string Name { get; set; }
 
+        public long? TmdbMovieId { get; set; }
+        public virtual TmdbMovie TmdbMovie { get; set; }
+
         private string url;
-        public string Url {
+        public string Url
+        {
             get
             {
                 return url;
@@ -21,16 +26,21 @@ namespace Svitla.MovieService.Core.Entities
             }
         }
 
-        private string imageUrl;
-        public string ImageUrl
+        public string GetImageImageUrl(string baseTmdbUrl)
+        {
+            return CustomImageUrl ?? TmdbMovie.Get(m => m.GetImageUrl(baseTmdbUrl));
+        }
+
+        private string customImageUrl;
+        public string CustomImageUrl
         {
             get
             {
-                return imageUrl;
+                return customImageUrl;
             }
             set
             {
-                imageUrl = NormalizeUrl(value);
+                customImageUrl = NormalizeUrl(value);
             }
         }
 
@@ -53,14 +63,17 @@ namespace Svitla.MovieService.Core.Entities
         {
             if (string.IsNullOrEmpty(Name))
                 throw new EntityInvalidException("Movie name is required.");
-            if (string.IsNullOrEmpty(Url))
-                throw new EntityInvalidException("Movie URL is required.");
-            if (!Validation.Url.IsValid(Url))
-                throw new EntityInvalidException("Movie URL is invalid.");
-            if (string.IsNullOrEmpty(ImageUrl))
-                throw new EntityInvalidException("Movie image URL is required.");
-            if (!Validation.Url.IsValid(ImageUrl))
-                throw new EntityInvalidException("Movie image URL is invalid.");
+            if (TmdbMovie == null)
+            {
+                if (string.IsNullOrEmpty(Url))
+                    throw new EntityInvalidException("Movie URL is required.");
+                if (string.IsNullOrEmpty(CustomImageUrl))
+                    throw new EntityInvalidException("Movie image URL is required.");
+                if (!Validation.Url.IsValid(Url))
+                    throw new EntityInvalidException("Movie URL is invalid.");
+                if (!Validation.Url.IsValid(CustomImageUrl))
+                    throw new EntityInvalidException("Movie image URL is invalid.");
+            }
         }
 
 

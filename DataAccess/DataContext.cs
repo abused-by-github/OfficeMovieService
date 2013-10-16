@@ -35,7 +35,8 @@ namespace Svitla.MovieService.DataAccess
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
 
             modelBuilder.Entity<User>().HasOptional(u => u.InvitedBy);
-            modelBuilder.Entity<Movie>();
+            modelBuilder.Entity<TmdbMovie>();
+            modelBuilder.Entity<Movie>().HasOptional(m => m.TmdbMovie).WithMany().HasForeignKey(m => m.TmdbMovieId);
 
             modelBuilder.Entity<Poll>().HasRequired(p => p.Owner).WithMany().WillCascadeOnDelete(false);
 

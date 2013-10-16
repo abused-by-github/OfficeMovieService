@@ -25,6 +25,17 @@
             });
         }
     },
+    tmdb: {
+        search: function(keyword) {
+            $.ajax({
+                url: '&query='+keyword,
+                dataType: 'jsonp',
+                success: function (r) {
+                    debugger;
+                }
+            });
+        }
+    },
     ko: {
         observableDate: function (value) {
             //Knockout need an obserbale inside the computed for some reason.

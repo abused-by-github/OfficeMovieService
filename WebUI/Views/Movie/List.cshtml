@@ -156,32 +156,38 @@
 
     @if (User.Identity.IsAuthenticated)
     {
-        <div id="saveDialog">
+        <div id="saveDialog" data-bind="with: currentMovie">
             <form class="form-horizontal" role="form">
                 <div class="form-group">
                     <label for="txtName" class="col-lg-2 control-label">Name*</label>
                     <div class="col-lg-10">
+                        <input type="hidden" data-bind="value: TmdbId" id="tmdbId" />
+                        <input type="hidden" data-bind="value: TmdbUrl" id="tmdbUrl" />
                         <input type="text" class="form-control" id="txtName"
-                               data-bind="value: currentMovie.Name"/>
+                               data-bind="value: Name" />
+                        <span class="help-block" data-bind="visible: TmdbId">
+                            Provided by <a href="http://www.themoviedb.org">http://www.themoviedb.org</a>
+                            | <a class="red" href="javaScript:void(0)" data-bind="click: clearTmdb">Clear</a>
+                        </span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtUrl" class="col-lg-2 control-label">URL*</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="txtUrl"
-                               data-bind="value: currentMovie.Url"/>
+                               data-bind="value: Url, disable: TmdbId" />
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="txtImageUrl" class="col-lg-2 control-label">Image URL*</label>
                     <div class="col-lg-10">
                         <input type="text" class="form-control" id="txtImageUrl"
-                               data-bind="value: currentMovie.ImageUrl"/>
+                               data-bind="value: CustomImageUrl, disable: TmdbId" />
                         <span class="help-block">Image will be stretched to 150x210 px</span>
                     </div>
                 </div>
-                <button data-bind="click: save" class="btn btn-default">Save</button>
-                <button data-bind="click: cancelDialog" class="btn btn-default">Cancel</button>
+                <button data-bind="click: $parent.save" class="btn btn-default">Save</button>
+                <button data-bind="click: $parent.cancelDialog" class="btn btn-default">Cancel</button>
             </form>
         </div>
         <div id="editPollContainer" style="display: none">

@@ -14,12 +14,14 @@ namespace Svitla.MovieService.WebApi.Controllers
         private readonly IMovieFacade movieFacade;
         private readonly IUserFacade userFacade;
         private readonly IPollFacade pollFacade;
+        private readonly AppSettings appSettings;
 
-        public MovieController(IMovieFacade movieFacade, IUserFacade userFacade, IPollFacade pollFacade)
+        public MovieController(IMovieFacade movieFacade, IUserFacade userFacade, IPollFacade pollFacade, AppSettings appSettings)
         {
             this.movieFacade = movieFacade;
             this.userFacade = userFacade;
             this.pollFacade = pollFacade;
+            this.appSettings = appSettings;
         }
 
         [HttpPost]
@@ -38,8 +40,11 @@ namespace Svitla.MovieService.WebApi.Controllers
                     m.Movie.Name,
                     m.Movie.Id,
                     m.Movie.Url,
+                    m.Movie.TmdbMovieId,
+                    m.Movie.TmdbMovie,
                     m.UserName,
-                    m.Movie.ImageUrl,
+                    ImageUrl = m.Movie.GetImageImageUrl(appSettings.BaseTmdbUrl),
+                    m.Movie.CustomImageUrl,
                     IsOwner = m.UserName == currentUser.Get(u => u.Name)
                 }).ToList(),
                 movies.Total,
