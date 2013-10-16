@@ -4,15 +4,16 @@
     var MovieViewModel = function (data) {
         var self = this;
 
-        $.extend(this, data);
-        this.TmdbMovie = ko.observable(data.TmdbMovie);
-        this.TmdbUrl = ko.observable(data.TmdbMovie && data.TmdbMovie.PosterPath);
-        this.TmdbId = ko.observable(data.TmdbMovie && data.TmdbMovie.TmdbId);
-        this.ImageUrl = ko.observable(data.ImageUrl);
+        this.TmdbMovie = ko.observable();
+        this.TmdbUrl = ko.observable();
+        this.TmdbId = ko.observable();
+        this.ImageUrl = ko.observable();
+        this.Name = ko.observable().extend({ required: true });
+
         var needValidation = function () {
             return !self.TmdbId();
         };
-        this.Name = ko.observable(data.Name).extend({ required: true });
+
         this.Url = ko.observable(data.Url).extend({
             required: {
                 onlyIf: needValidation
@@ -21,6 +22,7 @@
                 onlyIf: needValidation
             }
         });
+
         this.CustomImageUrl = ko.observable(data.CustomImageUrl).extend({
             required: {
                 onlyIf: needValidation
@@ -38,6 +40,8 @@
         });
 
         this.errors = ko.validation.group(this);
+
+        this.setData(data);
     };
 
     MovieViewModel.prototype.validate = function () {
