@@ -8,6 +8,7 @@
         this.TmdbMovie = ko.observable(data.TmdbMovie);
         this.TmdbUrl = ko.observable(data.TmdbMovie && data.TmdbMovie.PosterPath);
         this.TmdbId = ko.observable(data.TmdbMovie && data.TmdbMovie.TmdbId);
+        this.ImageUrl = ko.observable(data.ImageUrl);
         var needValidation = function () {
             return !self.TmdbId();
         };
@@ -30,8 +31,10 @@
         });
 
         this.TmdbId.subscribe(function (newValue) {
-            self.Url("http://www.themoviedb.org/movie/" + newValue);
-            self.CustomImageUrl(null);
+            if (newValue) {
+                self.Url("http://www.themoviedb.org/movie/" + newValue);
+                self.CustomImageUrl(null);
+            }
         });
 
         this.errors = ko.validation.group(this);
@@ -51,7 +54,7 @@
         this.Url(data.Url);
         this.CustomImageUrl(data.CustomImageUrl);
         this.Id = data.Id;
-        this.ImageUrl = data.ImageUrl;
+        this.ImageUrl(data.ImageUrl);
         this.TmdbId(data.TmdbMovie && data.TmdbMovie.TmdbId);
         this.TmdbUrl(data.TmdbMovie && data.TmdbMovie.PosterPath);
         this.TmdbMovieId = data.TmdbMovieId;
