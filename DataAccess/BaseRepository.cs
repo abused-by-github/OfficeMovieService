@@ -57,6 +57,7 @@ namespace Svitla.MovieService.DataAccess
                 else
                 {
                     Context.Entry(entity).CurrentValues.SetValues(value);
+                    entity.Map(value);
                 }
             }
         }

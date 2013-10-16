@@ -37,6 +37,7 @@
     <Compile Include="Entities\IModifiable.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Poll.cs" />
+    <Compile Include="Entities\TmdbMovie.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Vote.cs" />
     <Compile Include="Exceptions\BaseMovieException.cs" />
@@ -49,6 +50,7 @@
     <Compile Include="Logging\Logger.cs" />
     <Compile Include="Logging\Verbosity.cs" />
     <Compile Include="Validation\Url.cs" />
+    <Compile Include="ValueObjects\AppSettings.cs" />
     <Compile Include="ValueObjects\Page.cs" />
     <Compile Include="ValueObjects\Paging.cs" />
   </ItemGroup>

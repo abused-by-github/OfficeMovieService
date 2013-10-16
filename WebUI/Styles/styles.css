@@ -124,3 +124,39 @@
 .error.ui-dialog {
     border: #a6040c;
 }
+
+/*Reset style of JQuery UI drop down item to default*/
+.ui-override-unselectable a {
+    display: inline !important;
+    background: inherit !important;
+    border: inherit !important;
+    color: inherit !important;
+    margin: auto !important;
+    padding: inherit !important;
+}
+
+.ui-override-unselectable a:hover {
+    color: inherit !important;
+    margin: auto !important;
+    padding: inherit !important;
+}
+
+.poweredByTmdb {
+    font-size: 11px;
+    margin-top: 5px;
+}
+
+.poweredByTmdb a{
+    font-size: 9px;
+    margin-top: 5px;
+    color: #428BCA;
+}
+
+.help-block {
+    font-size: 12px;
+    margin-bottom: 0 !important;
+}
+
+.red {
+    color: red !important;
+}

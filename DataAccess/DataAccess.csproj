@@ -53,6 +53,10 @@
     <Compile Include="Migrations\201310101851129_AddUserInvitedBy.Designer.cs">
       <DependentUpon>201310101851129_AddUserInvitedBy.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310160822041_AddTmdbMovie.cs" />
+    <Compile Include="Migrations\201310160822041_AddTmdbMovie.Designer.cs">
+      <DependentUpon>201310160822041_AddTmdbMovie.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="PollRepository.cs" />
@@ -75,6 +79,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310101851129_AddUserInvitedBy.resx">
       <DependentUpon>201310101851129_AddUserInvitedBy.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310160822041_AddTmdbMovie.resx">
+      <DependentUpon>201310160822041_AddTmdbMovie.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

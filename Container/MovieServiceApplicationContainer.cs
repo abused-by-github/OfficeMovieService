@@ -8,6 +8,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Svitla.MovieService.Core.Helpers;
+using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccess;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
@@ -83,6 +84,7 @@ namespace Svitla.MovieService.Container
 
         private static void registerWebApi(ContainerBuilder builder)
         {
+            builder.Register(c => ResolveAppSettings());
             builder.RegisterWithFullCallLog<MovieController>();
             builder.RegisterWithFullCallLog<PollController>();
             builder.RegisterWithFullCallLog<AccountController>();
@@ -114,6 +116,14 @@ namespace Svitla.MovieService.Container
                 Password = ConfigurationManager.AppSettings["Mail.SmtpPassword"],
                 Port = int.Parse(ConfigurationManager.AppSettings["Mail.SmtpPort"]),
                 UseSsl = bool.Parse(ConfigurationManager.AppSettings["Mail.SmtpUseSsl"])
+            };
+        }
+
+        private static AppSettings ResolveAppSettings()
+        {
+            return new AppSettings
+            {
+                BaseTmdbUrl = ConfigurationManager.AppSettings["TmdbBaseUrl"]
             };
         }
 

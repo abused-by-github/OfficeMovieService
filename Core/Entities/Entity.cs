@@ -9,6 +9,8 @@ namespace Svitla.MovieService.Core.Entities
     {
         public long Id { get; set; }
 
+        public virtual void Map(object source) { }
+
         public override int GetHashCode()
         {
             return Id > 0 ? Id.GetHashCode() : Guid.NewGuid().GetHashCode();

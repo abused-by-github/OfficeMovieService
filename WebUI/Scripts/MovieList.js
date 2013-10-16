@@ -2,10 +2,37 @@
     var api = window.movieService.core.api;
 
     var MovieViewModel = function (data) {
+        var self = this;
+
         $.extend(this, data);
+        this.TmdbMovie = ko.observable(data.TmdbMovie);
+        this.TmdbUrl = ko.observable(data.TmdbMovie && data.TmdbMovie.PosterPath);
+        this.TmdbId = ko.observable(data.TmdbMovie && data.TmdbMovie.TmdbId);
+        var needValidation = function () {
+            return !self.TmdbId();
+        };
         this.Name = ko.observable(data.Name).extend({ required: true });
-        this.Url = ko.observable(data.Url).extend({ required: true, url: true });
-        this.ImageUrl = ko.observable(data.ImageUrl).extend({ required: true });
+        this.Url = ko.observable(data.Url).extend({
+            required: {
+                onlyIf: needValidation
+            },
+            url: {
+                onlyIf: needValidation
+            }
+        });
+        this.CustomImageUrl = ko.observable(data.CustomImageUrl).extend({
+            required: {
+                onlyIf: needValidation
+            },
+            url: {
+                onlyIf: needValidation
+            }
+        });
+
+        this.TmdbId.subscribe(function (newValue) {
+            self.Url("http://www.themoviedb.org/movie/" + newValue);
+            self.CustomImageUrl(null);
+        });
 
         this.errors = ko.validation.group(this);
     };
@@ -22,8 +49,13 @@
     MovieViewModel.prototype.setData = function (data) {
         this.Name(data.Name);
         this.Url(data.Url);
-        this.ImageUrl(data.ImageUrl);
+        this.CustomImageUrl(data.CustomImageUrl);
         this.Id = data.Id;
+        this.ImageUrl = data.ImageUrl;
+        this.TmdbId(data.TmdbMovie && data.TmdbMovie.TmdbId);
+        this.TmdbUrl(data.TmdbMovie && data.TmdbMovie.PosterPath);
+        this.TmdbMovieId = data.TmdbMovieId;
+        this.TmdbMovie(data.TmdbMovie);
         this.errors.showAllMessages(false);
     };
 
@@ -35,9 +67,17 @@
         return {
             Name: this.Name(),
             Url: this.Url(),
-            ImageUrl: this.ImageUrl(),
-            Id: this.Id
+            CustomImageUrl: this.CustomImageUrl(),
+            Id: this.Id,
+            TmdbMovieId: this.TmdbMovieId || null,
+            TmdbMovie: this.TmdbId() ? { TmdbId: this.TmdbId(), PosterPath: this.TmdbUrl() } : null
         };
+    };
+
+    MovieViewModel.prototype.clearTmdb = function () {
+        this.TmdbMovie(null);
+        this.TmdbMovieId = 0;
+        this.TmdbId(0);
     };
 
     MovieViewModel.getDefault = function () {
@@ -49,7 +89,10 @@
             Name: '',
             Url: '',
             ImageUrl: '',
-            Id: 0
+            CustomImageUrl: null,
+            Id: 0,
+            TmdbMovieId: 0,
+            TmdbMovie: null
         };
     };
 
@@ -65,13 +108,13 @@
         inviteFriend: new window.movieService.InviteFriendViewModel(),
         totalMovies: ko.observable(0),
         cancelDialog: function () {
-            this.dialog.dialog('close');
+            viewModel.dialog.dialog('close');
         },
 
         save: function () {
-            var self = this;
+            var self = viewModel;
 
-            if (!this.currentMovie.validate()) {
+            if (!self.currentMovie.validate()) {
                 return;
             }
 
@@ -166,11 +209,22 @@
                 movie.IsVoting(false);
             });
         },
-        
-        updateRatings: function() {
+
+        updateRatings: function () {
             if (pollInfo && pollInfo.load) {
                 pollInfo.load();
             }
+        },
+
+        tmdbAutocomplete: function (term, onDone) {
+            $.ajax({
+                url: "http://api.themoviedb.org/3/search/movie?api_key=b2b05f39c1a1b7cdf7d32f076edb450d&search_type=ngram&query=" + term,
+                dataType: "jsonp",
+                data: null,
+                success: function (r) {
+                    onDone(r.results);
+                }
+            });
         }
     };
 
