@@ -167,6 +167,7 @@
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MovieList.js" />
     <Content Include="Scripts\PollInfo.js" />
+    <Content Include="Scripts\waiter-min.js" />
     <Content Include="Styles\Bootstrap\css\bootstrap-theme.css" />
     <Content Include="Styles\Bootstrap\css\bootstrap-theme.min.css" />
     <Content Include="Styles\Bootstrap\css\bootstrap.css" />

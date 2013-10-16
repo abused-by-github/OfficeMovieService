@@ -146,6 +146,7 @@
             this.loadMoreButton.twButton('loading');
             var paging = { PageNumber: this.currentPage + 1, PageSize: 12 };
             this.isPageLoading = true;
+            window.waiter.show({ targetId: 'body' });
             api.call('movie', 'list', paging, function(r) {
                  viewModel.fetchMoreMoviesSuccess(r, doNotScroll);
             }, this.fetchMoreMoviesComplete);
@@ -167,6 +168,7 @@
 
         fetchMoreMoviesComplete: function () {
             viewModel.isPageLoading = false;
+            window.waiter.hide({ targetId: 'body' });
             viewModel.loadMoreButton.twButton('reset');
         },
 
