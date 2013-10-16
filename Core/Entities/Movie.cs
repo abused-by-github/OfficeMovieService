@@ -76,6 +76,18 @@ namespace Svitla.MovieService.Core.Entities
             }
         }
 
+        public override void Map(object source)
+        {
+            Map(source as Movie);
+        }
+
+        public void Map(Movie source)
+        {
+            if (source != null)
+            {
+                TmdbMovie = source.TmdbMovie;
+            }
+        }
 
         private static string NormalizeUrl(string url)
         {

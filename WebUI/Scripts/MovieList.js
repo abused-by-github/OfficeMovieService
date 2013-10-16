@@ -29,6 +29,11 @@
             }
         });
 
+        this.TmdbId.subscribe(function (newValue) {
+            self.Url("http://www.themoviedb.org/movie/" + newValue);
+            self.CustomImageUrl(null);
+        });
+
         this.errors = ko.validation.group(this);
     };
 
@@ -65,7 +70,7 @@
             CustomImageUrl: this.CustomImageUrl(),
             Id: this.Id,
             TmdbMovieId: this.TmdbMovieId || null,
-            TmdbMovie: this.TmdbMovieId ? { TmdbId: this.TmdbId(), PosterPath: this.TmdbUrl() } : null
+            TmdbMovie: this.TmdbId() ? { TmdbId: this.TmdbId(), PosterPath: this.TmdbUrl() } : null
         };
     };
 
