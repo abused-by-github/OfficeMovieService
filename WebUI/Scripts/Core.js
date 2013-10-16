@@ -152,6 +152,67 @@ ko.bindingHandlers.dateTimePicker = {
     }
 };
 
+/*
+ * Binding accepts sinle parameter - options.
+ * "source" - function (term, onDone). "term" - text, typed in textbox; "onDone" - callback which function should call when data are ready.
+ * "credits" - id of an element. Inner HTML of this elements will be put to autocomplete as "special" last item. Item won't be selectable.
+ * "minLength" - min lenght of user input which causes autocomplete.
+ * "values" - hash. Each key corresponds to key in data items which were returned by "source". Each value - observable which will be updated with corresponding data.
+ * For example, values: { id: TmdbId, title: Name }. Each data item returned by source must have keys "id" and "title". There must be observables "TmdbId" and "Name"
+ * in binding context. When an item is selected from autocomplete, next will happen: TmdbId(item.id); Name(item.title), where item - and item returned by source.
+ * "labelKey" - key in items returned by source, which will be shown as item caption in autocomplete list.
+ */
+ko.bindingHandlers.autocomplete = {
+    init: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        var options = valueAccessor();
+        $(element).autocomplete({
+            source: function (request, response) {
+                options.source(request.term, response);
+            },
+            minLength: options.minLength,
+            select: function(event, ui) {
+                var item = ui.item;
+                if (item.hasOwnProperty('__selectable') && !item['__selectable']) {
+                    event.preventDefault();
+                } else {
+                    for (var key in options.values) {
+                        options.values[key](item[key]);
+                    }
+                }
+                return false;
+            },
+            focus: function () {
+                return false;
+            },
+            create: function () {
+                $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                    var li = $('<li>')
+                        .append('<a>' + item[options.labelKey] + '</a>')
+                        .appendTo(ul);
+                    return li;
+                };
+
+                $(this).data('ui-autocomplete')._renderMenu = function (ul, items) {
+                    var that = this;
+                    $.each(items, function (index, item) {
+                        that._renderItemData(ul, item);
+                    });
+                    if (options.credits) {
+                        var li = $($('#' + options.credits).html());
+                        li.data("ui-autocomplete-item", { __selectable: false });
+                        li.insertAfter($(ul).find("li:last"));
+                    }
+                };
+            },
+        });
+    },
+    update: function (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+        // This will be called once when the binding is first applied to an element,
+        // and again whenever the associated observable changes value.
+        // Update the DOM element based on the supplied values here.
+    }
+};
+
 $.fn.koBind = function (viewModel) {
     this.each(function(i, e) {
         ko.applyBindings(viewModel, e);

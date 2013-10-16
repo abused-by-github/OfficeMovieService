@@ -62,13 +62,10 @@
         return {
             Name: this.Name(),
             Url: this.Url(),
-            CustomImageUrl: this.CustomImageUrl,
+            CustomImageUrl: this.CustomImageUrl(),
             Id: this.Id,
-            TmdbMovieId: this.TmdbMovieId,
-            TmdbMovie: {
-                TmdbId: this.TmdbId(),
-                PosterPath: this.TmdbUrl()
-            }
+            TmdbMovieId: this.TmdbMovieId || null,
+            TmdbMovie: this.TmdbMovieId ? { TmdbId: this.TmdbId(), PosterPath: this.TmdbUrl() } : null
         };
     };
 
@@ -207,73 +204,28 @@
                 movie.IsVoting(false);
             });
         },
-        
-        updateRatings: function() {
+
+        updateRatings: function () {
             if (pollInfo && pollInfo.load) {
                 pollInfo.load();
             }
+        },
+
+        tmdbAutocomplete: function (term, onDone) {
+            $.ajax({
+                url: "http://api.themoviedb.org/3/search/movie?api_key=b2b05f39c1a1b7cdf7d32f076edb450d&search_type=ngram&query=" + term,
+                dataType: "jsonp",
+                data: null,
+                success: function (r) {
+                    onDone(r.results);
+                }
+            });
         }
     };
 
     viewModel.hasMoreMovies = ko.computed(function() {
         return this.totalMovies() > this.movies().length;
     }, viewModel);
-
-    $("#txtName").autocomplete({
-        source: function(request, response) {
-            $.ajax({
-                url: "http://api.themoviedb.org/3/search/movie?api_key=b2b05f39c1a1b7cdf7d32f076edb450d&search_type=ngram&query=" + request.term,
-                dataType: "jsonp",
-                data: null,
-                success: function(r) {
-                    var data =$.map(r.results, function(item) {
-                        return {
-                            label: item.title,
-                            value: item.id,
-                            tmdb: item
-                        };
-                    });
-                    data.push({ label: 'Powered by <a href="http://www.themoviedb.org">http://www.themoviedb.org</a>', '*selectable': false, '*cssClass': 'poweredByTmdb' });
-                    response(data);
-                }
-            });
-        },
-        minLength: 3,
-        select: function (event, ui) {
-            var item = ui.item;
-            if (item.hasOwnProperty('*selectable') && !item['*selectable']) {
-                event.preventDefault();
-            }
-            $(this).val(item.label).change();
-            $('#tmdbId').val(item.value).change();
-            $('#tmdbUrl').val(item.tmdb.poster_path).change();
-            return false;
-        },
-        open: function() {
-            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-        },
-        close: function (event, ui) {
-            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-        },
-        create: function () {
-            $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
-                var li = $('<li>')
-                    .append('<a data-id="' + item.value + '">' + item.label + '</a>')
-                    .appendTo(ul);
-                if (item.hasOwnProperty('*selectable') && !item['*selectable']) {
-                    li.prop('disabled', true);
-                    li.addClass('ui-override-unselectable');
-                }
-                if (item['*cssClass']) {
-                    li.addClass(item['*cssClass']);
-                }
-                return li;
-            };
-        },
-        focus: function () {
-            return false;
-        }
-    });
 
     $('#scrollContainer, #addMovie, #saveDialog').koBind(viewModel);
     $('#pollSummary, #editPollContainer').koBind(window.movieService.poll);

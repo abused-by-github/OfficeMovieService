@@ -7,6 +7,10 @@
     <script type="text/javascript" src="~/Scripts/Poll.js"></script>
     <script type="text/javascript" src="~/Scripts/MovieList.js"></script>
     <script type="text/javascript" src="~/Scripts/PollInfo.js"></script>
+    
+    <script type="text/HTML" id="tmdbAutocompleteCredits">
+        <li disabled class="ui-override-unselectable poweredByTmdb">Powered by <a href="http://www.themoviedb.org">http://www.themoviedb.org</a></li>
+    </script>
 }
 
 @section MainContent
@@ -146,7 +150,10 @@
                         var js, fjs = d.getElementsByTagName(s)[0],
                             p = /^http:/.test(d.location) ? 'http' : 'https';
                         if (!d.getElementById(id)) {
-                            js = d.createElement(s); js.id = id; js.src = p + "://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+                            js = d.createElement(s);
+                            js.id = id;
+                            js.src = p + "://platform.twitter.com/widgets.js";
+                            fjs.parentNode.insertBefore(js, fjs);
                         }
                     }(document, "script", "twitter-wjs");
                 </script>
@@ -164,7 +171,12 @@
                         <input type="hidden" data-bind="value: TmdbId" id="tmdbId" />
                         <input type="hidden" data-bind="value: TmdbUrl" id="tmdbUrl" />
                         <input type="text" class="form-control" id="txtName"
-                               data-bind="value: Name" />
+                            data-bind="value: Name, autocomplete: {
+                                                    source: $parent.tmdbAutocomplete,
+                                                    credits: 'tmdbAutocompleteCredits',
+                                                    minLength: 3,
+                                                    values: { id: TmdbId, title: Name, poster_path: TmdbUrl },
+                                                    labelKey: 'title'}" />
                         <span class="help-block" data-bind="visible: TmdbId">
                             Provided by <a href="http://www.themoviedb.org">http://www.themoviedb.org</a>
                             | <a class="red" href="javaScript:void(0)" data-bind="click: clearTmdb">Clear</a>
