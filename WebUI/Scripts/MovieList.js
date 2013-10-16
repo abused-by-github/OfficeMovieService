@@ -4,14 +4,16 @@
     var MovieViewModel = function (data) {
         var self = this;
 
-        $.extend(this, data);
-        this.TmdbMovie = ko.observable(data.TmdbMovie);
-        this.TmdbUrl = ko.observable(data.TmdbMovie && data.TmdbMovie.PosterPath);
-        this.TmdbId = ko.observable(data.TmdbMovie && data.TmdbMovie.TmdbId);
+        this.TmdbMovie = ko.observable();
+        this.TmdbUrl = ko.observable();
+        this.TmdbId = ko.observable();
+        this.ImageUrl = ko.observable();
+        this.Name = ko.observable().extend({ required: true });
+
         var needValidation = function () {
             return !self.TmdbId();
         };
-        this.Name = ko.observable(data.Name).extend({ required: true });
+
         this.Url = ko.observable(data.Url).extend({
             required: {
                 onlyIf: needValidation
@@ -20,6 +22,7 @@
                 onlyIf: needValidation
             }
         });
+
         this.CustomImageUrl = ko.observable(data.CustomImageUrl).extend({
             required: {
                 onlyIf: needValidation
@@ -30,11 +33,15 @@
         });
 
         this.TmdbId.subscribe(function (newValue) {
-            self.Url("http://www.themoviedb.org/movie/" + newValue);
-            self.CustomImageUrl(null);
+            if (newValue) {
+                self.Url("http://www.themoviedb.org/movie/" + newValue);
+                self.CustomImageUrl(null);
+            }
         });
 
         this.errors = ko.validation.group(this);
+
+        this.setData(data);
     };
 
     MovieViewModel.prototype.validate = function () {
@@ -51,7 +58,7 @@
         this.Url(data.Url);
         this.CustomImageUrl(data.CustomImageUrl);
         this.Id = data.Id;
-        this.ImageUrl = data.ImageUrl;
+        this.ImageUrl(data.ImageUrl);
         this.TmdbId(data.TmdbMovie && data.TmdbMovie.TmdbId);
         this.TmdbUrl(data.TmdbMovie && data.TmdbMovie.PosterPath);
         this.TmdbMovieId = data.TmdbMovieId;
@@ -139,6 +146,7 @@
             this.loadMoreButton.twButton('loading');
             var paging = { PageNumber: this.currentPage + 1, PageSize: 12 };
             this.isPageLoading = true;
+            window.waiter.show({ targetId: 'body' });
             api.call('movie', 'list', paging, function(r) {
                  viewModel.fetchMoreMoviesSuccess(r, doNotScroll);
             }, this.fetchMoreMoviesComplete);
@@ -160,6 +168,7 @@
 
         fetchMoreMoviesComplete: function () {
             viewModel.isPageLoading = false;
+            window.waiter.hide({ targetId: 'body' });
             viewModel.loadMoreButton.twButton('reset');
         },
 
