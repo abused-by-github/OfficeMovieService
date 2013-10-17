@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201310171643035_Add EditOthersMoviesPermission.Designer.cs">
       <DependentUpon>201310171643035_Add EditOthersMoviesPermission.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310171730185_AddUserCreatedDateMakeUserNameNotNullable.cs" />
+    <Compile Include="Migrations\201310171730185_AddUserCreatedDateMakeUserNameNotNullable.Designer.cs">
+      <DependentUpon>201310171730185_AddUserCreatedDateMakeUserNameNotNullable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="PollRepository.cs" />
@@ -103,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310171643035_Add EditOthersMoviesPermission.resx">
       <DependentUpon>201310171643035_Add EditOthersMoviesPermission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310171730185_AddUserCreatedDateMakeUserNameNotNullable.resx">
+      <DependentUpon>201310171730185_AddUserCreatedDateMakeUserNameNotNullable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
