@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Entities.Security;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
+using Svitla.MovieService.Domain.Security;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.Exceptions;
 using Svitla.MovieService.MailingApi;
@@ -46,6 +48,7 @@ namespace Svitla.MovieService.Domain.Facades
             UnitOfWork.Commit();
         }
 
+        [Secure(Permissions.Invite)]
         public virtual void InviteFriend(User friend)
         {
             if (domainsAllowedForInvintation.All(d => !friend.Name.EndsWith(d)))

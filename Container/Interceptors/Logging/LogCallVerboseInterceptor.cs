@@ -1,6 +1,6 @@
 ﻿using Svitla.MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Container.Interceptors
+namespace Svitla.MovieService.Container.Interceptors.Logging
 {
     public class LogCallVerboseInterceptor : LogCallInterceptor
     {

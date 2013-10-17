@@ -56,6 +56,7 @@
     <Compile Include="Facades\MovieFacade.cs" />
     <Compile Include="Facades\PollFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
+    <Compile Include="Security\SecureAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

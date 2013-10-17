@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Svitla.MovieService.Container.Interceptors.Security;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccess;
@@ -18,8 +20,11 @@ using Svitla.MovieService.Mailing.Core;
 using Svitla.MovieService.Mailing.Core.Client;
 using Svitla.MovieService.Mailing.Emails;
 using Svitla.MovieService.MailingApi;
+using Svitla.MovieService.MvcControllers;
 using Svitla.MovieService.WebApi.Controllers;
+using AccountController = Svitla.MovieService.WebApi.Controllers.AccountController;
 using IDependencyResolver = System.Web.Http.Dependencies.IDependencyResolver;
+using MovieController = Svitla.MovieService.WebApi.Controllers.MovieController;
 
 namespace Svitla.MovieService.Container
 {
@@ -34,6 +39,7 @@ namespace Svitla.MovieService.Container
         {
             var builder = new ContainerBuilder();
 
+            RegisterInterceptors(builder);
             registerDataAccess(builder);
             registerMailing(builder);
             registerDomain(builder);
@@ -48,6 +54,7 @@ namespace Svitla.MovieService.Container
 
         private static void registerMvcControllers(ContainerBuilder builder)
         {
+            builder.Register(ResolvePresentationContext);
             builder.RegisterWithBriefCallLog<MvcControllers.AccountController>();
             builder.RegisterWithBriefCallLog<MvcControllers.MovieController>();
         }
@@ -74,9 +81,9 @@ namespace Svitla.MovieService.Container
                 return () => ctx.Resolve<InviteEmail>();
             });
 
-            builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>();
-            builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>();
-            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>()
+            builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>().InterceptedBy(typeof(SecureMethodInterceptor));
+            builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>().InterceptedBy(typeof(SecureMethodInterceptor));
+            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>().InterceptedBy(typeof(SecureMethodInterceptor))
                 .OnActivated(uf => uf.Instance.AllowedDomain = ConfigurationManager.AppSettings["AllowedDomain"]);
 
             builder.Register(resolveDomainContext);
@@ -96,6 +103,11 @@ namespace Svitla.MovieService.Container
             builder.Register(c => resolveSmtpConfig());
             builder.RegisterWithBriefCallLog<SmtpClient, IEmailClient>();
             builder.RegisterWithBriefCallLog<InviteEmail, InviteEmail>();
+        }
+
+        private void RegisterInterceptors(ContainerBuilder builder)
+        {
+            builder.RegisterType<SecureMethodInterceptor>();
         }
 
         private EmailConfig resolveEmailConfig()
@@ -138,6 +150,12 @@ namespace Svitla.MovieService.Container
                 result.CurrentUser = user;
             }
             return result;
+        }
+
+        private static PresentationContext ResolvePresentationContext(IComponentContext context)
+        {
+            var domain = resolveDomainContext(context);
+            return new PresentationContext { CurrentUser = domain.CurrentUser };
         }
 
         private string GetBaseUrl(string path = null)

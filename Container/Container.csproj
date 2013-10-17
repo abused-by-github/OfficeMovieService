@@ -34,9 +34,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContainerBuilderExtensions.cs" />
-    <Compile Include="Interceptors\LogCallBriefInterceptor.cs" />
-    <Compile Include="Interceptors\LogCallInterceptor.cs" />
-    <Compile Include="Interceptors\LogCallVerboseInterceptor.cs" />
+    <Compile Include="Interceptors\Logging\LogCallBriefInterceptor.cs" />
+    <Compile Include="Interceptors\Logging\LogCallInterceptor.cs" />
+    <Compile Include="Interceptors\Logging\LogCallVerboseInterceptor.cs" />
+    <Compile Include="Interceptors\Security\SecureMethodInterceptor.cs" />
     <Compile Include="MovieServiceApplicationContainer.cs" />
   </ItemGroup>
   <ItemGroup>

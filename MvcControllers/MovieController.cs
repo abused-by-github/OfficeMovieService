@@ -3,8 +3,10 @@ using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.MvcControllers
 {
-    public class MovieController : Controller
+    public class MovieController : BaseController
     {
+        public MovieController(PresentationContext presentationContext) : base(presentationContext) { }
+
         [HttpGet]
         [return: Log(Verbosity.Full)]
         public virtual ViewResult List()

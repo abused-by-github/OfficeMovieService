@@ -12,13 +12,14 @@ using Svitla.MovieService.DomainApi.Exceptions;
 
 namespace Svitla.MovieService.MvcControllers
 {
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private const string GoogleOpenID = "https://www.google.com/accounts/o8/id";
 
         private readonly IUserFacade userFacade;
 
-        public AccountController(IUserFacade userFacade)
+        public AccountController(IUserFacade userFacade, PresentationContext presentationContext)
+            : base(presentationContext)
         {
             this.userFacade = userFacade;
         }
