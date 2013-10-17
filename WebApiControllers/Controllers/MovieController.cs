@@ -29,7 +29,7 @@ namespace Svitla.MovieService.WebApi.Controllers
         {
             var currentUser = userFacade.GetByEmail(User.Identity.Name);
             var currentPoll = pollFacade.GetCurrent();
-            var movies = movieFacade.FindMovies(paging, currentUser, currentPoll);
+            var movies = movieFacade.FindMovies(paging, currentPoll);
             var leftVotes = currentUser == null || currentPoll == null ? int.MaxValue : GetLeftVotes(currentUser, currentPoll.Id);
 
             var dto = new

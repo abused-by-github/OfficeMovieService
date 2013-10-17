@@ -10,7 +10,7 @@ namespace Svitla.MovieService.DomainApi
         void SaveMovie(Movie movie);
         void DeleteMovie(long id);
         Movie LoadById(long id);
-        Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll);
+        Page<VoteableMovie> FindMovies(Paging paging, Poll poll);
         List<Movie> FindMoviesForPoll(long pollId);
     }
 }

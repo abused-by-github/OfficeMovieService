@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using Svitla.MovieService.Core.Entities;
@@ -45,17 +44,18 @@ namespace Svitla.MovieService.Domain.Facades
             return movies.One(q => q.FirstOrDefault(m => m.Id == id));
         }
 
-        public virtual Page<VoteableMovie> FindMovies(Paging paging, User user, Poll poll)
+        public virtual Page<VoteableMovie> FindMovies(Paging paging, Poll poll)
         {
-            var userId = user.Get(u => u.Id);
+            var currentUserId = DomainContext.CurrentUser.Get(u => u.Id);
             var pollId = poll.Get(p => p.Id);
+
             var result = movies.Page(q => q
                 .Select(m => new VoteableMovie
                 {
                     Movie = m,
-                    IsVoted = m.Votes.Any(v => v.UserId == userId && v.PollId == pollId),
+                    IsVoted = m.Votes.Any(v => v.UserId == currentUserId && v.PollId == pollId),
                     UserName = m.User.Name,
-                    IsOwner = m.User.Id == DomainContext.CurrentUser.Id
+                    IsOwner = m.User.Id == currentUserId
                 })
                 .OrderByDescending(m => m.Movie.ModifiedDate)
                 , paging);
