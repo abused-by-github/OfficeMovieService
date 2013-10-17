@@ -1,4 +1,6 @@
-﻿@{ ViewBag.BaseUrl = Url.Action("", ""); }
+﻿@using Svitla.MovieService.Core.Entities.Security
+@using Svitla.MovieService.WebUI.Infrastructure
+@{ ViewBag.BaseUrl = Url.Action("", ""); }
 
 <!DOCTYPE html>
 
@@ -65,10 +67,13 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <button id="buttonInvite" class="btn btn-default navbar-btn"
-                                data-bind="click: activate">Invite Friend</button>
-                        </li>
+                        @if (DomainUser.HasPermission(Permissions.Invite))
+                        {
+                            <li>
+                                <button id="buttonInvite" class="btn btn-default navbar-btn"
+                                        data-bind="click: activate">Invite Friend</button>
+                            </li>
+                        }
                         <li>
                             @Html.ActionLink(User.Identity.Name, "Logoff", "Account")
                         </li>

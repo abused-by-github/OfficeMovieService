@@ -117,7 +117,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountController.cs" />
+    <Compile Include="BaseController.cs" />
     <Compile Include="MovieController.cs" />
+    <Compile Include="PresentationContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

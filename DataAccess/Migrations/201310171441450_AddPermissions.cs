@@ -30,7 +30,7 @@ namespace Svitla.MovieService.DataAccess.Migrations
                 .Index(t => t.Permission_Id);
             
         }
-        
+
         public override void Down()
         {
             DropIndex("dbo.UserPermission", new[] { "Permission_Id" });

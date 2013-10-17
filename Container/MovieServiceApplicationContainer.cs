@@ -20,8 +20,11 @@ using Svitla.MovieService.Mailing.Core;
 using Svitla.MovieService.Mailing.Core.Client;
 using Svitla.MovieService.Mailing.Emails;
 using Svitla.MovieService.MailingApi;
+using Svitla.MovieService.MvcControllers;
 using Svitla.MovieService.WebApi.Controllers;
+using AccountController = Svitla.MovieService.WebApi.Controllers.AccountController;
 using IDependencyResolver = System.Web.Http.Dependencies.IDependencyResolver;
+using MovieController = Svitla.MovieService.WebApi.Controllers.MovieController;
 
 namespace Svitla.MovieService.Container
 {
@@ -51,6 +54,7 @@ namespace Svitla.MovieService.Container
 
         private static void registerMvcControllers(ContainerBuilder builder)
         {
+            builder.Register(ResolvePresentationContext);
             builder.RegisterWithBriefCallLog<MvcControllers.AccountController>();
             builder.RegisterWithBriefCallLog<MvcControllers.MovieController>();
         }
@@ -146,6 +150,12 @@ namespace Svitla.MovieService.Container
                 result.CurrentUser = user;
             }
             return result;
+        }
+
+        private static PresentationContext ResolvePresentationContext(IComponentContext context)
+        {
+            var domain = resolveDomainContext(context);
+            return new PresentationContext { CurrentUser = domain.CurrentUser };
         }
 
         private string GetBaseUrl(string path = null)
