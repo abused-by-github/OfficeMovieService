@@ -2,6 +2,7 @@
 {
     public enum Permissions
     {
-        Invite = 1
+        Invite = 1,
+        EditOthersMovies = 2
     }
 }

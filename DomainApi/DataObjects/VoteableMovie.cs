@@ -7,5 +7,6 @@ namespace Svitla.MovieService.DomainApi.DataObjects
         public Movie Movie { get; set; }
         public bool IsVoted { get; set; }
         public string UserName { get; set; }
+        public bool IsOwner { get; set; }
     }
 }
