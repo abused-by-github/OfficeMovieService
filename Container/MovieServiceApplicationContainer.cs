@@ -2,12 +2,11 @@
 using System.Configuration;
 using System.Linq;
 using System.Web;
-using System.Web.Mvc;
-using System.Web.Routing;
 using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Svitla.MovieService.Container.Interceptors.Logging;
 using Svitla.MovieService.Container.Interceptors.Security;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
@@ -30,7 +29,18 @@ namespace Svitla.MovieService.Container
 {
     public sealed class MovieServiceApplicationContainer
     {
-        private const string ConnectionString = "ConnectionString";
+        private static string ConnectionString
+        {
+            get
+            {
+                return ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString;
+            }
+        }
+
+        private static string AppSettings(string key)
+        {
+            return ConfigurationManager.AppSettings[key];
+        }
 
         public readonly IDependencyResolver WebApiDependencyResolver;
         public readonly System.Web.Mvc.IDependencyResolver MvcDependencyResolver;
@@ -40,11 +50,11 @@ namespace Svitla.MovieService.Container
             var builder = new ContainerBuilder();
 
             RegisterInterceptors(builder);
-            registerDataAccess(builder);
-            registerMailing(builder);
-            registerDomain(builder);
-            registerWebApi(builder);
-            registerMvcControllers(builder);
+            RegisterDataAccess(builder);
+            RegisterMailing(builder);
+            RegisterDomain(builder);
+            RegisterWebApi(builder);
+            RegisterMvcControllers(builder);
 
             IContainer autofac = builder.Build();
 
@@ -52,27 +62,39 @@ namespace Svitla.MovieService.Container
             MvcDependencyResolver = new AutofacDependencyResolver(autofac);
         }
 
-        private static void registerMvcControllers(ContainerBuilder builder)
+        private static void RegisterMvcControllers(ContainerBuilder builder)
         {
             builder.Register(ResolvePresentationContext);
             builder.RegisterWithBriefCallLog<MvcControllers.AccountController>();
             builder.RegisterWithBriefCallLog<MvcControllers.MovieController>();
         }
 
-        private static void registerDataAccess(ContainerBuilder builder)
+        private static void RegisterDataAccess(ContainerBuilder builder)
         {
-            builder.Register(c => new DataContext(ConfigurationManager.ConnectionStrings[ConnectionString].ConnectionString))
+            builder.Register(c => new DataContext(ConnectionString))
                 .As<IUnitOfWork>()
                 .As<DataContext>()
                 .InstancePerApiRequest();
 
-            builder.RegisterWithBriefCallLog<MovieRepository, IMovieRepository>();
-            builder.RegisterWithBriefCallLog<PollRepository, IPollRepository>();
-            builder.RegisterWithBriefCallLog<UserRepository, IUserRepository>();
+            builder.RegisterType<MovieRepository>()
+                .As<IMovieRepository>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof (LogCallBriefInterceptor));
+
+            builder.RegisterType<PollRepository>()
+                .As<IPollRepository>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.RegisterType<UserRepository>()
+                .As<IUserRepository>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
         }
 
-        private static void registerDomain(ContainerBuilder builder)
+        private static void RegisterDomain(ContainerBuilder builder)
         {
+            //Invite Email factory
             builder.Register<Func<IInviteEmail>>(c =>
             {
                 //One more resolve because of
@@ -81,53 +103,86 @@ namespace Svitla.MovieService.Container
                 return () => ctx.Resolve<InviteEmail>();
             });
 
-            builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>().InterceptedBy(typeof(SecureMethodInterceptor));
-            builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>().InterceptedBy(typeof(SecureMethodInterceptor));
-            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>().InterceptedBy(typeof(SecureMethodInterceptor))
-                .OnActivated(uf => uf.Instance.AllowedDomain = ConfigurationManager.AppSettings["AllowedDomain"]);
+            builder.Register(ResolveDomainContext);
 
-            builder.Register(resolveDomainContext);
+            builder.RegisterType<MovieFacade>()
+                .As<IMovieFacade>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof (SecureMethodInterceptor))
+                .InterceptedBy(typeof (LogCallBriefInterceptor));
+
+            builder.RegisterType<PollFacade>()
+                .As<IPollFacade>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(SecureMethodInterceptor))
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.RegisterType<UserFacade>()
+                .As<IUserFacade>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(SecureMethodInterceptor))
+                .InterceptedBy(typeof(LogCallBriefInterceptor))
+                .OnActivated(uf => uf.Instance.AllowedDomain = AppSettings("AllowedDomain"));
         }
 
-        private static void registerWebApi(ContainerBuilder builder)
+        private static void RegisterWebApi(ContainerBuilder builder)
         {
             builder.Register(c => ResolveAppSettings());
-            builder.RegisterWithFullCallLog<MovieController>();
-            builder.RegisterWithFullCallLog<PollController>();
-            builder.RegisterWithFullCallLog<AccountController>();
+
+            builder.RegisterType<MovieController>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
+
+            builder.RegisterType<PollController>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
+
+            builder.RegisterType<AccountController>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
         }
 
-        private void registerMailing(ContainerBuilder builder)
+        private void RegisterMailing(ContainerBuilder builder)
         {
-            builder.Register(c => resolveEmailConfig());
-            builder.Register(c => resolveSmtpConfig());
-            builder.RegisterWithBriefCallLog<SmtpClient, IEmailClient>();
-            builder.RegisterWithBriefCallLog<InviteEmail, InviteEmail>();
+            builder.Register(c => ResolveEmailConfig());
+            builder.Register(c => ResolveSmtpConfig());
+
+            builder.RegisterType<SmtpClient>()
+                .As<IEmailClient>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.RegisterType<InviteEmail>()
+                .As<InviteEmail>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
         }
 
-        private void RegisterInterceptors(ContainerBuilder builder)
+        private static void RegisterInterceptors(ContainerBuilder builder)
         {
             builder.RegisterType<SecureMethodInterceptor>();
+            builder.RegisterType<LogCallBriefInterceptor>();
+            builder.RegisterType<LogCallVerboseInterceptor>();
         }
 
-        private EmailConfig resolveEmailConfig()
+        private EmailConfig ResolveEmailConfig()
         {
             return new EmailConfig
             {
-                DefaultFrom = ConfigurationManager.AppSettings["Mail.DefaultFrom"],
+                DefaultFrom = AppSettings("Mail.DefaultFrom"),
                 WebAppUrl = GetBaseUrl(),
             };
         }
 
-        private SmtpConfig resolveSmtpConfig()
+        private static SmtpConfig ResolveSmtpConfig()
         {
             return new SmtpConfig
             {
-                Host = ConfigurationManager.AppSettings["Mail.SmtpHost"],
-                Login = ConfigurationManager.AppSettings["Mail.SmtpLogin"],
-                Password = ConfigurationManager.AppSettings["Mail.SmtpPassword"],
-                Port = int.Parse(ConfigurationManager.AppSettings["Mail.SmtpPort"]),
-                UseSsl = bool.Parse(ConfigurationManager.AppSettings["Mail.SmtpUseSsl"])
+                Host = AppSettings("Mail.SmtpHost"),
+                Login = AppSettings("Mail.SmtpLogin"),
+                Password = AppSettings("Mail.SmtpPassword"),
+                Port = int.Parse(AppSettings("Mail.SmtpPort")),
+                UseSsl = bool.Parse(AppSettings("Mail.SmtpUseSsl"))
             };
         }
 
@@ -135,11 +190,11 @@ namespace Svitla.MovieService.Container
         {
             return new AppSettings
             {
-                BaseTmdbUrl = ConfigurationManager.AppSettings["TmdbBaseUrl"]
+                BaseTmdbUrl = AppSettings("TmdbBaseUrl")
             };
         }
 
-        private static DomainContext resolveDomainContext(IComponentContext context)
+        private static DomainContext ResolveDomainContext(IComponentContext context)
         {
             DomainContext result = new DomainContext();
             var email = HttpContext.Current.Get(c => c.User).Get(u => u.Identity).Get(i => i.Name);
@@ -154,11 +209,11 @@ namespace Svitla.MovieService.Container
 
         private static PresentationContext ResolvePresentationContext(IComponentContext context)
         {
-            var domain = resolveDomainContext(context);
+            var domain = ResolveDomainContext(context);
             return new PresentationContext { CurrentUser = domain.CurrentUser };
         }
 
-        private string GetBaseUrl(string path = null)
+        private static string GetBaseUrl(string path = null)
         {
             var request = HttpContext.Current.Request;
             if (request == null || request.Url == null)
