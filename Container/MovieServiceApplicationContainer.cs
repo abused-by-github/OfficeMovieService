@@ -65,8 +65,14 @@ namespace Svitla.MovieService.Container
         private static void RegisterMvcControllers(ContainerBuilder builder)
         {
             builder.Register(ResolvePresentationContext);
-            builder.RegisterWithBriefCallLog<MvcControllers.AccountController>();
-            builder.RegisterWithBriefCallLog<MvcControllers.MovieController>();
+
+            builder.RegisterType<MvcControllers.AccountController>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof (LogCallBriefInterceptor));
+
+            builder.RegisterType<MvcControllers.MovieController>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof (LogCallBriefInterceptor));
         }
 
         private static void RegisterDataAccess(ContainerBuilder builder)
@@ -213,12 +219,12 @@ namespace Svitla.MovieService.Container
             return new PresentationContext { CurrentUser = domain.CurrentUser };
         }
 
-        private static string GetBaseUrl(string path = null)
+        private static string GetBaseUrl()
         {
             var request = HttpContext.Current.Request;
             if (request == null || request.Url == null)
                 throw new Exception("Request is null");
-            path = path ?? HttpRuntime.AppDomainAppVirtualPath;
+            var path = HttpRuntime.AppDomainAppVirtualPath;
             string baseUrl = string.Format("{0}://{1}{2}", request.Url.Scheme, request.Url.Authority, path);
             return baseUrl;
         }

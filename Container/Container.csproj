@@ -33,7 +33,6 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ContainerBuilderExtensions.cs" />
     <Compile Include="Interceptors\Logging\LogCallBriefInterceptor.cs" />
     <Compile Include="Interceptors\Logging\LogCallInterceptor.cs" />
     <Compile Include="Interceptors\Logging\LogCallVerboseInterceptor.cs" />
