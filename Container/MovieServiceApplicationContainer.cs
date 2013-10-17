@@ -5,8 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Autofac;
+using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
+using Svitla.MovieService.Container.Interceptors.Security;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccess;
@@ -34,6 +36,7 @@ namespace Svitla.MovieService.Container
         {
             var builder = new ContainerBuilder();
 
+            RegisterInterceptors(builder);
             registerDataAccess(builder);
             registerMailing(builder);
             registerDomain(builder);
@@ -74,9 +77,9 @@ namespace Svitla.MovieService.Container
                 return () => ctx.Resolve<InviteEmail>();
             });
 
-            builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>();
-            builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>();
-            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>()
+            builder.RegisterWithBriefCallLog<MovieFacade, IMovieFacade>().InterceptedBy(typeof(SecureMethodInterceptor));
+            builder.RegisterWithBriefCallLog<PollFacade, IPollFacade>().InterceptedBy(typeof(SecureMethodInterceptor));
+            builder.RegisterWithBriefCallLog<UserFacade, IUserFacade>().InterceptedBy(typeof(SecureMethodInterceptor))
                 .OnActivated(uf => uf.Instance.AllowedDomain = ConfigurationManager.AppSettings["AllowedDomain"]);
 
             builder.Register(resolveDomainContext);
@@ -96,6 +99,11 @@ namespace Svitla.MovieService.Container
             builder.Register(c => resolveSmtpConfig());
             builder.RegisterWithBriefCallLog<SmtpClient, IEmailClient>();
             builder.RegisterWithBriefCallLog<InviteEmail, InviteEmail>();
+        }
+
+        private void RegisterInterceptors(ContainerBuilder builder)
+        {
+            builder.RegisterType<SecureMethodInterceptor>();
         }
 
         private EmailConfig resolveEmailConfig()

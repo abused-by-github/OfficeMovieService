@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Svitla.MovieService.Core.Entities.Security;
 using Svitla.MovieService.Core.Logging;
 
 namespace Svitla.MovieService.Core.Entities
@@ -12,5 +13,8 @@ namespace Svitla.MovieService.Core.Entities
 
         [Log(Verbosity.Full)]
         public virtual ICollection<Vote> Votes { get; set; }
+
+        [Log(Verbosity.Full)]
+        public virtual ICollection<Permission> Permissions { get; set; }
     }
 }

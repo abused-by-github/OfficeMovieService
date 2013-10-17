@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Castle.Core.Internal;
 using Castle.DynamicProxy;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Container.Interceptors
+namespace Svitla.MovieService.Container.Interceptors.Logging
 {
     public abstract class LogCallInterceptor : IInterceptor
     {

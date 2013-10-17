@@ -37,6 +37,8 @@
     <Compile Include="Entities\IModifiable.cs" />
     <Compile Include="Entities\Movie.cs" />
     <Compile Include="Entities\Poll.cs" />
+    <Compile Include="Entities\Security\Permission.cs" />
+    <Compile Include="Entities\Security\Permissions.cs" />
     <Compile Include="Entities\TmdbMovie.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Entities\Vote.cs" />
