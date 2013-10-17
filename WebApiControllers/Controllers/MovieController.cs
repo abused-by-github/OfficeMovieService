@@ -45,7 +45,7 @@ namespace Svitla.MovieService.WebApi.Controllers
                     m.UserName,
                     ImageUrl = m.Movie.GetImageImageUrl(appSettings.BaseTmdbUrl),
                     m.Movie.CustomImageUrl,
-                    IsOwner = m.UserName == currentUser.Get(u => u.Name)
+                    m.IsOwner
                 }).ToList(),
                 movies.Total,
                 leftVotes

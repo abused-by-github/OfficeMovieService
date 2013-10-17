@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Entities.Security;
 using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccessApi;
@@ -30,7 +31,7 @@ namespace Svitla.MovieService.Domain.Facades
             {
                 movie.User = DomainContext.CurrentUser;
             }
-            else if (existedMovie.User.Name != DomainContext.CurrentUser.Name)
+            else if (!existedMovie.CanBeEditedBy(DomainContext.CurrentUser))
             {
                 throw new AuthenticationException("Authentication error");
             }
@@ -48,15 +49,21 @@ namespace Svitla.MovieService.Domain.Facades
         {
             var userId = user.Get(u => u.Id);
             var pollId = poll.Get(p => p.Id);
-            return movies.Page(q => q
+            var result = movies.Page(q => q
                 .Select(m => new VoteableMovie
                 {
                     Movie = m,
                     IsVoted = m.Votes.Any(v => v.UserId == userId && v.PollId == pollId),
-                    UserName = m.User.Name
+                    UserName = m.User.Name,
+                    IsOwner = m.User.Id == DomainContext.CurrentUser.Id
                 })
                 .OrderByDescending(m => m.Movie.ModifiedDate)
                 , paging);
+            if (DomainContext.CurrentUser.HasPermission(Permissions.EditOthersMovies))
+            {
+                result.Items.ForEach(m => m.IsOwner = true);
+            }
+            return result;
         }
 
         public virtual List<Movie> FindMoviesForPoll(long pollId)
@@ -70,7 +77,7 @@ namespace Svitla.MovieService.Domain.Facades
             var movie = movies[id];
             if (movie != null)
             {
-                if (movie.User.Id != DomainContext.CurrentUser.Id)
+                if (!movie.CanBeEditedBy(DomainContext.CurrentUser))
                     throw new AuthenticationException("You can delete only own movies");
                 movies.Remove(movie);
                 UnitOfWork.Commit();
