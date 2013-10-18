@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Svitla.MovieService.Core.Helpers
 {
@@ -14,6 +15,11 @@ namespace Svitla.MovieService.Core.Helpers
                     action(item);
                 }
             }
+        }
+
+        public static List<T> Many<T>(this IEnumerable<T> enumerable, Func<T, bool> where)
+        {
+            return enumerable.Where(where).ToList();
         }
     }
 }

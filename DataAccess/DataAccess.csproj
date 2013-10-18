@@ -73,6 +73,10 @@
     <Compile Include="Migrations\201310171730185_AddUserCreatedDateMakeUserNameNotNullable.Designer.cs">
       <DependentUpon>201310171730185_AddUserCreatedDateMakeUserNameNotNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310180919058_PollClosedNotifications.cs" />
+    <Compile Include="Migrations\201310180919058_PollClosedNotifications.Designer.cs">
+      <DependentUpon>201310180919058_PollClosedNotifications.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="PollRepository.cs" />
@@ -110,6 +114,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310171730185_AddUserCreatedDateMakeUserNameNotNullable.resx">
       <DependentUpon>201310171730185_AddUserCreatedDateMakeUserNameNotNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310180919058_PollClosedNotifications.resx">
+      <DependentUpon>201310180919058_PollClosedNotifications.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

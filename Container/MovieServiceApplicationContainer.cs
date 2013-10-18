@@ -129,6 +129,12 @@ namespace Svitla.MovieService.Container
                 .InterceptedBy(typeof(SecureMethodInterceptor))
                 .InterceptedBy(typeof(LogCallBriefInterceptor))
                 .OnActivated(uf => uf.Instance.AllowedDomain = AppSettings("AllowedDomain"));
+
+            builder.RegisterType<SystemTaskFacade>()
+                .As<ISystemTaskFacade>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(SecureMethodInterceptor))
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
         }
 
         private static void RegisterWebApi(ContainerBuilder builder)
@@ -146,6 +152,10 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<AccountController>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallVerboseInterceptor));
+
+            builder.RegisterType<SystemTaskController>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
         }
 
         private void RegisterMailing(ContainerBuilder builder)
@@ -159,9 +169,14 @@ namespace Svitla.MovieService.Container
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
 
             builder.RegisterType<InviteEmail>()
-                .As<InviteEmail>()
+                .As<IInviteEmail>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.RegisterType<PollResultEmail>()
+                .As<IPollResultEmail>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallVerboseInterceptor));
         }
 
         private static void RegisterInterceptors(ContainerBuilder builder)
@@ -196,7 +211,8 @@ namespace Svitla.MovieService.Container
         {
             return new AppSettings
             {
-                BaseTmdbUrl = AppSettings("TmdbBaseUrl")
+                BaseTmdbUrl = AppSettings("TmdbBaseUrl"),
+                SystemTaskSecurityKey = AppSettings("SystemTaskSecurityKey")
             };
         }
 

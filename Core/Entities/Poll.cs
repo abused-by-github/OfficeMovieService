@@ -8,6 +8,9 @@ namespace Svitla.MovieService.Core.Entities
 {
     public class Poll : Entity
     {
+        public static Func<IQueryable<Poll>, IQueryable<Poll>> WhichNeedNotifications =
+            polls => polls.Where(p => p.IsActive && p.ExpirationDate < DateTime.Now && !p.HaveNotificationsBeenSent);
+
         public string Name { get; set; }
 
         /// <summary>
@@ -27,6 +30,8 @@ namespace Svitla.MovieService.Core.Entities
 
         public bool IsActive { get; set; }
 
+        public bool HaveNotificationsBeenSent { get; set; }
+
         [Log(Verbosity.Full)]
         public virtual User Owner { get; set; }
 
@@ -41,18 +46,13 @@ namespace Svitla.MovieService.Core.Entities
             }
         }
 
-        private Movie winner;
-
         [Log(Verbosity.Full)]
         public Movie Winner
         {
             get
             {
-                if (winner != null)
-                {
-                    return winner;
-                }
-                return IsVoteable || Votes == null || Votes.Count == 0 ? null : Votes.GroupBy(v => v.Movie).OrderBy(g => g.Count()).First().Key;
+                var noWinner = IsVoteable || Votes == null || Votes.Count == 0;
+                return noWinner ? null : Votes.GroupBy(v => v.Movie).OrderByDescending(g => g.Count()).First().Key;
             }
         }
 

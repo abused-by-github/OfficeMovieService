@@ -11,6 +11,8 @@ namespace Svitla.MovieService.DomainApi.Exceptions
 
         public AccessDeniedException() { }
 
+        public AccessDeniedException(string message) : base(message) { }
+
         public AccessDeniedException(IEnumerable<Permissions> requiredPermissions, IEnumerable<Permissions> actualPermissions)
             : base("Unsufficient permissions")
         {

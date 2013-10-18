@@ -9,6 +9,8 @@ namespace Svitla.MovieService.Core.Entities
         public long MovieId { get; set; }
         public long PollId { get; set; }
 
+        public bool HasNotificationBeenSent { get; set; }
+
         [Log(Verbosity.Full)]
         public virtual User User { get; set; }
 

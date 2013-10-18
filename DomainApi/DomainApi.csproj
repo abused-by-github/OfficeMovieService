@@ -40,6 +40,7 @@
     <Compile Include="Exceptions\UserDomainDeniedException.cs" />
     <Compile Include="IMovieFacade.cs" />
     <Compile Include="IPollFacade.cs" />
+    <Compile Include="ISystemTaskFacade.cs" />
     <Compile Include="IUserFacade.cs" />
   </ItemGroup>
   <ItemGroup>
