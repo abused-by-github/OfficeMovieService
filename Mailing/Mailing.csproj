@@ -39,6 +39,7 @@
     <Compile Include="Core\Client\SmtpConfig.cs" />
     <Compile Include="Core\EmailAddressExtensions.cs" />
     <Compile Include="Core\EmailConfig.cs" />
+    <Compile Include="Core\MailingContext.cs" />
     <Compile Include="Emails\InviteEmail.cs" />
     <Compile Include="Emails\PollResultEmail.cs" />
     <Compile Include="Emails\T4Helper.cs" />

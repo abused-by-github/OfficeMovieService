@@ -49,6 +49,7 @@ namespace Svitla.MovieService.Container
         {
             var builder = new ContainerBuilder();
 
+            RegisterCore(builder);
             RegisterInterceptors(builder);
             RegisterDataAccess(builder);
             RegisterMailing(builder);
@@ -160,6 +161,7 @@ namespace Svitla.MovieService.Container
 
         private void RegisterMailing(ContainerBuilder builder)
         {
+            builder.RegisterType<MailingContext>();
             builder.Register(c => ResolveEmailConfig());
             builder.Register(c => ResolveSmtpConfig());
 
@@ -184,6 +186,17 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<SecureMethodInterceptor>();
             builder.RegisterType<LogCallBriefInterceptor>();
             builder.RegisterType<LogCallVerboseInterceptor>();
+        }
+
+        private static void RegisterCore(ContainerBuilder builder)
+        {
+            builder.Register(ResolveTiming);
+        }
+
+        private static Timing ResolveTiming(IComponentContext context)
+        {
+            //TODO: move to user profile
+            return new Timing(TimeZoneInfo.FindSystemTimeZoneById("FLE Standard Time"));
         }
 
         private EmailConfig ResolveEmailConfig()

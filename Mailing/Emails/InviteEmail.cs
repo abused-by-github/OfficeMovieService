@@ -9,15 +9,16 @@ namespace Svitla.MovieService.Mailing.Emails
     {
         private readonly Templates.InviteEmail template;
 
-        public InviteEmail(IEmailClient client, EmailConfig config) : base(client, config)
+        public InviteEmail(MailingContext context, IEmailClient client, EmailConfig config)
+            : base(context, client, config)
         {
             template = new Templates.InviteEmail();
+            template.Helper = new T4Helper(Context.Timing, EmailConfig.WebAppUrl);
         }
 
         public override void Bind(User model)
         {
             template.User = model;
-            template.Helper = new T4Helper(EmailConfig.WebAppUrl);
         }
 
         protected override string Body

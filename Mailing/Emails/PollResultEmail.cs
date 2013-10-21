@@ -10,10 +10,11 @@ namespace Svitla.MovieService.Mailing.Emails
     {
         private readonly Templates.PollResultEmail template;
 
-        public PollResultEmail(IEmailClient client, EmailConfig emailConfig) : base(client, emailConfig)
+        public PollResultEmail(MailingContext context, IEmailClient client, EmailConfig emailConfig)
+            : base(context, client, emailConfig)
         {
             template = new Templates.PollResultEmail();
-            template.Helper = new T4Helper(emailConfig.WebAppUrl);
+            template.Helper = new T4Helper(Context.Timing, emailConfig.WebAppUrl);
         }
 
         private string subject;

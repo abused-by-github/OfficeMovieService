@@ -48,6 +48,7 @@
     <Compile Include="Helpers\EnumerableExtensions.cs" />
     <Compile Include="Helpers\ObjectExtensions.cs" />
     <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\Timing.cs" />
     <Compile Include="Logging\LogVerbosityContractResolver.cs" />
     <Compile Include="Logging\LogAttribute.cs" />
     <Compile Include="Logging\Logger.cs" />

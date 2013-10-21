@@ -6,6 +6,8 @@ namespace Svitla.MovieService.Mailing.Core
 {
     public abstract class BaseEmail<T> : IEmail<T>
     {
+        protected readonly MailingContext Context;
+
         private readonly IEmailClient client;
 
         protected readonly EmailConfig EmailConfig;
@@ -20,10 +22,11 @@ namespace Svitla.MovieService.Mailing.Core
 
         protected abstract string Body { get; }
 
-        protected BaseEmail(IEmailClient client, EmailConfig emailConfig)
+        protected BaseEmail(MailingContext context, IEmailClient client, EmailConfig emailConfig)
         {
             this.client = client;
             EmailConfig = emailConfig;
+            Context = context;
         }
 
         public virtual void Send(IEnumerable<EmailAddress> to, IEnumerable<EmailAddress> cc = null, IEnumerable<EmailAddress> bcc = null, EmailAddress from = null)
