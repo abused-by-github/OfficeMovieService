@@ -167,12 +167,6 @@
     <Content Include="Scripts\Layout.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\MovieList.js" />
-    <Content Include="Scripts\Movie\EditMovie.js" />
-    <Content Include="Scripts\Movie\EditPoll.js" />
-    <Content Include="Scripts\Movie\ListMovies.js" />
-    <Content Include="Scripts\Movie\Main.js" />
-    <Content Include="Scripts\Movie\PollResults.js" />
-    <Content Include="Scripts\Movie\PollSummary.js" />
     <Content Include="Scripts\PollInfo.js" />
     <Content Include="Scripts\waiter-min.js" />
     <Content Include="Styles\Bootstrap\css\bootstrap-theme.css" />
@@ -198,8 +192,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Properties\" />
-    <Folder Include="Scripts\Core\" />
-    <Folder Include="Scripts\Lib\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -229,7 +221,7 @@
     <Content Include="Views\Account\UserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Movie\ListMovies.cshtml" />
+    <Content Include="Views\Movie\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Layout.cshtml" />
@@ -250,21 +242,6 @@
       <Generator>GlobalResourceProxyGenerator</Generator>
       <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Movie\EditMovie.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Movie\EditPoll.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Movie\PollSummary.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Movie\PollResults.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Movie\Index.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
