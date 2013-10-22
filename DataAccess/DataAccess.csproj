@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="BaseRepository.cs" />
     <Compile Include="DataContext.cs" />
+    <Compile Include="EmailQueueRepository.cs" />
     <Compile Include="Migrations\201310082048457_InitialSchema.cs" />
     <Compile Include="Migrations\201310082048457_InitialSchema.Designer.cs">
       <DependentUpon>201310082048457_InitialSchema.cs</DependentUpon>
@@ -76,6 +77,10 @@
     <Compile Include="Migrations\201310180919058_PollClosedNotifications.cs" />
     <Compile Include="Migrations\201310180919058_PollClosedNotifications.Designer.cs">
       <DependentUpon>201310180919058_PollClosedNotifications.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201310220753531_EmailQueue.cs" />
+    <Compile Include="Migrations\201310220753531_EmailQueue.Designer.cs">
+      <DependentUpon>201310220753531_EmailQueue.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
@@ -117,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310180919058_PollClosedNotifications.resx">
       <DependentUpon>201310180919058_PollClosedNotifications.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310220753531_EmailQueue.resx">
+      <DependentUpon>201310220753531_EmailQueue.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

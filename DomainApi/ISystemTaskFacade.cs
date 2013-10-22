@@ -2,6 +2,6 @@
 {
     public interface ISystemTaskFacade
     {
-        void SendEmails();
+        void Process();
     }
 }

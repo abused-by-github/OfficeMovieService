@@ -36,6 +36,7 @@
     <Compile Include="DataObjects\PollResultEmailModel.cs" />
     <Compile Include="EmailAddress.cs" />
     <Compile Include="IEmail.cs" />
+    <Compile Include="IEmailClient.cs" />
     <Compile Include="IInviteEmail.cs" />
     <Compile Include="IPollResultEmail.cs" />
   </ItemGroup>

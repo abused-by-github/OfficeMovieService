@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,7 @@ using Svitla.MovieService.DataAccess;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.Domain.Facades;
+using Svitla.MovieService.Domain.Tasks;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.Mailing.Core;
 using Svitla.MovieService.Mailing.Core.Client;
@@ -97,6 +99,11 @@ namespace Svitla.MovieService.Container
                 .As<IUserRepository>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.RegisterType<EmailQueueRepository>()
+                .As<IEmailQueueRepository>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
         }
 
         private static void RegisterDomain(ContainerBuilder builder)
@@ -130,6 +137,16 @@ namespace Svitla.MovieService.Container
                 .InterceptedBy(typeof(SecureMethodInterceptor))
                 .InterceptedBy(typeof(LogCallBriefInterceptor))
                 .OnActivated(uf => uf.Instance.AllowedDomain = AppSettings("AllowedDomain"));
+
+            builder.RegisterType<PollResultNotificationTask>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.RegisterType<EmailQueueTask>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
+
+            builder.Register(ResolveSystemTasks);
 
             builder.RegisterType<SystemTaskFacade>()
                 .As<ISystemTaskFacade>()
@@ -246,6 +263,18 @@ namespace Svitla.MovieService.Container
         {
             var domain = ResolveDomainContext(context);
             return new PresentationContext { CurrentUser = domain.CurrentUser };
+        }
+
+        private static SystemTaskSet ResolveSystemTasks(IComponentContext context)
+        {
+            return new SystemTaskSet
+            {
+                Tasks = new ITask[]
+                {
+                    context.Resolve<PollResultNotificationTask>(),
+                    context.Resolve<EmailQueueTask>()
+                }
+            };
         }
 
         private static string GetBaseUrl()

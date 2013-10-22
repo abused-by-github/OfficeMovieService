@@ -33,6 +33,7 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailQueueRepository.cs" />
     <Compile Include="IMovieRepository.cs" />
     <Compile Include="IPollRepository.cs" />
     <Compile Include="IRepository.cs" />

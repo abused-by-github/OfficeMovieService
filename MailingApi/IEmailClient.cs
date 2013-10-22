@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.MailingApi;
 
-namespace Svitla.MovieService.Mailing.Core.Client
+namespace Svitla.MovieService.MailingApi
 {
     public interface IEmailClient
     {

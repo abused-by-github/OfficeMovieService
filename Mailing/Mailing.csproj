@@ -34,7 +34,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\BaseEmail.cs" />
-    <Compile Include="Core\Client\IEmailClient.cs" />
     <Compile Include="Core\Client\SmtpClient.cs" />
     <Compile Include="Core\Client\SmtpConfig.cs" />
     <Compile Include="Core\EmailAddressExtensions.cs" />

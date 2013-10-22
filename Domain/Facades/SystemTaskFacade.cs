@@ -1,54 +1,27 @@
-﻿using System;
-using System.Linq;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.Domain.DataObjects;
+﻿using System.Collections.Generic;
+using Svitla.MovieService.Domain.Tasks;
 using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.MailingApi;
-using Svitla.MovieService.MailingApi.DataObjects;
 
 namespace Svitla.MovieService.Domain.Facades
 {
-    public class SystemTaskFacade : BaseFacade, ISystemTaskFacade
+    public class SystemTaskFacade : ISystemTaskFacade
     {
-        private readonly IPollRepository polls;
-        private readonly Func<IPollResultEmail> emailFactory;
+        private readonly IEnumerable<ITask> tasks;
 
-        public SystemTaskFacade(IUnitOfWork unitOfWork, DomainContext context, IPollRepository polls, Func<IPollResultEmail> emailFactory)
-            : base(unitOfWork, context)
+        public SystemTaskFacade(SystemTaskSet set)
         {
-            this.polls = polls;
-            this.emailFactory = emailFactory;
+            tasks = set.Tasks;
         }
 
-        /// <summary>
-        /// Sends email notifications related to finished polls.
-        /// </summary>
-        public void SendEmails()
+        public void Process()
         {
-            var pendingPolls = polls.Many(Poll.WhichNeedNotifications);
-            foreach (var poll in pendingPolls)
+            foreach (var task in tasks)
             {
-                var pendingVotes = poll.Votes.Many(v => !v.HasNotificationBeenSent);
-                var handledUsers = poll.Votes.Where(v => v.HasNotificationBeenSent).Select(v => v.User).ToList();
-                foreach (var vote in pendingVotes)
+                try
                 {
-                    var targetUser = vote.User;
-                    if (!handledUsers.Contains(targetUser))
-                    {
-                        var email = emailFactory();
-                        var model = new PollResultEmailModel { Poll = poll, Target = targetUser };
-                        email.Bind(model);
-                        email.Send(new[] { new EmailAddress(targetUser.Name) });
-                        handledUsers.Add(targetUser);
-                        pendingVotes.Where(v => v.User == targetUser).ForEach(v => v.HasNotificationBeenSent = true);
-                        //Need to update statuses in DB as often as possible because thread can be terminated (too long operation).
-                        UnitOfWork.Commit();
-                    }
+                    task.Execute();
                 }
-                poll.HaveNotificationsBeenSent = true;
-                UnitOfWork.Commit();
+                catch { } //Exception is logged by task.Execute, tasks shouldn't affect each other
             }
         }
     }

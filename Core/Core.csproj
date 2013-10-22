@@ -33,6 +33,9 @@
     <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\EmailQueue\Email.cs" />
+    <Compile Include="Entities\EmailQueue\Recipient.cs" />
+    <Compile Include="Entities\EmailQueue\RecipientRole.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\IModifiable.cs" />
     <Compile Include="Entities\Movie.cs" />

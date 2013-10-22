@@ -23,7 +23,7 @@ namespace Svitla.MovieService.WebApi.Controllers
             if (key != appSettings.SystemTaskSecurityKey)
                 throw new AccessDeniedException("Access key is invalid.");
 
-            facade.SendEmails();
+            facade.Process();
             return Response();
         }
     }

@@ -52,12 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataObjects\DomainContext.cs" />
+    <Compile Include="EmailQueue\QueueEmailClient.cs" />
     <Compile Include="Facades\BaseFacade.cs" />
+    <Compile Include="Facades\ISystemTaskSet.cs" />
     <Compile Include="Facades\MovieFacade.cs" />
     <Compile Include="Facades\PollFacade.cs" />
     <Compile Include="Facades\SystemTaskFacade.cs" />
     <Compile Include="Facades\UserFacade.cs" />
     <Compile Include="Security\SecureAttribute.cs" />
+    <Compile Include="Tasks\EmailQueueTask.cs" />
+    <Compile Include="Tasks\ITask.cs" />
+    <Compile Include="Tasks\PollResultNotificationTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

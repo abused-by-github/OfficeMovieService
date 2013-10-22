@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Entities.EmailQueue;
 using Svitla.MovieService.DataAccess.Migrations;
 using Svitla.MovieService.DataAccessApi;
 
@@ -16,6 +17,7 @@ namespace Svitla.MovieService.DataAccess
         public DbSet<User> Users { get; private set; }
         public DbSet<Movie> Movies { get; private set; }
         public DbSet<Poll> Polls { get; private set; }
+        public DbSet<Email> EmailQueue { get; private set; }
 
         //TODO: can't use IoC because of http://entityframework.codeplex.com/workitem/1131
         //IDbContextFactory implementation didn't work on AppHarbor servers.
@@ -28,6 +30,7 @@ namespace Svitla.MovieService.DataAccess
             Users = Set<User>();
             Movies = Set<Movie>();
             Polls = Set<Poll>();
+            EmailQueue = Set<Email>();
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -58,6 +61,8 @@ namespace Svitla.MovieService.DataAccess
                 .HasRequired(v => v.Poll)
                 .WithMany(p => p.Votes)
                 .HasForeignKey(v => v.PollId);
+
+            modelBuilder.Entity<Email>().HasMany(e => e.Recipients).WithRequired();
         }
 
         public void Commit()
