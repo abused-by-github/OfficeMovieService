@@ -15,7 +15,7 @@ namespace Svitla.MovieService.Domain.EmailQueue
             emailQueue = repository;
         }
 
-        public void Send(string subject, string body, IEnumerable<EmailAddress> to, IEnumerable<EmailAddress> cc, IEnumerable<EmailAddress> bcc, EmailAddress from)
+        public virtual void Send(string subject, string body, IEnumerable<EmailAddress> to, IEnumerable<EmailAddress> cc, IEnumerable<EmailAddress> bcc, EmailAddress from)
         {
             var email = new Email { Subject = subject, Body = body };
             if (from != null)

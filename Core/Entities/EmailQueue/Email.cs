@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Svitla.MovieService.Core.Entities.EmailQueue
@@ -42,10 +43,15 @@ namespace Svitla.MovieService.Core.Entities.EmailQueue
             }
         }
 
+        public Email()
+        {
+            Recipients = new Collection<Recipient>();
+        }
+
         public void SetFrom(string name, string email)
         {
             Recipients.Remove(From);
-            Recipients.Add(new Recipient { Email = email, Name = name });
+            Recipients.Add(new Recipient { Email = email, Name = name, Role = RecipientRole.From });
         }
 
         public void AddTo(string name, string email)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Svitla.MovieService.Core.Entities;
+using Svitla.MovieService.Core.Helpers;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.DomainApi;
@@ -26,7 +27,7 @@ namespace Svitla.MovieService.Domain.Facades
 
         public virtual Poll GetCurrent()
         {
-            return polls.One(q => q.SingleOrDefault(p => p.IsActive && !p.ViewDate.HasValue || p.ViewDate > DateTime.Now));
+            return polls.One(q => q.SingleOrDefault(p => p.IsActive && !p.DiscussionDate.HasValue || p.DiscussionDate > DateTime.Now));
         }
 
         public virtual void CancelCurrent()
@@ -54,11 +55,11 @@ namespace Svitla.MovieService.Domain.Facades
 
             poll.Owner = DomainContext.CurrentUser;
             poll.Validate();
-            var existingPoll = polls[poll.Id];
+            var oldDiscussionDate = polls[poll.Id].Get(p => p.DiscussionDate);
             polls[poll.Id] = poll;
 
-            if (poll.DiscussionDate.HasValue && existingPoll.DiscussionDate != poll.DiscussionDate)
-                SendPollDiscussionEmail(poll);
+            if (poll.DiscussionDate.HasValue && oldDiscussionDate != poll.DiscussionDate)
+                SendPollDiscussionEmail(polls[poll.Id]);
 
             UnitOfWork.Commit();
 

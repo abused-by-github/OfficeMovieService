@@ -3,14 +3,18 @@
     var xKo = window.movieService.core.ko;
 
     var PollViewModel = function (data) {
-        this.Name = ko.observable(data.Name).extend({ required: true });
-        this.ViewDate = xKo.observableDate(new Date(data.ViewDate));
-        this.ExpirationDate = xKo.observableDate(new Date(data.ExpirationDate));
-        this.Winner = ko.observable(data.Winner);
-        this.Id = ko.observable(data.Id);
-        this.IsVoteable = ko.observable(data.IsVoteable);
-        this.IsMine = ko.observable(data.IsMine);
-        this.MaxVotes = ko.observable(data.MaxVotes);
+        this.Name = ko.observable().extend({ required: true });
+        this.ViewDate = xKo.observableDate();
+        this.ExpirationDate = xKo.observableDate();
+        this.Winner = ko.observable();
+        this.Id = ko.observable();
+        this.IsVoteable = ko.observable();
+        this.IsMine = ko.observable();
+        this.MaxVotes = ko.observable();
+        this.DiscussionDate = xKo.observableDate();
+        this.HasBeenViewed = ko.observable();
+
+        this.setData(data);
     };
 
     PollViewModel.prototype.load = function () {
@@ -54,6 +58,7 @@
             Name: this.Name(),
             ExpirationDate: this.ExpirationDate.iso(),
             ViewDate: this.ViewDate.iso(),
+            DiscussionDate: this.DiscussionDate.iso(),
             Id: this.Id()
         };
     };
@@ -67,6 +72,8 @@
         this.IsVoteable(data.IsVoteable);
         this.IsMine(data.IsMine);
         this.MaxVotes(data.MaxVotes);
+        this.DiscussionDate.iso(data.DiscussionDate);
+        this.HasBeenViewed(data.HasBeenViewed);
     };
 
     PollViewModel.getDefaultData = function () {
@@ -74,6 +81,7 @@
             Name: '',
             ViewDate: null,
             ExpirationDate: null,
+            DiscussionDate: null,
             Winner: null,
             Id: 0,
             IsVoteable: false,

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Web.Http;
@@ -108,13 +109,15 @@ namespace Svitla.MovieService.WebApi.Controllers
                 {
                     poll.CreatedDate,
                     poll.ExpirationDate,
+                    poll.DiscussionDate,
                     poll.Id,
                     poll.IsVoteable,
                     poll.Name,
                     poll.ViewDate,
                     Winner = poll.Winner.Get(m => new { m.Id, m.Name }),
                     IsMine = poll.Owner == currentUser,
-                    MaxVotes = maxVotes
+                    MaxVotes = maxVotes,
+                    HasBeenViewed = poll.ViewDate < DateTime.Now
                 };
             }
             return dto;

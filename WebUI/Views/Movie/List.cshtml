@@ -43,10 +43,15 @@
                         (You can <a href="JavaScript:void(0)" data-bind="click: edit">edit it</a>)
                     </span>
                     has finished.
-                    <span data-bind="visible: Winner">
+                    <span data-bind="visible: Winner() && !HasBeenViewed()">
                         We will watch <span data-bind="text: Winner() && Winner().Name"></span>
                         <span data-bind="visible: ViewDate.ui">at <span data-bind="text: ViewDate.ui"></span>.</span>
                         <span data-bind="visible: !ViewDate.ui()">one time.</span>
+                    </span>
+                    <span data-bind="visible: Winner() && HasBeenViewed()">
+                        We will discuss <span data-bind="text: Winner() && Winner().Name"></span>
+                        <span data-bind="visible: DiscussionDate.ui">at <span data-bind="    text: DiscussionDate.ui"></span>.</span>
+                        <span data-bind="visible: !DiscussionDate.ui()">one time.</span>
                     </span>
                     <span data-bind="visible: !Winner()">
                         No votes :(
@@ -215,7 +220,10 @@
                 We watch movie at:
                 <input type="text" data-format="date" data-bind="value: ViewDate.ui, dateTimePicker: true" />
             </label>
-
+            <label>
+                Discussion at:
+                <input type="text" data-format="date" data-bind="value: DiscussionDate.ui, dateTimePicker: true" />
+            </label>
             <button data-bind="click: save">Save</button>
             <button data-bind="click: cancel, visible: Id">Delete</button>
         </div>
