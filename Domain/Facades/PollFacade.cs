@@ -83,7 +83,10 @@ namespace Svitla.MovieService.Domain.Facades
 
         private void SendPollDiscussionEmail(Poll poll)
         {
-            foreach (var vote in poll.Votes)
+            //Select one vote per user; prefer vote for winner (will be shown in email)
+            var votes = poll.Votes.GroupBy(v => v.User)
+                .Select(g => g.FirstOrDefault(vo => vo.Movie == poll.Winner) ?? g.First());
+            foreach (var vote in votes)
             {
                 var email = createPollDiscussionEmail();
                 email.Bind(vote);
