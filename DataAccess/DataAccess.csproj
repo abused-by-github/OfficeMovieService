@@ -82,6 +82,10 @@
     <Compile Include="Migrations\201310220753531_EmailQueue.Designer.cs">
       <DependentUpon>201310220753531_EmailQueue.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201310220803577_AddPollDiscussionDate.cs" />
+    <Compile Include="Migrations\201310220803577_AddPollDiscussionDate.Designer.cs">
+      <DependentUpon>201310220803577_AddPollDiscussionDate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MovieRepository.cs" />
     <Compile Include="PollRepository.cs" />
@@ -125,6 +129,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201310220753531_EmailQueue.resx">
       <DependentUpon>201310220753531_EmailQueue.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201310220803577_AddPollDiscussionDate.resx">
+      <DependentUpon>201310220803577_AddPollDiscussionDate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

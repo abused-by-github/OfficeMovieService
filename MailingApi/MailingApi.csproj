@@ -39,6 +39,7 @@
     <Compile Include="IEmailClient.cs" />
     <Compile Include="IInviteEmail.cs" />
     <Compile Include="IPollResultEmail.cs" />
+    <Compile Include="IPollDiscussionEmail.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

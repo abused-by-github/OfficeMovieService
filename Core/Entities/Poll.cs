@@ -28,6 +28,11 @@ namespace Svitla.MovieService.Core.Entities
         /// </summary>
         public DateTimeOffset? ViewDate { get; set; }
 
+        /// <summary>
+        /// Date when movie which has won will be discussed.
+        /// </summary>
+        public DateTimeOffset? DiscussionDate { get; set; }
+
         public bool IsActive { get; set; }
 
         public bool HaveNotificationsBeenSent { get; set; }

@@ -5,17 +5,23 @@ using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
 using Svitla.MovieService.DomainApi;
 using Svitla.MovieService.DomainApi.Exceptions;
+using Svitla.MovieService.MailingApi;
 
 namespace Svitla.MovieService.Domain.Facades
 {
     public class PollFacade : BaseFacade, IPollFacade
     {
         private readonly IPollRepository polls;
+        private readonly Func<IPollDiscussionEmail> createPollDiscussionEmail;
 
-        public PollFacade(DomainContext domainContext, IUnitOfWork unitOfWork, IPollRepository pollRepository)
+        public PollFacade(DomainContext domainContext,
+            IUnitOfWork unitOfWork,
+            IPollRepository pollRepository,
+            Func<IPollDiscussionEmail> createPollDiscussionEmail)
             : base(unitOfWork, domainContext)
         {
             polls = pollRepository;
+            this.createPollDiscussionEmail = createPollDiscussionEmail;
         }
 
         public virtual Poll GetCurrent()
@@ -47,12 +53,15 @@ namespace Svitla.MovieService.Domain.Facades
             }
 
             poll.Owner = DomainContext.CurrentUser;
-
             poll.Validate();
-
+            var existingPoll = polls[poll.Id];
             polls[poll.Id] = poll;
 
+            if (poll.DiscussionDate.HasValue && existingPoll.DiscussionDate != poll.DiscussionDate)
+                SendPollDiscussionEmail(poll);
+
             UnitOfWork.Commit();
+
         }
 
         public virtual void Vote(User user, Movie movie, bool isSelected)
@@ -68,6 +77,17 @@ namespace Svitla.MovieService.Domain.Facades
                 user.Votes.Remove(vote);
             }
             UnitOfWork.Commit();
+        }
+
+        private void SendPollDiscussionEmail(Poll poll)
+        {
+            foreach (var vote in poll.Votes)
+            {
+                var email = createPollDiscussionEmail();
+                email.Bind(vote);
+
+                email.Send(new[] { new EmailAddress(vote.User.Name) });
+            }
         }
     }
 }

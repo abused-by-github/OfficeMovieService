@@ -14,6 +14,7 @@ using Svitla.MovieService.Core.ValueObjects;
 using Svitla.MovieService.DataAccess;
 using Svitla.MovieService.DataAccessApi;
 using Svitla.MovieService.Domain.DataObjects;
+using Svitla.MovieService.Domain.EmailQueue;
 using Svitla.MovieService.Domain.Facades;
 using Svitla.MovieService.Domain.Tasks;
 using Svitla.MovieService.DomainApi;
@@ -142,6 +143,10 @@ namespace Svitla.MovieService.Container
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
 
+            builder.RegisterType<QueueEmailClient>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
+
             builder.RegisterType<EmailQueueTask>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallBriefInterceptor));
@@ -196,6 +201,15 @@ namespace Svitla.MovieService.Container
                 .As<IPollResultEmail>()
                 .EnableClassInterceptors()
                 .InterceptedBy(typeof(LogCallVerboseInterceptor));
+
+            //Configure this email to be sent through queue.
+            //It's global config for the email since there is only one usage of the email.
+            //In case of more usages - configure it for specific facade/other component.
+            builder.RegisterType<PollDiscussionEmail>()
+                .As<IPollDiscussionEmail>()
+                .EnableClassInterceptors()
+                .InterceptedBy(typeof(LogCallVerboseInterceptor))
+                .WithParameter((p, c) => p.ParameterType == typeof (IEmailClient), (p, c) => c.Resolve<QueueEmailClient>());
         }
 
         private static void RegisterInterceptors(ContainerBuilder builder)

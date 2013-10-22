@@ -40,6 +40,7 @@
     <Compile Include="Core\EmailConfig.cs" />
     <Compile Include="Core\MailingContext.cs" />
     <Compile Include="Emails\InviteEmail.cs" />
+    <Compile Include="Emails\PollDiscussionEmail.cs" />
     <Compile Include="Emails\PollResultEmail.cs" />
     <Compile Include="Emails\T4Helper.cs" />
     <Compile Include="Templates\InviteEmail.cs">
@@ -48,6 +49,12 @@
       <DependentUpon>InviteEmail.tt</DependentUpon>
     </Compile>
     <Compile Include="Templates\InviteEmailViewModel.cs" />
+    <Compile Include="Templates\PollDiscussionEmail.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PollDiscussionEmail.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Templates\PollDiscussionEmailViewModel.cs" />
     <Compile Include="Templates\PollResultEmail.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -72,6 +79,10 @@
     <None Include="Templates\InviteEmail.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>InviteEmail.cs</LastGenOutput>
+    </None>
+    <None Include="Templates\PollDiscussionEmail.tt">
+      <Generator>TextTemplatingFilePreprocessor</Generator>
+      <LastGenOutput>PollDiscussionEmail.cs</LastGenOutput>
     </None>
     <None Include="Templates\PollResultEmail.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
