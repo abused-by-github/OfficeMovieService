@@ -6,7 +6,7 @@ namespace Svitla.MovieService.DomainApi
     {
         Poll GetCurrent();
         void CancelCurrent();
-        void Save(Poll poll);
+        Poll Save(Poll poll);
         void Vote(User user, Movie movie, bool isSelected);
     }
 }

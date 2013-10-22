@@ -38,7 +38,7 @@ namespace Svitla.MovieService.Domain.Facades
             UnitOfWork.Commit();
         }
 
-        public virtual void Save(Poll poll)
+        public virtual Poll Save(Poll poll)
         {
             var currentPoll = GetCurrent();
             if (currentPoll != null)
@@ -63,6 +63,7 @@ namespace Svitla.MovieService.Domain.Facades
 
             UnitOfWork.Commit();
 
+            return polls[poll.Id];
         }
 
         public virtual void Vote(User user, Movie movie, bool isSelected)

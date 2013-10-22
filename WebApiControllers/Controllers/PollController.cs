@@ -43,8 +43,8 @@ namespace Svitla.MovieService.WebApi.Controllers
         [Authorize]
         public virtual ResponseObject<object> Save(Poll poll)
         {
-            pollFacade.Save(poll);
-            return Response(CreatePollDto(poll));
+            var savedPoll = pollFacade.Save(poll);
+            return Response(CreatePollDto(savedPoll));
         }
 
         [HttpPost]
