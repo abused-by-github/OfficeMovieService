@@ -200,7 +200,7 @@ namespace Svitla.MovieService.Container
             builder.RegisterType<PollResultEmail>()
                 .As<IPollResultEmail>()
                 .EnableClassInterceptors()
-                .InterceptedBy(typeof(LogCallVerboseInterceptor));
+                .InterceptedBy(typeof(LogCallBriefInterceptor));
 
             //Configure this email to be sent through queue.
             //It's global config for the email since there is only one usage of the email.
