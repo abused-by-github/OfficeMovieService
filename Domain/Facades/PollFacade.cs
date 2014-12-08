@@ -27,7 +27,7 @@ namespace Svitla.MovieService.Domain.Facades
 
         public virtual Poll GetCurrent()
         {
-            return polls.One(q => q.SingleOrDefault(p => p.IsActive && !p.DiscussionDate.HasValue || p.DiscussionDate > DateTime.Now));
+            return polls.One(q => q.SingleOrDefault(p => p.IsActive && (!p.DiscussionDate.HasValue || p.DiscussionDate > DateTime.Now)));
         }
 
         public virtual void CancelCurrent()
@@ -58,7 +58,7 @@ namespace Svitla.MovieService.Domain.Facades
             var oldDiscussionDate = polls[poll.Id].Get(p => p.DiscussionDate);
             polls[poll.Id] = poll;
 
-            if (poll.DiscussionDate.HasValue && oldDiscussionDate != poll.DiscussionDate)
+            if (poll.Id != 0 && poll.DiscussionDate.HasValue && oldDiscussionDate != poll.DiscussionDate)
                 SendPollDiscussionEmail(polls[poll.Id]);
 
             UnitOfWork.Commit();

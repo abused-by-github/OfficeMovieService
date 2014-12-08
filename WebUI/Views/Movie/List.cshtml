@@ -207,25 +207,39 @@
                 <button data-bind="click: $parent.cancelDialog" class="btn btn-default">Cancel</button>
             </form>
         </div>
-        <div id="editPollContainer" style="display: none">
-            <label>
-                Name:
-                <input type="text" data-bind="value: Name" />
-            </label>
-            <label>
-                Poll will be closed at:
-                <input type="text" data-bind="value: ExpirationDate.ui, dateTimePicker: true" />
-            </label>
-            <label>
-                We watch movie at:
-                <input type="text" data-format="date" data-bind="value: ViewDate.ui, dateTimePicker: true" />
-            </label>
-            <label>
-                Discussion at:
-                <input type="text" data-format="date" data-bind="value: DiscussionDate.ui, dateTimePicker: true" />
-            </label>
-            <button data-bind="click: save">Save</button>
-            <button data-bind="click: cancel, visible: Id">Delete</button>
+        <div id="editPollContainer" style="display: none" class="overflow-hidden">
+            <form class="form-horizontal" novalidate name="filterForm">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-md-6">Name:</label>
+                        <div class="col-md-6">
+                            <input type="text" data-bind="value: Name" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-6">Poll will be closed at:</label>
+                        <div class="col-md-6">
+                            <input type="text" data-bind="value: ExpirationDate.ui, dateTimePicker: true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-6">We watch movie at:</label>
+                        <div class="col-md-6">
+                            <input type="text" data-format="date" data-bind="value: ViewDate.ui, dateTimePicker: true" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-6">Discussion at:</label>
+                        <div class="col-md-6">
+                            <input type="text" data-format="date" data-bind="value: DiscussionDate.ui, dateTimePicker: true" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="btn btn-default" data-bind="click: save">Save</button>
+                    <button class="btn btn-danger" data-bind="click: cancel, visible: Id">Delete</button>
+                </div>
+            </form>
         </div>
     }
 

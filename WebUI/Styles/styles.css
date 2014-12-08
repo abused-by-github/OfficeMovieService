@@ -160,3 +160,7 @@
 .red {
     color: red !important;
 }
+
+.overflow-hidden {
+    overflow: hidden !important;
+}
