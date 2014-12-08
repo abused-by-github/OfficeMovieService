@@ -64,6 +64,24 @@
                 modal: true,
                 dialogClass: 'error'
             });
+        },
+        showConfirm: function(text, callback) {
+            $('<div>' + text + '</div>').dialog({
+                width: 'auto',
+                minHeight: 'auto',
+                title: 'Confirm',
+                modal: true,
+                buttons: {
+                    'OK': function () {
+                        $(this).dialog("close");
+                        callback(true);
+                    },
+                    'Cancel': function () {
+                        $(this).dialog("close");
+                        callback(false);
+                    }
+                }
+            });
         }
     }
 };

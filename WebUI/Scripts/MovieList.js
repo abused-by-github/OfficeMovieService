@@ -1,5 +1,6 @@
 ﻿$(function () {
     var api = window.movieService.core.api;
+    var ui = window.movieService.core.ui;
 
     var MovieViewModel = function (data) {
         var self = this;
@@ -178,14 +179,17 @@
         },
 
         deleteMovie: function () {
-            if (!confirm("Are you sure you want to delete movie?"))
-                return;
-            api.call('movie', 'delete', this.Id, function (response) {
-                if (!!response.Status) {
-                    viewModel.reload();
-                    viewModel.updateRatings();
-                } else {
-                    alert(response.ErrorMessage);
+            var self = this;
+            ui.showConfirm('Are you sure you want to delete movie?', function (isOk) {
+                if (isOk) {
+                    api.call('movie', 'delete', self.Id, function (response) {
+                        if (!!response.Status) {
+                            viewModel.reload();
+                            viewModel.updateRatings();
+                        } else {
+                            ui.showError(response.ErrorMessage);
+                        }
+                    });
                 }
             });
         },
