@@ -7,7 +7,7 @@
     <ProjectGuid>{A1837349-78D8-4BC0-B8AF-09AD57F26EEA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.Mailing</RootNamespace>
+    <RootNamespace>MovieService.Mailing</RootNamespace>
     <AssemblyName>Mailing</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

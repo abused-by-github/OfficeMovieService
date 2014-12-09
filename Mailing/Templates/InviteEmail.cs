@@ -18,7 +18,7 @@ namespace MovieService.Mailing.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\Projects\Svitla\MovieService\Mailing\Templates\InviteEmail.tt"
+    #line 1 "G:\Dev\MovieService\Mailing\Templates\InviteEmail.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     internal partial class InviteEmail : InviteEmailBase
     {
@@ -28,30 +28,33 @@ namespace MovieService.Mailing.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n<html>\r\n    <head>\r\n    </head>\r\n    <body>\r\n        You are invited by ");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n\n<html>\n    <head>\n    </head>\n    <body>\n        You are invited by ");
             
-            #line 11 "E:\Projects\Svitla\MovieService\Mailing\Templates\InviteEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\InviteEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(User.InvitedBy.Name));
             
             #line default
             #line hidden
-            this.Write(" to join movie club at Svitla Sevastopol office.\r\n        Just open our web site:" +
-                    " <a href=\"");
+            this.Write(" to join movie club.\n        Just open our web site: <a href=\"");
             
-            #line 12 "E:\Projects\Svitla\MovieService\Mailing\Templates\InviteEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\InviteEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.WebAppUrl("")));
             
             #line default
             #line hidden
             this.Write("\">");
             
-            #line 12 "E:\Projects\Svitla\MovieService\Mailing\Templates\InviteEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\InviteEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.WebAppUrl("")));
             
             #line default
             #line hidden
-            this.Write("</a>\r\n        and sign in with your Google account.\r\n        We are looking forwa" +
-                    "rd to welcoming you :)\r\n    </body>\r\n</html>\r\n");
+            this.Write("</a>\n        and sign in with your Google account.\n        We are looking forward" +
+                    " to welcoming you :)\n    </body>\n</html>\n");
             return this.GenerationEnvironment.ToString();
         }
     }

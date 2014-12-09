@@ -6,7 +6,7 @@
     <ProjectGuid>{796941A7-C22D-4B87-BA84-3C4B0DA978FF}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.Tests.ValidationTests</RootNamespace>
+    <RootNamespace>MovieService.Tests.ValidationTests</RootNamespace>
     <AssemblyName>ValidationTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

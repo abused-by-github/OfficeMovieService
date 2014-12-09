@@ -18,7 +18,7 @@ namespace MovieService.Mailing.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
+    #line 1 "G:\Dev\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class PollDiscussionEmail : PollDiscussionEmailBase
     {
@@ -28,36 +28,40 @@ namespace MovieService.Mailing.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n<html>\r\n    <head>\r\n    </head>\r\n    <body>\r\n        <h3>Hello again!</h3>\r\n   " +
-                    "     <p>\r\n            Movie ");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n\n<html>\n    <head>\n    </head>\n    <body>\n        <h3>Hello again!</h3>\n        " +
+                    "<p>\n            Movie ");
             
-            #line 13 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.GetMovieLinkHtml(Poll.Winner)));
             
             #line default
             #line hidden
             this.Write(" will be discussed at ");
             
-            #line 13 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.FormatDateTime(Poll.DiscussionDate.Value)));
             
             #line default
             #line hidden
-            this.Write(".\r\n        </p>\r\n        <p>\r\n            Don\'t forget to come\r\n            ");
+            this.Write(".\n        </p>\n        <p>\n            Don\'t forget to come\n            ");
             
-            #line 17 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
  if (IsOwnProposition) { 
             
             #line default
             #line hidden
-            this.Write("                (note that you voted for this movie)\r\n            ");
+            this.Write("\n                (note that you voted for this movie)\n            ");
             
-            #line 19 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollDiscussionEmail.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("            :)\r\n        </p>\r\n    </body>\r\n</html>");
+            this.Write("\n            :)\n        </p>\n    </body>\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }

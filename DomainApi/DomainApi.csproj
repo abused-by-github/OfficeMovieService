@@ -7,7 +7,7 @@
     <ProjectGuid>{3DC43402-0012-42B1-A854-F755A002F553}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.DomainApi</RootNamespace>
+    <RootNamespace>MovieService.DomainApi</RootNamespace>
     <AssemblyName>DomainApi</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

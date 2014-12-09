@@ -28,7 +28,7 @@ namespace MovieService.Mailing.Emails
 
         protected override string Subject
         {
-            get { return "You are invited to SvitlaMovie club!"; }
+            get { return "You are invited to Movie club!"; }
         }
     }
 }

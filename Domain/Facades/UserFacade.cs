@@ -16,8 +16,8 @@ namespace MovieService.Domain.Facades
         private readonly IUserRepository users;
         private readonly Func<IInviteEmail> inviteEmailFactory;
 
-        //These domains are supported by oAuth
-        private readonly string[] domainsAllowedForInvintation = { "gmail.com", "svitla.com" };
+        //These domains are supported by oAuth. null - unrestricted.
+        private readonly string[] domainsAllowedForInvintation = null;
 
         public string AllowedDomain { get; set; }
 
@@ -51,7 +51,7 @@ namespace MovieService.Domain.Facades
         [Secure(Permissions.Invite)]
         public virtual void InviteFriend(User friend)
         {
-            if (domainsAllowedForInvintation.All(d => !friend.Name.EndsWith(d)))
+            if (domainsAllowedForInvintation != null && domainsAllowedForInvintation.All(d => !friend.Name.EndsWith(d)))
             {
                 var domains = domainsAllowedForInvintation.Aggregate("", (s, d) => s + ", " + d);
                 throw new UserDomainDeniedException(domains.Substring(2));

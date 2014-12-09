@@ -7,7 +7,7 @@
     <ProjectGuid>{E0BED223-BA2B-4BD6-A479-22A8B82868D4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.WebApi</RootNamespace>
+    <RootNamespace>MovieService.WebApi</RootNamespace>
     <AssemblyName>WebApiControllers</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

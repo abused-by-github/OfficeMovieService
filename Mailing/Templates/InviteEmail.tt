@@ -8,7 +8,7 @@
     <head>
     </head>
     <body>
-        You are invited by <#=User.InvitedBy.Name#> to join movie club at Svitla Sevastopol office.
+        You are invited by <#=User.InvitedBy.Name#> to join movie club.
         Just open our web site: <a href="<#=Helper.WebAppUrl("")#>"><#=Helper.WebAppUrl("")#></a>
         and sign in with your Google account.
         We are looking forward to welcoming you :)

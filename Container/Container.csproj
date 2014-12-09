@@ -7,7 +7,7 @@
     <ProjectGuid>{DC8D5DFB-B7E3-4DA6-8761-A1F86D682330}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.Container</RootNamespace>
+    <RootNamespace>MovieService.Container</RootNamespace>
     <AssemblyName>Container</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

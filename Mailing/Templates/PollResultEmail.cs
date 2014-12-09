@@ -18,7 +18,7 @@ namespace MovieService.Mailing.Templates
     /// Class to produce the template output
     /// </summary>
     
-    #line 1 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+    #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.TextTemplating", "11.0.0.0")]
     public partial class PollResultEmail : PollResultEmailBase
     {
@@ -28,120 +28,124 @@ namespace MovieService.Mailing.Templates
         /// </summary>
         public virtual string TransformText()
         {
-            this.Write("\r\n<html>\r\n    <head>\r\n    </head>\r\n    <body>\r\n        <p>\r\n            Poll <b>");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n");
+            this.Write("\n\n<html>\n    <head>\n    </head>\n    <body>\n        <p>\n            Poll <b>");
             
-            #line 12 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Poll.Name));
             
             #line default
             #line hidden
-            this.Write("</b> has finished.\r\n            We watch movie ");
+            this.Write("</b> has finished.\n            We watch movie ");
             
-            #line 13 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.GetMovieLinkHtml(Poll.Winner)));
             
             #line default
             #line hidden
-            this.Write("\r\n            at ");
+            this.Write("\n            at ");
             
-            #line 14 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.FormatDateTime(Poll.ViewDate.Value)));
             
             #line default
             #line hidden
-            this.Write(".\r\n        </p>\r\n        <p>\r\n            ");
+            this.Write(".\n        </p>\n        <p>\n            ");
             
-            #line 17 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  if (UserProposition != null) { 
             
             #line default
             #line hidden
-            this.Write("                Unfortunately,\r\n                ");
+            this.Write("\n                Unfortunately,\n                ");
             
-            #line 19 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  if (UserProposition.Count == 1) { 
             
             #line default
             #line hidden
-            this.Write("                    your candidate ");
+            this.Write("\n                    your candidate ");
             
-            #line 20 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.GetMovieLinkHtml(UserProposition[0])));
             
             #line default
             #line hidden
-            this.Write(" is not a winner.\r\n                ");
+            this.Write(" is not a winner.\n                ");
             
-            #line 21 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  } else { 
             
             #line default
             #line hidden
-            this.Write("                    your candidates (\r\n                    ");
+            this.Write("\n                    your candidates (\n                    ");
             
-            #line 23 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  for (var i = 0; i < UserProposition.Count - 1; ++i) { 
             
             #line default
             #line hidden
-            this.Write("                        ");
+            this.Write("\n                        ");
             
-            #line 24 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.GetMovieLinkHtml(UserProposition[i])));
             
             #line default
             #line hidden
-            this.Write(", \r\n                    ");
+            this.Write(", \n                    ");
             
-            #line 25 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("                    ");
+            this.Write("\n                    ");
             
-            #line 26 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.GetMovieLinkHtml(UserProposition.Last())));
             
             #line default
             #line hidden
-            this.Write("\r\n                    ) haven\'t won.\r\n                ");
+            this.Write("\n                    ) haven\'t won.\n                ");
             
-            #line 28 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("                But don\'t worry, ");
+            this.Write("\n                But don\'t worry, ");
             
-            #line 29 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.GetMovieLinkHtml(Poll.Winner)));
             
             #line default
             #line hidden
-            this.Write(" is also exciting!\r\n            ");
+            this.Write(" is also exciting!\n            ");
             
-            #line 30 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  } else { 
             
             #line default
             #line hidden
-            this.Write("                So, your candidate has won. Congratulations!\r\n            ");
+            this.Write("\n                So, your candidate has won. Congratulations!\n            ");
             
-            #line 32 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
  } 
             
             #line default
             #line hidden
-            this.Write("        </p>\r\n        <p>\r\n            Do not forget to come :)\r\n        </p>\r\n  " +
-                    "      <p>\r\n            <a href=\"");
+            this.Write("\n        </p>\n        <p>\n            Do not forget to come :)\n        </p>\n     " +
+                    "   <p>\n            <a href=\"");
             
-            #line 38 "E:\Projects\Svitla\MovieService\Mailing\Templates\PollResultEmail.tt"
+            #line 1 "G:\Dev\MovieService\Mailing\Templates\PollResultEmail.tt"
             this.Write(this.ToStringHelper.ToStringWithCulture(Helper.WebAppUrl("")));
             
             #line default
             #line hidden
-            this.Write("\">More fun</a>\r\n        </p>\r\n    </body>\r\n</html>");
+            this.Write("\">More fun</a>\n        </p>\n    </body>\n</html>");
             return this.GenerationEnvironment.ToString();
         }
     }

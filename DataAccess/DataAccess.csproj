@@ -7,7 +7,7 @@
     <ProjectGuid>{5B16EA32-A18C-4824-87C7-07C4CE61B844}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Svitla.MovieService.DataAccess</RootNamespace>
+    <RootNamespace>MovieService.DataAccess</RootNamespace>
     <AssemblyName>DataAccess</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
