@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.ValueObjects;
+using MovieService.Core.Entities;
+using MovieService.Core.ValueObjects;
 
-namespace Svitla.MovieService.DataAccessApi
+namespace MovieService.DataAccessApi
 {
     public interface IRepository<TEntity>
         where TEntity : Entity

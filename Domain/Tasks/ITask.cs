@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Domain.Tasks
+﻿namespace MovieService.Domain.Tasks
 {
     public interface ITask
     {

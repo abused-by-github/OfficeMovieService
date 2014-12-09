@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Mailing.Core.Client;
-using Svitla.MovieService.MailingApi;
+using MovieService.Mailing.Core.Client;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Mailing.Core
+namespace MovieService.Mailing.Core
 {
     public abstract class BaseEmail<T> : IEmail<T>
     {

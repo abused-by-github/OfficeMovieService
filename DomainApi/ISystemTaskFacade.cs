@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.DomainApi
+﻿namespace MovieService.DomainApi
 {
     public interface ISystemTaskFacade
     {

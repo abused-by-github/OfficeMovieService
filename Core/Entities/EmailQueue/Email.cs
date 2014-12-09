@@ -2,7 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace Svitla.MovieService.Core.Entities.EmailQueue
+namespace MovieService.Core.Entities.EmailQueue
 {
     public class Email : Entity
     {

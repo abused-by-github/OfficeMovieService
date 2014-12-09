@@ -1,8 +1,8 @@
 ﻿using System;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Helpers;
+using MovieService.Core.Entities;
+using MovieService.Core.Helpers;
 
-namespace Svitla.MovieService.Mailing.Emails
+namespace MovieService.Mailing.Emails
 {
     public class T4Helper
     {

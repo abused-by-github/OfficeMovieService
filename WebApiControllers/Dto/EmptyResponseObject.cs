@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.WebApi.Dto
+﻿namespace MovieService.WebApi.Dto
 {
     public class EmptyResponseObject : ResponseObject<object>
     {

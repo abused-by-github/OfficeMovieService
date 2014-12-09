@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Svitla.MovieService.Core.Exceptions
+namespace MovieService.Core.Exceptions
 {
     public class EntityInvalidException : BaseMovieException
     {

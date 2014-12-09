@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Svitla.MovieService.Core.Logging
+namespace MovieService.Core.Logging
 {
     public sealed class LogAttribute : Attribute
     {

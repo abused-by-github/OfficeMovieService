@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Core.Entities.EmailQueue;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.MailingApi;
+using MovieService.Core.Entities.EmailQueue;
+using MovieService.Core.Helpers;
+using MovieService.DataAccessApi;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Domain.EmailQueue
+namespace MovieService.Domain.EmailQueue
 {
     public class QueueEmailClient : IEmailClient
     {

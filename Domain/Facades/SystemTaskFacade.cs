@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Domain.Tasks;
-using Svitla.MovieService.DomainApi;
+using MovieService.Domain.Tasks;
+using MovieService.DomainApi;
 
-namespace Svitla.MovieService.Domain.Facades
+namespace MovieService.Domain.Facades
 {
     public class SystemTaskFacade : ISystemTaskFacade
     {

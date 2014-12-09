@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Linq;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.MailingApi;
-using Svitla.MovieService.MailingApi.DataObjects;
+using MovieService.Core.Entities;
+using MovieService.Core.Helpers;
+using MovieService.DataAccessApi;
+using MovieService.MailingApi;
+using MovieService.MailingApi.DataObjects;
 
-namespace Svitla.MovieService.Domain.Tasks
+namespace MovieService.Domain.Tasks
 {
     public class PollResultNotificationTask : ITask
     {

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Logging;
-using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.DataAccessApi;
+using MovieService.Core.Entities;
+using MovieService.Core.Logging;
+using MovieService.Core.ValueObjects;
+using MovieService.DataAccessApi;
 
-namespace Svitla.MovieService.DataAccess
+namespace MovieService.DataAccess
 {
     public abstract class BaseRepository<TEntity> : IRepository<TEntity>
         where TEntity : Entity

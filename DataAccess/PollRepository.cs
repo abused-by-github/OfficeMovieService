@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.DataAccessApi;
+using MovieService.Core.Entities;
+using MovieService.DataAccessApi;
 
-namespace Svitla.MovieService.DataAccess
+namespace MovieService.DataAccess
 {
     public class PollRepository : BaseRepository<Poll>, IPollRepository
     {

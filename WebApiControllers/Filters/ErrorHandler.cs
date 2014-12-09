@@ -3,10 +3,10 @@ using System.Net.Http;
 using System.Reflection;
 using System.Resources;
 using System.Web.Http.Filters;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.WebApi.Dto;
+using MovieService.Core.Helpers;
+using MovieService.WebApi.Dto;
 
-namespace Svitla.MovieService.WebApi.Filters
+namespace MovieService.WebApi.Filters
 {
     class ErrorHandlerAttribute : ExceptionFilterAttribute
     {

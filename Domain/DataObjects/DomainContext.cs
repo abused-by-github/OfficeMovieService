@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using MovieService.Core.Entities;
 
-namespace Svitla.MovieService.Domain.DataObjects
+namespace MovieService.Domain.DataObjects
 {
     public class DomainContext
     {

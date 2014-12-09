@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Entities.Security;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.Domain.DataObjects;
-using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.DomainApi.DataObjects;
+using MovieService.Core.Entities;
+using MovieService.Core.Entities.Security;
+using MovieService.Core.Helpers;
+using MovieService.Core.ValueObjects;
+using MovieService.DataAccessApi;
+using MovieService.Domain.DataObjects;
+using MovieService.DomainApi;
+using MovieService.DomainApi.DataObjects;
 
-namespace Svitla.MovieService.Domain.Facades
+namespace MovieService.Domain.Facades
 {
     public class MovieFacade : BaseFacade, IMovieFacade
     {

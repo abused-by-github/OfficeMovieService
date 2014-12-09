@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.MailingApi.DataObjects;
+﻿using MovieService.MailingApi.DataObjects;
 
-namespace Svitla.MovieService.MailingApi
+namespace MovieService.MailingApi
 {
     public interface IPollResultEmail : IEmail<PollResultEmailModel> { }
 }

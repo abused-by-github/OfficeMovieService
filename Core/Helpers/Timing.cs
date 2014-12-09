@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Svitla.MovieService.Core.Helpers
+namespace MovieService.Core.Helpers
 {
     public sealed class Timing
     {

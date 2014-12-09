@@ -2,10 +2,10 @@
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.MailingApi;
+using MovieService.Core.Helpers;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Mailing.Core.Client
+namespace MovieService.Mailing.Core.Client
 {
     public class SmtpClient : IEmailClient
     {

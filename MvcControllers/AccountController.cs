@@ -6,11 +6,11 @@ using System.Web.Security;
 using DotNetOpenAuth.Messaging;
 using DotNetOpenAuth.OpenId.Extensions.AttributeExchange;
 using DotNetOpenAuth.OpenId.RelyingParty;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.DomainApi.Exceptions;
+using MovieService.Core.Entities;
+using MovieService.DomainApi;
+using MovieService.DomainApi.Exceptions;
 
-namespace Svitla.MovieService.MvcControllers
+namespace MovieService.MvcControllers
 {
     public class AccountController : BaseController
     {

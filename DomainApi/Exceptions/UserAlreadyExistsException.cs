@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Exceptions;
+﻿using MovieService.Core.Exceptions;
 
-namespace Svitla.MovieService.DomainApi.Exceptions
+namespace MovieService.DomainApi.Exceptions
 {
     public class UserAlreadyExistsException : BaseMovieException
     {

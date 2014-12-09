@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Core.Entities.Security;
-using Svitla.MovieService.Core.Exceptions;
+using MovieService.Core.Entities.Security;
+using MovieService.Core.Exceptions;
 
-namespace Svitla.MovieService.DomainApi.Exceptions
+namespace MovieService.DomainApi.Exceptions
 {
     public class AccessDeniedException : BaseMovieException
     {

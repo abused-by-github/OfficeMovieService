@@ -1,8 +1,8 @@
 ﻿using System.Linq;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.MailingApi;
+using MovieService.DataAccessApi;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Domain.Tasks
+namespace MovieService.Domain.Tasks
 {
     public class EmailQueueTask : ITask
     {

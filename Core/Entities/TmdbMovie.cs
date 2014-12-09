@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Core.Entities
+﻿namespace MovieService.Core.Entities
 {
     /// <summary>
     /// An entry from http://www.themoviedb.org DB.

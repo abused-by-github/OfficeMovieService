@@ -1,7 +1,7 @@
 ﻿using System.Net.Mail;
-using Svitla.MovieService.MailingApi;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Mailing.Core
+namespace MovieService.Mailing.Core
 {
     static class EmailAddressExtensions
     {

@@ -1,7 +1,7 @@
-﻿using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.Domain.DataObjects;
+﻿using MovieService.DataAccessApi;
+using MovieService.Domain.DataObjects;
 
-namespace Svitla.MovieService.Domain.Facades
+namespace MovieService.Domain.Facades
 {
     public abstract class BaseFacade
     {

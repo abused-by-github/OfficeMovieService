@@ -1,6 +1,6 @@
-using Svitla.MovieService.Core.Entities.Security;
+using MovieService.Core.Entities.Security;
 
-namespace Svitla.MovieService.DataAccess.Migrations
+namespace MovieService.DataAccess.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

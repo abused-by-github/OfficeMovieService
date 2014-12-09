@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Core.Entities.EmailQueue
+﻿namespace MovieService.Core.Entities.EmailQueue
 {
     public class Recipient : Entity
     {

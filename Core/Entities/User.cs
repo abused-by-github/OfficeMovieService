@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Svitla.MovieService.Core.Entities.Security;
-using Svitla.MovieService.Core.Logging;
+using MovieService.Core.Entities.Security;
+using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Core.Entities
+namespace MovieService.Core.Entities
 {
     public class User : Entity
     {

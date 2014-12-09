@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using MovieService.Core.Entities;
 
-namespace Svitla.MovieService.MailingApi
+namespace MovieService.MailingApi
 {
     public interface IInviteEmail : IEmail<User> { }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Svitla.MovieService.Core.Helpers
+namespace MovieService.Core.Helpers
 {
     public static class EnumerableExtensions
     {

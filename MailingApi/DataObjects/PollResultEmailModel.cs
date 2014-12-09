@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using MovieService.Core.Entities;
 
-namespace Svitla.MovieService.MailingApi.DataObjects
+namespace MovieService.MailingApi.DataObjects
 {
     public class PollResultEmailModel
     {

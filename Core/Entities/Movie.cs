@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using Svitla.MovieService.Core.Entities.Security;
-using Svitla.MovieService.Core.Exceptions;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.Core.Logging;
+using MovieService.Core.Entities.Security;
+using MovieService.Core.Exceptions;
+using MovieService.Core.Helpers;
+using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Core.Entities
+namespace MovieService.Core.Entities
 {
     public class Movie : Entity, IModifiable
     {

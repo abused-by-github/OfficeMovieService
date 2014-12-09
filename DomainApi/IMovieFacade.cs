@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.DomainApi.DataObjects;
+using MovieService.Core.Entities;
+using MovieService.Core.ValueObjects;
+using MovieService.DomainApi.DataObjects;
 
-namespace Svitla.MovieService.DomainApi
+namespace MovieService.DomainApi
 {
     public interface IMovieFacade
     {

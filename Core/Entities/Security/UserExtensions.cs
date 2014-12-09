@@ -1,7 +1,7 @@
 ﻿using System.Linq;
-using Svitla.MovieService.Core.Helpers;
+using MovieService.Core.Helpers;
 
-namespace Svitla.MovieService.Core.Entities.Security
+namespace MovieService.Core.Entities.Security
 {
     public static class UserExtensions
     {

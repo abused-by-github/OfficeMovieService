@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Castle.DynamicProxy;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.Core.Logging;
+using MovieService.Core.Helpers;
+using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Container.Interceptors.Logging
+namespace MovieService.Container.Interceptors.Logging
 {
     public abstract class LogCallInterceptor : IInterceptor
     {

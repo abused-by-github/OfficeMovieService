@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Svitla.MovieService.Core.ValueObjects
+namespace MovieService.Core.ValueObjects
 {
     public class Page<TEntity>
     {

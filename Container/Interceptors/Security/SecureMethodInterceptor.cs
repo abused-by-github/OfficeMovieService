@@ -1,12 +1,12 @@
 ﻿using System.Linq;
 using Castle.DynamicProxy;
-using Svitla.MovieService.Core.Entities.Security;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.Domain.DataObjects;
-using Svitla.MovieService.Domain.Security;
-using Svitla.MovieService.DomainApi.Exceptions;
+using MovieService.Core.Entities.Security;
+using MovieService.Core.Helpers;
+using MovieService.Domain.DataObjects;
+using MovieService.Domain.Security;
+using MovieService.DomainApi.Exceptions;
 
-namespace Svitla.MovieService.Container.Interceptors.Security
+namespace MovieService.Container.Interceptors.Security
 {
     class SecureMethodInterceptor : IInterceptor
     {

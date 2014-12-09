@@ -1,10 +1,10 @@
 ﻿using System.Linq;
-using Svitla.MovieService.Mailing.Core;
-using Svitla.MovieService.Mailing.Core.Client;
-using Svitla.MovieService.MailingApi;
-using Svitla.MovieService.MailingApi.DataObjects;
+using MovieService.Mailing.Core;
+using MovieService.Mailing.Core.Client;
+using MovieService.MailingApi;
+using MovieService.MailingApi.DataObjects;
 
-namespace Svitla.MovieService.Mailing.Emails
+namespace MovieService.Mailing.Emails
 {
     public class PollResultEmail : BaseEmail<PollResultEmailModel>, IPollResultEmail
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Svitla.MovieService.Tests.ValidationTests
+namespace MovieService.Tests.ValidationTests
 {
     [TestClass]
     public class HelpersTests

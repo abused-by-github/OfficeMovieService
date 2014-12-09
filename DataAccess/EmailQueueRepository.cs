@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
-using Svitla.MovieService.Core.Entities.EmailQueue;
-using Svitla.MovieService.DataAccessApi;
+using MovieService.Core.Entities.EmailQueue;
+using MovieService.DataAccessApi;
 
-namespace Svitla.MovieService.DataAccess
+namespace MovieService.DataAccess
 {
     public class EmailQueueRepository : BaseRepository<Email>, IEmailQueueRepository
     {

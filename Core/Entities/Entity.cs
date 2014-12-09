@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Svitla.MovieService.Core.Entities
+namespace MovieService.Core.Entities
 {
     /// <summary>
     /// Entity with Id = 0 doesn't equal anything except itself.

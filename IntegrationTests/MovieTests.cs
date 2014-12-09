@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Svitla.MovieService.DataAccess;
+using MovieService.DataAccess;
 
-namespace Svitla.MovieService.Tests.IntegrationTests
+namespace MovieService.Tests.IntegrationTests
 {
     [TestClass]
     public class MovieTests

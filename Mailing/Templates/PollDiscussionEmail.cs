@@ -7,7 +7,7 @@
 //     the code is regenerated.
 // </auto-generated>
 // ------------------------------------------------------------------------------
-namespace Svitla.MovieService.Mailing.Templates
+namespace MovieService.Mailing.Templates
 {
     using System.Linq;
     using System.Text;

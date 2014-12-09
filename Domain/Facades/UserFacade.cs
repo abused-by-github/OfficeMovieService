@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Linq;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Core.Entities.Security;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.Domain.DataObjects;
-using Svitla.MovieService.Domain.Security;
-using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.DomainApi.Exceptions;
-using Svitla.MovieService.MailingApi;
+using MovieService.Core.Entities;
+using MovieService.Core.Entities.Security;
+using MovieService.DataAccessApi;
+using MovieService.Domain.DataObjects;
+using MovieService.Domain.Security;
+using MovieService.DomainApi;
+using MovieService.DomainApi.Exceptions;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Domain.Facades
+namespace MovieService.Domain.Facades
 {
     public class UserFacade : BaseFacade, IUserFacade
     {

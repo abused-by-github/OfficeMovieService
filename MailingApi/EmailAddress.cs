@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.MailingApi
+﻿namespace MovieService.MailingApi
 {
     public class EmailAddress
     {

@@ -1,9 +1,9 @@
-﻿using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Mailing.Core;
-using Svitla.MovieService.Mailing.Core.Client;
-using Svitla.MovieService.MailingApi;
+﻿using MovieService.Core.Entities;
+using MovieService.Mailing.Core;
+using MovieService.Mailing.Core.Client;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Mailing.Emails
+namespace MovieService.Mailing.Emails
 {
     public class InviteEmail : BaseEmail<User>, IInviteEmail
     {

@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Core.Entities.Security
+﻿namespace MovieService.Core.Entities.Security
 {
     public enum Permissions
     {

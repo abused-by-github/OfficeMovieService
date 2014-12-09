@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Domain.Tasks;
+using MovieService.Domain.Tasks;
 
-namespace Svitla.MovieService.Domain.Facades
+namespace MovieService.Domain.Facades
 {
     public class SystemTaskSet
     {

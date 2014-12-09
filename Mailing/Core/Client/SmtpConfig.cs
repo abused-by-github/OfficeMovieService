@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Mailing.Core.Client
+﻿namespace MovieService.Mailing.Core.Client
 {
     public class SmtpConfig
     {

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Svitla.MovieService.MvcControllers
+namespace MovieService.MvcControllers
 {
     public abstract class BaseController : Controller
     {

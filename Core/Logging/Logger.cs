@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using NLog;
 
-namespace Svitla.MovieService.Core.Logging
+namespace MovieService.Core.Logging
 {
     public static class Logger
     {

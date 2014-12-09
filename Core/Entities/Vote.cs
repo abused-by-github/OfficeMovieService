@@ -1,7 +1,7 @@
 ﻿using System;
-using Svitla.MovieService.Core.Logging;
+using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Core.Entities
+namespace MovieService.Core.Entities
 {
     public class Vote : IEquatable<Vote>
     {

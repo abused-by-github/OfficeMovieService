@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Mailing.Emails;
+using MovieService.Core.Entities;
+using MovieService.Mailing.Emails;
 
-namespace Svitla.MovieService.Mailing.Templates
+namespace MovieService.Mailing.Templates
 {
     partial class PollResultEmail
     {

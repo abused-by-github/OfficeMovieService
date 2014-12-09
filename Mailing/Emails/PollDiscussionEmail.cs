@@ -1,8 +1,8 @@
-﻿using Svitla.MovieService.Core.Entities;
-using Svitla.MovieService.Mailing.Core;
-using Svitla.MovieService.MailingApi;
+﻿using MovieService.Core.Entities;
+using MovieService.Mailing.Core;
+using MovieService.MailingApi;
 
-namespace Svitla.MovieService.Mailing.Emails
+namespace MovieService.Mailing.Emails
 {
     public class PollDiscussionEmail : BaseEmail<Vote>, IPollDiscussionEmail
     {

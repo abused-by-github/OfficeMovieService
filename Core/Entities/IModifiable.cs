@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Svitla.MovieService.Core.Entities
+namespace MovieService.Core.Entities
 {
     public interface IModifiable
     {

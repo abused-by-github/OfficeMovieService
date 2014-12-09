@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Core.Logging
+﻿namespace MovieService.Core.Logging
 {
     /// <summary>
     /// Specifies verbosity when flushing an object to log.

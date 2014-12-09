@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.Core.ValueObjects
+﻿namespace MovieService.Core.ValueObjects
 {
     public sealed class Paging
     {

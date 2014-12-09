@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
-using Svitla.MovieService.Core.Logging;
+using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.MvcControllers
+namespace MovieService.MvcControllers
 {
     public class MovieController : BaseController
     {

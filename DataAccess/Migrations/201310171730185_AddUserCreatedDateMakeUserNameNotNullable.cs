@@ -1,4 +1,4 @@
-namespace Svitla.MovieService.DataAccess.Migrations
+namespace MovieService.DataAccess.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

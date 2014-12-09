@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace Svitla.MovieService.Core.Validation
+namespace MovieService.Core.Validation
 {
     public static class Url
     {

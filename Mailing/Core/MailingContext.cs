@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Helpers;
+﻿using MovieService.Core.Helpers;
 
-namespace Svitla.MovieService.Mailing.Core
+namespace MovieService.Mailing.Core
 {
     public sealed class MailingContext
     {

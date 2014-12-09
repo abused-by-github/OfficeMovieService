@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using MovieService.Core.Entities;
 
-namespace Svitla.MovieService.DomainApi.DataObjects
+namespace MovieService.DomainApi.DataObjects
 {
     public class VoteableMovie
     {

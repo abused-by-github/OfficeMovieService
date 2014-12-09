@@ -2,9 +2,9 @@
 using System.Reflection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using Svitla.MovieService.Core.Helpers;
+using MovieService.Core.Helpers;
 
-namespace Svitla.MovieService.Core.Logging
+namespace MovieService.Core.Logging
 {
     class LogVerbosityContractResolver : DefaultContractResolver
     {

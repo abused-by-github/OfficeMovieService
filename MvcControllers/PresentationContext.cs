@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Entities;
+﻿using MovieService.Core.Entities;
 
-namespace Svitla.MovieService.MvcControllers
+namespace MovieService.MvcControllers
 {
     public class PresentationContext
     {

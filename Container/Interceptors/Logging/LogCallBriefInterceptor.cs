@@ -1,6 +1,6 @@
-﻿using Svitla.MovieService.Core.Logging;
+﻿using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Container.Interceptors.Logging
+namespace MovieService.Container.Interceptors.Logging
 {
     public class LogCallBriefInterceptor : LogCallInterceptor
     {

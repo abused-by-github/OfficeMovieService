@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Web.UI;
 
-namespace Svitla.MovieService.Core.Helpers
+namespace MovieService.Core.Helpers
 {
     public static class StringExtensions
     {

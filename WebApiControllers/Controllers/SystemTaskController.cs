@@ -1,10 +1,10 @@
 ﻿using System.Web.Http;
-using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.DomainApi.Exceptions;
-using Svitla.MovieService.WebApi.Dto;
+using MovieService.Core.ValueObjects;
+using MovieService.DomainApi;
+using MovieService.DomainApi.Exceptions;
+using MovieService.WebApi.Dto;
 
-namespace Svitla.MovieService.WebApi.Controllers
+namespace MovieService.WebApi.Controllers
 {
     public class SystemTaskController : BaseApiController
     {

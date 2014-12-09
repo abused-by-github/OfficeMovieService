@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Svitla.MovieService.MailingApi
+namespace MovieService.MailingApi
 {
     public interface IEmail<TModel>
     {

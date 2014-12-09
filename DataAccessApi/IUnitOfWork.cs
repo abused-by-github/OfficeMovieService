@@ -1,4 +1,4 @@
-﻿namespace Svitla.MovieService.DataAccessApi
+﻿namespace MovieService.DataAccessApi
 {
     public interface IUnitOfWork
     {

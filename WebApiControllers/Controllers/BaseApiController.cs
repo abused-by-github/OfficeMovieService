@@ -3,10 +3,10 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Controllers;
-using Svitla.MovieService.WebApi.Dto;
-using Svitla.MovieService.WebApi.Filters;
+using MovieService.WebApi.Dto;
+using MovieService.WebApi.Filters;
 
-namespace Svitla.MovieService.WebApi.Controllers
+namespace MovieService.WebApi.Controllers
 {
     [ErrorHandler]
     public abstract class BaseApiController : ApiController

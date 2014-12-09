@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Svitla.MovieService.Core.Exceptions;
-using Svitla.MovieService.Core.Logging;
+using MovieService.Core.Exceptions;
+using MovieService.Core.Logging;
 
-namespace Svitla.MovieService.Core.Entities
+namespace MovieService.Core.Entities
 {
     public class Poll : Entity
     {

@@ -1,7 +1,7 @@
 ﻿using System.Web.Http;
 using Newtonsoft.Json.Converters;
 
-namespace Svitla.MovieService.WebUI.App_Start
+namespace MovieService.WebUI.App_Start
 {
     public static class WebApiConfig
     {

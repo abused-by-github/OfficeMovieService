@@ -7,28 +7,28 @@ using Autofac;
 using Autofac.Extras.DynamicProxy2;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using Svitla.MovieService.Container.Interceptors.Logging;
-using Svitla.MovieService.Container.Interceptors.Security;
-using Svitla.MovieService.Core.Helpers;
-using Svitla.MovieService.Core.ValueObjects;
-using Svitla.MovieService.DataAccess;
-using Svitla.MovieService.DataAccessApi;
-using Svitla.MovieService.Domain.DataObjects;
-using Svitla.MovieService.Domain.EmailQueue;
-using Svitla.MovieService.Domain.Facades;
-using Svitla.MovieService.Domain.Tasks;
-using Svitla.MovieService.DomainApi;
-using Svitla.MovieService.Mailing.Core;
-using Svitla.MovieService.Mailing.Core.Client;
-using Svitla.MovieService.Mailing.Emails;
-using Svitla.MovieService.MailingApi;
-using Svitla.MovieService.MvcControllers;
-using Svitla.MovieService.WebApi.Controllers;
-using AccountController = Svitla.MovieService.WebApi.Controllers.AccountController;
+using MovieService.Container.Interceptors.Logging;
+using MovieService.Container.Interceptors.Security;
+using MovieService.Core.Helpers;
+using MovieService.Core.ValueObjects;
+using MovieService.DataAccess;
+using MovieService.DataAccessApi;
+using MovieService.Domain.DataObjects;
+using MovieService.Domain.EmailQueue;
+using MovieService.Domain.Facades;
+using MovieService.Domain.Tasks;
+using MovieService.DomainApi;
+using MovieService.Mailing.Core;
+using MovieService.Mailing.Core.Client;
+using MovieService.Mailing.Emails;
+using MovieService.MailingApi;
+using MovieService.MvcControllers;
+using MovieService.WebApi.Controllers;
+using AccountController = MovieService.WebApi.Controllers.AccountController;
 using IDependencyResolver = System.Web.Http.Dependencies.IDependencyResolver;
-using MovieController = Svitla.MovieService.WebApi.Controllers.MovieController;
+using MovieController = MovieService.WebApi.Controllers.MovieController;
 
-namespace Svitla.MovieService.Container
+namespace MovieService.Container
 {
     public sealed class MovieServiceApplicationContainer
     {
