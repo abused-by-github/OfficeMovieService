@@ -1,6 +1,4 @@
 ﻿@using MovieService.Core.Entities.Security
-@{ ViewBag.BaseUrl = Url.Action("", ""); }
-
 <!DOCTYPE html>
 
 <html>
@@ -42,7 +40,37 @@
     <title>@(ViewBag.Title ?? "Movie Club") </title>
 </head>
     <body>
-        
+        <script>
+            function checkLoginState() {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response);
+                });
+            }
+
+            function statusChangeCallback(response) {
+                if (response.status === 'connected') {
+                    window.location.href = window.movieService.environment.baseUrl + '/Account/LoginFacebook?token=' + response.authResponse.accessToken;
+                }
+            }
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '903567316328161',
+                    xfbml: true,
+                    version: 'v2.2'
+                });
+            };
+
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+        </script>
+
+
         <nav class="navbar navbar-default" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -56,10 +84,10 @@
             </div>
             @if (!User.Identity.IsAuthenticated)
             {
-                using (Html.BeginForm("LoginGoogle", "Account", FormMethod.Post, new { id = "loginForm", @class = "navbar-form navbar-right", ReturnUrl = ViewBag.ReturnUrl }))
-                {
-                    <input type="image" src="~/Content/White-signin_Long_base_20dp.png" alt="Login" />
-                }
+                <div class="pull-right">
+                    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+                    </fb:login-button>
+                </div>
             }
             else
             {

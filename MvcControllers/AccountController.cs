@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.Dynamic;
+using System.Net;
+using System.Security;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -9,6 +12,8 @@ using DotNetOpenAuth.OpenId.RelyingParty;
 using MovieService.Core.Entities;
 using MovieService.DomainApi;
 using MovieService.DomainApi.Exceptions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace MovieService.MvcControllers
 {
@@ -42,6 +47,40 @@ namespace MovieService.MvcControllers
             fetch.Attributes.Add(new AttributeRequest(WellKnownAttributes.Name.Last, true));
             request.AddExtension(fetch);
             return request.RedirectingResponse.AsActionResult();
+        }
+
+        [HttpGet]
+        public ActionResult LoginFacebook(string token)
+        {
+            var appId = ConfigurationManager.AppSettings["FBAppId"];
+            var appSecret = ConfigurationManager.AppSettings["FBAppSecret"];
+            var verifyUrl = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}|{2}",
+                token, appId, appSecret);
+
+            using (var client = new WebClient())
+            {
+                var verifyResponse = client.DownloadString(verifyUrl);
+                dynamic verifyResponseObj = JsonConvert.DeserializeObject<ExpandoObject>(verifyResponse, new ExpandoObjectConverter());
+                if (verifyResponseObj.data.is_valid)
+                {
+                    var getEmailUrl = string.Format("https://graph.facebook.com/v2.2/me?access_token={0}", token);
+                    var getEmailResponse = client.DownloadString(getEmailUrl);
+                    dynamic getEmailResponseObj = JsonConvert.DeserializeObject<ExpandoObject>(getEmailResponse, new ExpandoObjectConverter());
+                    var email = getEmailResponseObj.email;
+                    var user = new User
+                    {
+                        Name = email
+                    };
+                    userFacade.Save(user);
+                    FormsAuthentication.SetAuthCookie(email, false);
+                }
+                else
+                {
+                    throw new SecurityException("Access denied.");
+                }
+            }
+
+            return Redirect(GetBaseUrl());
         }
 
         private string GetBaseUrl(string path = null)
